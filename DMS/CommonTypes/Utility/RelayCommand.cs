@@ -31,7 +31,7 @@ namespace CommonTypes.Utility
 
         public bool CanExecute(object parameter)
         {
-            return (bool)_CanExecute?.Invoke((T)parameter);
+            return _CanExecute == null ? true : _CanExecute.Invoke((T)parameter);
         }
 
     }
