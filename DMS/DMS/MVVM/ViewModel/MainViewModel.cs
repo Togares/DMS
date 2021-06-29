@@ -1,9 +1,19 @@
-﻿using CommonTypes.Utility;
+﻿using BusinessLogic;
+using CommonTypes.Utility;
 
 namespace DMS.MVVM.ViewModel
 {
     class MainViewModel : Bindable
     {
+        public MainViewModel()
+        {
+            HomeVM = new HomeViewModel();
+            DicoveryVM = new DiscoveryViewModel();
+            CurrentView = HomeVM;
+
+            ConnectionTest con = new ConnectionTest();
+        }
+
         private RelayCommand<object> _HomeViewCommand;
         public RelayCommand<object> HomeViewCommand
         {
@@ -29,13 +39,6 @@ namespace DMS.MVVM.ViewModel
                 _currentView = value;
                 OnPropertyChanged();
             }
-        }
-
-        public MainViewModel()
-        {
-            HomeVM = new HomeViewModel();
-            DicoveryVM = new DiscoveryViewModel();
-            CurrentView = HomeVM;
         }
     }
 }
