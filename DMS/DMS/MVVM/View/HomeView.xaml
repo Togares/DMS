@@ -7,8 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="460" d:DesignWidth="800">
     <StackPanel>
-        <TextBlock Text="Discover"
-                   Foreground="Wheat"
+        <TextBlock Text="Search Results"
+                   Foreground="FloralWhite"
                    FontSize="28"
                    HorizontalAlignment="Left"
                    Margin="0,0,0,20"/>
@@ -16,20 +16,20 @@
 
         <StackPanel Orientation="Horizontal"
                     Margin="0,0,0,10">
-            <Border Width="400"
-                    Height="200">
+            <Border Width="795"
+                    Height="380">
 
                 <Border.Background>
                     <LinearGradientBrush>
-                        <GradientStop Color="#5bc3ff" Offset="0.0"/>
-                        <GradientStop Color="#3aa0ff" Offset="1"/>
+                        <GradientStop Color="#272537" Offset="0.0"/>
+                        <GradientStop Color="#272537" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
 
                 <Border.Clip>
-                    <RectangleGeometry RadiusX="10"
-                                       RadiusY="10"
-                                       Rect="0,0,400,200"/>
+                    <RectangleGeometry RadiusX="0"
+                                       RadiusY="0"
+                                       Rect="0,0,700,380"/>
                 </Border.Clip>
 
                 <Grid>
@@ -49,7 +49,7 @@
 
             </Border>
 
-            <Border Width="200"
+            <!--<Border Width="200"
                     Height="200"
                     CornerRadius="8"
                     Margin="45,0,0,0">
@@ -61,7 +61,7 @@
                     </LinearGradientBrush>
                 </Border.Background>
 
-            </Border>
+            </Border>-->
         </StackPanel>
 
         <StackPanel>
@@ -71,38 +71,38 @@
                     <Setter Property="Margin" Value="15,0,0,0"/>
                 </Style>
             </StackPanel.Resources>
-            
-            <TextBlock Text="Most Watched"
+
+            <!--<TextBlock Text="Most Watched"
                    Foreground="Wheat"
                    FontSize="20"
                    HorizontalAlignment="Left"
-                   Margin="0,0,0,10"/>
+                   Margin="0,0,0,10"/>-->
 
-            <StackPanel Orientation="Horizontal">
+            <!--<StackPanel Orientation="Horizontal">
                 <Border Width="150"
                         Height="150"
                         Background="#844eff"
                         CornerRadius="8"
                         Margin="0"/>
-                
+
                 <Border Width="150"
                         Height="150"
                         Background="#4e99ff"
                         CornerRadius="8"/>
-                
+
                 <Border Width="150"
                         Height="150"
                         Background="#4eee91"
                         CornerRadius="8"/>
-                
+
                 <Border Width="150"
                         Height="150"
                         Background="#ecff4e"
                         CornerRadius="8"/>
 
-            </StackPanel>
-            
+            </StackPanel>-->
+
         </StackPanel>
-        
+
     </StackPanel>
 </UserControl>
