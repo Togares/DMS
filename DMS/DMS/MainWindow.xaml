@@ -35,7 +35,7 @@
             </Grid.RowDefinitions>
 
 
-            <TextBlock Text="Elsian"
+            <TextBlock Text="GitHub Profis"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        Foreground="White"
@@ -68,13 +68,60 @@
 
             </StackPanel>
 
-            <TextBox Width="250"
-                     Height="40"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Left"
-                     Margin="5"
-                     Grid.Column="1"
-                     Style="{StaticResource ModernTextbox}"/>
+            <StackPanel Grid.Row="0"
+                        Grid.Column="1"
+                        Orientation="Horizontal">
+
+                <TextBox Width="320"
+                         Height="40"
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Left"
+                         Margin="5"
+                         Grid.Column="1"
+                         Style="{StaticResource ModernTextbox}"/>
+                
+                <!--Nice rounded button-->
+                <Button Width="100"
+                        Height="40"
+                        Margin="5,0,0,0"
+                        Foreground="WhiteSmoke"
+                        FontFamily="Arial"
+                        FontSize="20"
+                        Content="GO">
+                    
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="TextElement.FontFamily" Value="Arial"/>
+                            <Setter Property="Background" Value="#FF64CCF1"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="AliceBlue"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="100" Height="35"
+                                    CornerRadius="4"
+                                    Background="{TemplateBinding Background}">
+                                
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"
+                                                  >
+                                    
+                                </ContentPresenter>
+
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                    
+                </Button>
+                
+
+            </StackPanel>
 
 
             <ContentControl Grid.Row="1"
