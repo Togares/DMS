@@ -32,6 +32,7 @@ namespace CommonTypes
             set { _Size = value; OnPropertyChanged(); }
         }
 
-
+        // inhalt
+        // 
     }
 }
