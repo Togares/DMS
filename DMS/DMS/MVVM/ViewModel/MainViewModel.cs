@@ -4,9 +4,17 @@ namespace DMS.MVVM.ViewModel
 {
     class MainViewModel : Bindable
     {
+        private RelayCommand<object> _HomeViewCommand;
+        public RelayCommand<object> HomeViewCommand
+        {
+            get => _HomeViewCommand = _HomeViewCommand == null ? new RelayCommand<object>(x => CurrentView = HomeVM) : _HomeViewCommand;
+        }
 
-        public RelayCommand HomeViewCommand { get; set; }
-        public RelayCommand DiscoveryViewCommand { get; set; }
+        private RelayCommand<object> _DiscoveryViewCommand;
+        public RelayCommand<object> DiscoveryViewCommand 
+        {
+            get => _DiscoveryViewCommand = _DiscoveryViewCommand == null ? new RelayCommand<object>(x => CurrentView = DicoveryVM) : _DiscoveryViewCommand;
+        }
 
         public HomeViewModel HomeVM { get; set; }
         public DiscoveryViewModel DicoveryVM { get; set; }
@@ -28,16 +36,6 @@ namespace DMS.MVVM.ViewModel
             HomeVM = new HomeViewModel();
             DicoveryVM = new DiscoveryViewModel();
             CurrentView = HomeVM;
-
-            HomeViewCommand = new RelayCommand(o =>
-            {
-                CurrentView = HomeVM;
-            });
-
-            DiscoveryViewCommand = new RelayCommand(o =>
-            {
-                CurrentView = DicoveryVM;
-            });
         }
     }
 }
