@@ -60,11 +60,11 @@
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding DiscoveryViewCommand}"/>
 
-                <RadioButton Content="Featured"
+                <!--<RadioButton Content="Featured"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}"/>
+                             Style="{StaticResource MenuButtonTheme}"/>-->
 
             </StackPanel>
 
@@ -72,7 +72,7 @@
                         Grid.Column="1"
                         Orientation="Horizontal">
 
-                <TextBox Width="320"
+                <TextBox Width="280"
                          Height="40"
                          VerticalAlignment="Center"
                          HorizontalAlignment="Left"
@@ -81,13 +81,12 @@
                          Style="{StaticResource ModernTextbox}"/>
                 
                 <!--Nice rounded button-->
-                <Button Width="100"
+                <Button Width="120"
                         Height="40"
-                        Margin="5,0,0,0"
                         Foreground="WhiteSmoke"
                         FontFamily="Arial"
                         FontSize="20"
-                        Content="GO">
+                        Content="Go">
                     
                     <Button.Style>
                         <Style TargetType="Button">
@@ -96,7 +95,7 @@
                             <Setter Property="Cursor" Value="Hand"/>
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="AliceBlue"/>
+                                    <Setter Property="Background" Value="CadetBlue"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -104,13 +103,12 @@
 
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
-                            <Border Width="100" Height="35"
+                            <Border Width="120" Height="35"
                                     CornerRadius="4"
                                     Background="{TemplateBinding Background}">
                                 
                                 <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"
-                                                  >
+                                                  HorizontalAlignment="Center">
                                     
                                 </ContentPresenter>
 
