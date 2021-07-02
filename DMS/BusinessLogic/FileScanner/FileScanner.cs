@@ -4,6 +4,7 @@ using BusinessLogic.FileScanner.Events;
 using System.IO;
 using Visualis.Extractor;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace BusinessLogic.FileScanner
 {
@@ -104,9 +105,14 @@ namespace BusinessLogic.FileScanner
             foreach (string filePath in paths)
             {
                 CommonTypes.File file = new CommonTypes.File();                
-                file.Path = filePath.Substring(0, filePath.LastIndexOf("/") - 1);
-                file.Name = filePath.Substring(filePath.LastIndexOf("/") + 1);
-                file.Type = filePath.Substring(filePath.LastIndexOf("."));
+                file.Path = filePath.Substring(0, filePath.LastIndexOf("/"));
+
+                int lastDS = filePath.LastIndexOf("/") + 1;
+                int dot = filePath.LastIndexOf(".");
+                file.Name = filePath.Substring(lastDS, dot - lastDS);
+                
+                file.Type = filePath.Substring(dot);
+
                 file.Created = System.IO.File.GetCreationTime(filePath);
                 file.Modified = System.IO.File.GetLastWriteTime(filePath);
 
