@@ -136,5 +136,23 @@
   <ItemGroup>
     <Resource Include="Images\output.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\browser-market-shares-in.png" />
+    <Resource Include="Images\chart %281%29.png" />
+    <Resource Include="Images\icons8-billing-24.png" />
+    <Resource Include="Images\icons8-click-&amp;-collect-24.png" />
+    <Resource Include="Images\icons8-connect-32.png" />
+    <Resource Include="Images\icons8-download-graph-report-32.png" />
+    <Resource Include="Images\icons8-home-24 %282%29.png" />
+    <Resource Include="Images\icons8-initiate-money-transfer-24.png" />
+    <Resource Include="Images\icons8-refund-24.png" />
+    <Resource Include="Images\icons8-search-30.png" />
+    <Resource Include="Images\icons8-source-code-24.png" />
+    <Resource Include="Images\icons8-user-24 %282%29.png" />
+    <Resource Include="Images\styling-axes-and-columns.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GitHub_icon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

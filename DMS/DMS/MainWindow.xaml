@@ -13,6 +13,10 @@
         AllowsTransparency="True"
         MouseMove="Window_MouseMove">
 
+    <Window.Resources>
+        <ImageBrush x:Key="GitHub_icon" ImageSource="/Images/GitHub_icon.png"/>
+    </Window.Resources>
+
 
     <Window.DataContext>
         <ViewModel:MainViewModel/>
@@ -34,13 +38,29 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
+            <StackPanel Orientation="Horizontal"
+                        Grid.Column="0"
+                        Grid.Row="0">
 
-            <TextBlock Text="GitHub Profis"
+                <Button x:Name="GitHub_button"
+                        Height="50" Width="50"
+                        BorderThickness="0">
+
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Images/icons8-user-24 (2).png"
+                                    Stretch="None">
+                        </ImageBrush>
+                    </Button.Background>
+
+                </Button>
+
+                <TextBlock Text="GitHub Profis"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        Foreground="White"
-                       FontSize="22" Margin="20,0,0,0"/>
-
+                       FontSize="22"/>
+                
+            </StackPanel>
 
 
             <StackPanel Grid.Row="1">
@@ -79,23 +99,25 @@
                          Margin="5"
                          Grid.Column="1"
                          Style="{StaticResource ModernTextbox}"/>
-                
+
                 <!--Nice rounded button-->
-                <Button Width="120"
+                <Button Width="80"
                         Height="40"
                         Foreground="WhiteSmoke"
                         FontFamily="Arial"
                         FontSize="20"
                         Content="Go">
-                    
+
                     <Button.Style>
                         <Style TargetType="Button">
-                            <Setter Property="TextElement.FontFamily" Value="Arial"/>
+                            <Setter Property="TextElement.FontFamily"
+                                    Value="Arial"/>
                             <Setter Property="Background" Value="#FF64CCF1"/>
                             <Setter Property="Cursor" Value="Hand"/>
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="CadetBlue"/>
+                                    <Setter Property="Background"
+                                            Value="CadetBlue"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -106,18 +128,17 @@
                             <Border Width="120" Height="35"
                                     CornerRadius="4"
                                     Background="{TemplateBinding Background}">
-                                
+
                                 <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center">
-                                    
+                                                 HorizontalAlignment="Center">
+
                                 </ContentPresenter>
 
                             </Border>
                         </ControlTemplate>
                     </Button.Template>
-                    
+
                 </Button>
-                
 
             </StackPanel>
 
