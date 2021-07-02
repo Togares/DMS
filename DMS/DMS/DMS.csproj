@@ -162,14 +162,25 @@
     <Resource Include="Images\GitHub-Mark-Light-64px.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\close_dark.png" />
-    <Resource Include="Images\close.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\GitHub_Logo1.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\GitHub-Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\5347-github_102542.png" />
+    <Resource Include="Images\67.png" />
+    <Resource Include="Images\94898-middle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\logo_github_icon_143196.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\blue_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\cancel.png" />
+    <Resource Include="Images\error.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
