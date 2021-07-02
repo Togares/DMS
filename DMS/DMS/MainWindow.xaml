@@ -55,8 +55,7 @@
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Background">
                                         <Setter.Value>
-                                            <ImageBrush ImageSource="/Images/GitHub-Mark-Light-64px.png"
-                                                        Stretch="UniformToFill"/>
+                                            <ImageBrush ImageSource="/Images/logo_github_icon_143196.png"/>
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -149,31 +148,23 @@
                             <Setter Property="TextElement.FontFamily"
                                     Value="Arial"/>
                             <Setter Property="Background" Value="#FF0C0E0E"/>
+                            <Setter Property="Button.Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Color="DarkGray" Direction="30"
+                                                              ShadowDepth="3" BlurRadius="20"
+                                                              Opacity="0.7"/>
+                                </Setter.Value>
+                            </Setter>
                             <!--<Setter Property="Cursor" Value="None"/>-->
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Background" Value="#FF454545"/>
-                                    
-                                    <Setter Property="Button.Effect">
-                                        <Setter.Value>
-                                            <DropShadowEffect Color="DarkGray" Direction="20"
-                                                              ShadowDepth="3" BlurRadius="10"
-                                                              Opacity="0.5"/>
-                                        </Setter.Value>
-                                    </Setter>
+
                                 </Trigger>
 
                                 <Trigger Property="IsMouseOver" Value="False">
                                     <Setter Property="BorderBrush" Value="DarkGray"/>
                                     <Setter Property="Foreground" Value="Black"/>
-
-                                    <Setter Property="Button.Effect">
-                                        <Setter.Value>
-                                            <DropShadowEffect Color="DarkGray" Direction="40"
-                                                              ShadowDepth="2" BlurRadius="15"
-                                                              Opacity="0.5"/>
-                                        </Setter.Value>
-                                    </Setter>
                                 </Trigger>
 
                             </Style.Triggers>
@@ -208,7 +199,7 @@
                             <Style TargetType="Button">
                                 <Setter Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/Images/close_dark.png"/>
+                                        <ImageBrush ImageSource="/Images/error.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter Property="Button.Effect">
@@ -224,7 +215,7 @@
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter Property="Background">
                                             <Setter.Value>
-                                                <ImageBrush ImageSource="/Images/close.png"
+                                                <ImageBrush ImageSource="/Images/cancel.png"
                                                             Stretch="UniformToFill"/>
                                             </Setter.Value>
                                         </Setter>
