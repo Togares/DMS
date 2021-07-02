@@ -31,7 +31,7 @@
                                        Text="Search"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Left"
-                                       Margin="5,0,0,0"
+                                       Margin="10,0,0,0"
                                        FontSize="14"
                                        Foreground="DarkSlateGray"
                                        Grid.Column="1">
