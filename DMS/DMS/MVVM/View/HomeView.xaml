@@ -6,12 +6,15 @@
              xmlns:local="clr-namespace:DMS.MVVM.View"
              mc:Ignorable="d" 
              d:DesignHeight="460" d:DesignWidth="800">
+    
+    
     <StackPanel>
         <TextBlock Text="Search Results"
-                   Foreground="FloralWhite"
+                   Foreground="Black"
                    FontSize="28"
                    HorizontalAlignment="Left"
-                   Margin="0,0,0,20"/>
+                   Margin="0,0,0,20"
+                   FontFamily="/Fonts/#Poppins"/>
 
 
         <StackPanel Orientation="Horizontal"
@@ -21,8 +24,8 @@
 
                 <Border.Background>
                     <LinearGradientBrush>
-                        <GradientStop Color="#272537" Offset="0.0"/>
-                        <GradientStop Color="#272537" Offset="1"/>
+                        <GradientStop Color="GhostWhite" Offset="0.0"/>
+                        <GradientStop Color="GhostWhite" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
 
@@ -35,14 +38,16 @@
                 <Grid>
                     <StackPanel>
                         <TextBlock Text="World leaders&#x0a;in global coding"
-                                   Foreground="White"
+                                   Foreground="Black"
                                    FontSize="28"
-                                   Margin="20,10,10,0"/>
+                                   Margin="20,10,10,0"
+                                   FontFamily="/Fonts/#Poppins"/>
 
                         <TextBlock Text="Started Today!"
-                                   Foreground="White"
+                                   Foreground="Black"
                                    FontSize="18"
-                                   Margin="20,10,10,0"/>
+                                   Margin="20,10,10,0"
+                                   FontFamily="/Fonts/#Poppins"/>
                     </StackPanel>
 
                 </Grid>

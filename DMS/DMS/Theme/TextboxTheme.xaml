@@ -10,7 +10,7 @@
                 <ControlTemplate TargetType="{x:Type TextBox}">
 
                     <Border CornerRadius="5"
-                            Background="WhiteSmoke"
+                            Background="DarkGray"
                             Width="260" Height="35">
 
                         <Grid>
@@ -33,7 +33,8 @@
                                        HorizontalAlignment="Left"
                                        Margin="10,0,0,0"
                                        FontSize="14"
-                                       Foreground="DarkSlateGray"
+                                       FontFamily="/Fonts/#Poppins"
+                                       Foreground="Black"
                                        Grid.Column="1">
 
                                 <TextBlock.Style>

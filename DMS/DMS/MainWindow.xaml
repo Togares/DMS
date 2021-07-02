@@ -13,17 +13,12 @@
         AllowsTransparency="True"
         MouseMove="Window_MouseMove">
 
-    <Window.Resources>
-        <ImageBrush x:Key="GitHub_icon" ImageSource="/Images/GitHub_icon.png"/>
-    </Window.Resources>
-
-
     <Window.DataContext>
         <ViewModel:MainViewModel/>
     </Window.DataContext>
 
 
-    <Border Background="#272537" CornerRadius="10">
+    <Border Background="GhostWhite" CornerRadius="10">
 
 
         <Grid>
@@ -44,22 +39,63 @@
 
                 <Button x:Name="GitHub_button"
                         Height="50" Width="50"
-                        BorderThickness="0">
+                        BorderThickness="0"
+                        Margin="15,0,0,0">
 
-                    <Button.Background>
-                        <ImageBrush ImageSource="/Images/icons8-user-24 (2).png"
-                                    Stretch="None">
-                        </ImageBrush>
-                    </Button.Background>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/GitHub-Mark-64px.png"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Cursor" Value="Hand"/>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <ImageBrush ImageSource="/Images/GitHub-Mark-Light-64px.png"
+                                                        Stretch="UniformToFill"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="50" Height="50"
+                                    Background="{TemplateBinding Background}">
+
+                                <ContentPresenter VerticalAlignment="Center"
+                                                 HorizontalAlignment="Center">
+                                </ContentPresenter>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
 
                 </Button>
 
                 <TextBlock Text="GitHub Profis"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Left"
-                       Foreground="White"
-                       FontSize="22"/>
-                
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Foreground="Black"
+                           FontSize="26"
+                           Margin="5"
+                           FontWeight="Bold"
+                           FontFamily="/Fonts/#Collegiate">
+                    
+                    <!--if we want image instead of picture-->
+                    <!--<InlineUIContainer>
+                        <Image Source="/Images/GitHub-Logo.png"
+                               Height="23"
+                               Width="90"/>
+                    </InlineUIContainer>-->
+
+                </TextBlock>
+
             </StackPanel>
 
 
@@ -67,7 +103,7 @@
 
                 <RadioButton Content="Home"
                              Height="50"
-                             Foreground="White"
+                             Foreground="Black"
                              FontSize="14"
                              IsChecked="True"
                              Style="{StaticResource MenuButtonTheme}"
@@ -75,7 +111,7 @@
 
                 <RadioButton Content="Discovery"
                              Height="50"
-                             Foreground="White"
+                             Foreground="Black"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding DiscoveryViewCommand}"/>
@@ -112,26 +148,46 @@
                         <Style TargetType="Button">
                             <Setter Property="TextElement.FontFamily"
                                     Value="Arial"/>
-                            <Setter Property="Background" Value="#FF64CCF1"/>
-                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Background" Value="#FF0C0E0E"/>
+                            <!--<Setter Property="Cursor" Value="None"/>-->
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background"
-                                            Value="CadetBlue"/>
+                                    <Setter Property="Background" Value="#FF454545"/>
+                                    
+                                    <Setter Property="Button.Effect">
+                                        <Setter.Value>
+                                            <DropShadowEffect Color="DarkGray" Direction="20"
+                                                              ShadowDepth="3" BlurRadius="10"
+                                                              Opacity="0.5"/>
+                                        </Setter.Value>
+                                    </Setter>
                                 </Trigger>
+
+                                <Trigger Property="IsMouseOver" Value="False">
+                                    <Setter Property="BorderBrush" Value="DarkGray"/>
+                                    <Setter Property="Foreground" Value="Black"/>
+
+                                    <Setter Property="Button.Effect">
+                                        <Setter.Value>
+                                            <DropShadowEffect Color="DarkGray" Direction="40"
+                                                              ShadowDepth="2" BlurRadius="15"
+                                                              Opacity="0.5"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
 
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
-                            <Border Width="120" Height="35"
+                            <Border Width="80" Height="35"
                                     CornerRadius="4"
                                     Background="{TemplateBinding Background}">
 
                                 <ContentPresenter VerticalAlignment="Center"
                                                  HorizontalAlignment="Center">
-
                                 </ContentPresenter>
 
                             </Border>
@@ -139,6 +195,54 @@
                     </Button.Template>
 
                 </Button>
+
+                <Canvas>
+                    <Button x:Name="CloseButton"
+                            Height="25"
+                            Width="25"
+                            BorderThickness="0"
+                            Canvas.Left="310"
+                            Margin="5,10,10,0">
+
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/Images/close_dark.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Button.Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="DarkGray" Direction="30"
+                                                              ShadowDepth="2" BlurRadius="15"
+                                                              Opacity="0.7"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <!--<Setter Property="Cursor" Value="Hand"/>-->
+
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background">
+                                            <Setter.Value>
+                                                <ImageBrush ImageSource="/Images/close.png"
+                                                            Stretch="UniformToFill"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="25" Height="25"
+                                    Background="{TemplateBinding Background}">
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+
+                    </Button>
+                </Canvas>
 
             </StackPanel>
 
