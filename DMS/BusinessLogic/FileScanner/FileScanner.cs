@@ -122,11 +122,12 @@ namespace BusinessLogic.FileScanner
             }
             return files;
         }
+
         /// <summary>
         /// Scannt die Dateien eines Verzeichnisses mitsamt seinen Unterverzeichnissen
         /// </summary>
         /// <param name="path">Der Vollqualifizierte Pfad</param>
-        /// <returns></returns>
+        /// <returns>Liste aller Dateien in diesem Verzeichnis und seinen Unterverzeichnissen</returns>
         private List<CommonTypes.File> ScanSubdirectories(string path)
         {
             List<CommonTypes.File> files = new List<CommonTypes.File>();

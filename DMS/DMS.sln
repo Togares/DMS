@@ -22,7 +22,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\Da
 		{8DAAA0BD-4B85-468C-8E7F-EACDF4E02306} = {8DAAA0BD-4B85-468C-8E7F-EACDF4E02306}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic.Test", "BusinessLogic.Test1\BusinessLogic.Test.csproj", "{3388BC2B-1737-4A5E-BEAC-FAD90EED7FC2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic.Test", "BusinessLogic.Test\BusinessLogic.Test.csproj", "{3388BC2B-1737-4A5E-BEAC-FAD90EED7FC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
