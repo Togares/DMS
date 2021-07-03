@@ -112,10 +112,20 @@ namespace BusinessLogic.FileScanner
                 file.Path = filePath.Substring(0, filePath.LastIndexOf("/"));
 
                 int lastDS = filePath.LastIndexOf("/") + 1;
-                int dot = filePath.LastIndexOf(".");
-                file.Name = filePath.Substring(lastDS, dot - lastDS);
-                
-                file.Type = filePath.Substring(dot);
+
+                string nameAndType = filePath.Substring(lastDS);
+                // falls der datei kein typ gegeben wurde
+                if(nameAndType.Contains("."))
+                { 
+                    int dot = filePath.LastIndexOf(".");
+                    file.Name = filePath.Substring(lastDS, dot - lastDS);
+                    file.Type = filePath.Substring(dot);
+                }
+                else
+                {
+                    file.Name = filePath.Substring(lastDS);
+                    file.Type = string.Empty;
+                }                             
 
                 file.Created = System.IO.File.GetCreationTime(filePath);
                 file.Modified = System.IO.File.GetLastWriteTime(filePath);
