@@ -183,5 +183,14 @@
     <Resource Include="Images\cancel.png" />
     <Resource Include="Images\error.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\close3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\close1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\close.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

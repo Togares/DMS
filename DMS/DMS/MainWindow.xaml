@@ -189,11 +189,11 @@
 
                 <Canvas>
                     <Button x:Name="CloseButton"
-                            Height="25"
-                            Width="25"
+                            Height="20"
+                            Width="20"
                             BorderThickness="0"
                             Canvas.Left="310"
-                            Margin="5,10,10,0"
+                            Margin="5,13,10,0"
                             Command="{Binding CloseCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
 
@@ -201,7 +201,7 @@
                             <Style TargetType="Button">
                                 <Setter Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="/Images/error.png"/>
+                                        <ImageBrush ImageSource="/Images/close1.png"/>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter Property="Button.Effect">
@@ -217,7 +217,7 @@
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter Property="Background">
                                             <Setter.Value>
-                                                <ImageBrush ImageSource="/Images/cancel.png"
+                                                <ImageBrush ImageSource="/Images/close.png"
                                                             Stretch="UniformToFill"/>
                                             </Setter.Value>
                                         </Setter>
@@ -228,7 +228,7 @@
 
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Border Width="25" Height="25"
+                                <Border Width="20" Height="20"
                                     Background="{TemplateBinding Background}">
                                 </Border>
                             </ControlTemplate>
