@@ -129,8 +129,6 @@ namespace BusinessLogic.FileScanner
                     file.Content = Encoding.UTF8.GetBytes(_TextExtractor.Extract(filePath));
                 }
 
-                Debug.WriteLine($"Built File object for File {filePath}");
-
                 files.Add(file);
             }
             return files;
