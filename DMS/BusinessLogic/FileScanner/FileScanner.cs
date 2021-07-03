@@ -4,8 +4,6 @@ using BusinessLogic.FileScanner.Events;
 using System.IO;
 using Visualis.Extractor;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Diagnostics;
 
 namespace BusinessLogic.FileScanner
 {
@@ -32,26 +30,8 @@ namespace BusinessLogic.FileScanner
             foreach (DriveInfo driveInfo in DriveInfo.GetDrives())
             {
                 Drive drive = new Drive();
-                drive.Name = driveInfo.Name;
-                string type = string.Empty;
-                switch (driveInfo.DriveType)
-                {
-                    case DriveType.Unknown:
-                        type = "Unknown"; break;
-                    case DriveType.NoRootDirectory:
-                        type = "NoRootDirectory"; break;
-                    case DriveType.Removable:
-                        type = "Removable"; break;
-                    case DriveType.Fixed:
-                        type = "Fixed"; break;
-                    case DriveType.Network:
-                        type = "Network"; break;
-                    case DriveType.CDRom:
-                        type = "CDRom"; break;
-                    case DriveType.Ram:
-                        type = "Ram"; break;
-                }
-                drive.Type = type;
+                drive.Name = driveInfo.Name;              
+                drive.Type = driveInfo.DriveType.ToString();
                 try
                 { // nicht benannte oder nicht bereite laufwerke lösen eine exception aus
                     drive.Label = driveInfo.VolumeLabel;

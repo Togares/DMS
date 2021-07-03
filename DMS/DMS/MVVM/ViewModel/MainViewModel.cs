@@ -18,11 +18,8 @@ namespace DMS.MVVM.ViewModel
         #region Commands
 
         private RelayCommand<object> _HomeViewCommand;
-        public RelayCommand<object> HomeViewCommand
-        {
-            get => _HomeViewCommand = _HomeViewCommand == null ? new RelayCommand<object>(x => CurrentView = HomeVM) : _HomeViewCommand;
-        }
-
+        public RelayCommand<object> HomeViewCommand => _HomeViewCommand = _HomeViewCommand == null ? new RelayCommand<object>(x => CurrentView = HomeVM) : _HomeViewCommand;
+        
         private RelayCommand<object> _DiscoveryViewCommand;
         public RelayCommand<object> DiscoveryViewCommand => _DiscoveryViewCommand = _DiscoveryViewCommand == null ? new RelayCommand<object>(x => CurrentView = DicoveryVM) : _DiscoveryViewCommand;
 
