@@ -5,6 +5,7 @@ using System.IO;
 using Visualis.Extractor;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace BusinessLogic.FileScanner
 {
@@ -80,7 +81,10 @@ namespace BusinessLogic.FileScanner
 
             if (recursive)
             {
-                files.AddRange(ScanSubdirectories(path));
+                foreach (string directory in Directory.GetDirectories(path))
+                { 
+                    ScanDirectory(directory, true);
+                }
             }
 
             FileScanFinished?.Invoke(files);
@@ -124,23 +128,10 @@ namespace BusinessLogic.FileScanner
                 {
                     file.Content = Encoding.UTF8.GetBytes(_TextExtractor.Extract(filePath));
                 }
-                files.Add(file);
-            }
-            return files;
-        }
 
-        /// <summary>
-        /// Scannt die Dateien eines Verzeichnisses mitsamt seinen Unterverzeichnissen
-        /// </summary>
-        /// <param name="path">Der Vollqualifizierte Pfad</param>
-        /// <returns>Liste aller Dateien in diesem Verzeichnis und seinen Unterverzeichnissen</returns>
-        private List<CommonTypes.File> ScanSubdirectories(string path)
-        {
-            List<CommonTypes.File> files = new List<CommonTypes.File>();
-            foreach (string directory in Directory.GetDirectories(path))
-            {
-                files.AddRange(GetFiles(directory));
-                files.AddRange(ScanSubdirectories(directory));
+                Debug.WriteLine($"Built File object for File {filePath}");
+
+                files.Add(file);
             }
             return files;
         }

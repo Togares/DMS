@@ -29,12 +29,6 @@ namespace BusinessLogic.FileScanner.Tests
         /// Vorgesehene Verzeichnisstruktur:
         /// C:/temp
         ///     +---temp_root.txt
-        ///     +---DMS
-        ///         +---dms_root.txt
-        ///         +---directory
-        ///             +---dir_2.txt
-        ///             +---directory2
-        ///                 +---end.txt
         /// </summary>
         [TestMethod()]        
         public void ScanDirectory_NonRecursive_Test()
