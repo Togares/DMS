@@ -1,9 +1,19 @@
 ﻿using CommonTypes.Utility;
+using System.Windows;
 
 namespace DMS.MVVM.ViewModel
 {
     class MainViewModel : Bindable
     {
+        public MainViewModel()
+        {
+            HomeVM = new HomeViewModel();
+            DicoveryVM = new DiscoveryViewModel();
+            CurrentView = HomeVM;
+        }
+
+        #region Commands
+
         private RelayCommand<object> _HomeViewCommand;
         public RelayCommand<object> HomeViewCommand
         {
@@ -22,6 +32,26 @@ namespace DMS.MVVM.ViewModel
             get => _CloseCommand = _CloseCommand == null ? new RelayCommand<ICloseable>(x => x.Close()) : _CloseCommand;
         }
 
+        private RelayCommand<object> _MinimizeCommand;
+        public RelayCommand<object> MinimizeCommand
+        {
+            get => _MinimizeCommand = _MinimizeCommand == null ? new RelayCommand<object>(x => Application.Current.MainWindow.WindowState = WindowState.Minimized) : _MinimizeCommand;
+        }
+
+        private RelayCommand<object> _MaximizeCommand;
+        public RelayCommand<object> MaximizeCommand
+        {
+            get => _MaximizeCommand = _MaximizeCommand == null ? new RelayCommand<object>(x => Application.Current.MainWindow.WindowState = WindowState.Maximized) : _MaximizeCommand;
+        }
+
+        private RelayCommand<object> _NormalizeCommand;
+        public RelayCommand<object> NormalizeCommand
+        {
+            get => _NormalizeCommand = _NormalizeCommand == null ? new RelayCommand<object>(x => Application.Current.MainWindow.WindowState = WindowState.Normal) : _NormalizeCommand;
+        }
+
+        #endregion Command
+
         public HomeViewModel HomeVM { get; set; }
         public DiscoveryViewModel DicoveryVM { get; set; }
 
@@ -35,13 +65,6 @@ namespace DMS.MVVM.ViewModel
                 _currentView = value;
                 OnPropertyChanged();
             }
-        }
-
-        public MainViewModel()
-        {
-            HomeVM = new HomeViewModel();
-            DicoveryVM = new DiscoveryViewModel();
-            CurrentView = HomeVM;
         }
     }
 }
