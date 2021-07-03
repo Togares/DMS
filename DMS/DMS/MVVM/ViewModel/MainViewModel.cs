@@ -16,6 +16,12 @@ namespace DMS.MVVM.ViewModel
             get => _DiscoveryViewCommand = _DiscoveryViewCommand == null ? new RelayCommand<object>(x => CurrentView = DicoveryVM) : _DiscoveryViewCommand;
         }
 
+        private RelayCommand<ICloseable> _CloseCommand;
+        public RelayCommand<ICloseable> CloseCommand
+        {
+            get => _CloseCommand = _CloseCommand == null ? new RelayCommand<ICloseable>(x => x.Close()) : _CloseCommand;
+        }
+
         public HomeViewModel HomeVM { get; set; }
         public DiscoveryViewModel DicoveryVM { get; set; }
 
