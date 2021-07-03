@@ -1,10 +1,14 @@
 ﻿using CommonTypes.Utility;
+using System.Diagnostics;
 using System.Windows;
+using System.Windows.Input;
 
 namespace DMS.MVVM.ViewModel
 {
     class MainViewModel : Bindable
     {
+        private ICommand openLinkCommand;
+
         public MainViewModel()
         {
             HomeVM = new HomeViewModel();
@@ -55,6 +59,9 @@ namespace DMS.MVVM.ViewModel
         public HomeViewModel HomeVM { get; set; }
         public DiscoveryViewModel DicoveryVM { get; set; }
 
+        // created as command to open the link in the default users browser in a new tab
+        public ICommand OpenLinkCommand => this.openLinkCommand = this.openLinkCommand == null ? new RelayCommand<object>(c => OpenLink()) : OpenLinkCommand;
+
         private object _currentView;
 
         public object CurrentView
@@ -65,6 +72,15 @@ namespace DMS.MVVM.ViewModel
                 _currentView = value;
                 OnPropertyChanged();
             }
+        }
+
+
+        /// <summary>
+        /// opens repository with this project
+        /// </summary>
+        private void OpenLink()
+        {
+            Process.Start("https://github.com/Togares/DMS");
         }
     }
 }

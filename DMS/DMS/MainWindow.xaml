@@ -40,7 +40,8 @@
                 <Button x:Name="GitHub_button"
                         Height="50" Width="50"
                         BorderThickness="0"
-                        Margin="15,0,0,0">
+                        Margin="15,0,0,0"
+                        Command="{Binding OpenLinkCommand}">
 
                     <Button.Style>
                         <Style TargetType="Button">
@@ -55,7 +56,7 @@
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Background">
                                         <Setter.Value>
-                                            <ImageBrush ImageSource="/Images/logo_github_icon_143196.png"/>
+                                            <ImageBrush ImageSource="/Images/817664_github_512x512.png"/>
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
