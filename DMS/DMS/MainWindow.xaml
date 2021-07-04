@@ -17,10 +17,7 @@
         <ViewModel:MainViewModel/>
     </Window.DataContext>
 
-
     <Border Background="GhostWhite" CornerRadius="10">
-
-
         <Grid>
 
             <Grid.ColumnDefinitions>
@@ -45,11 +42,13 @@
 
                     <Button.Style>
                         <Style TargetType="Button">
+                            
                             <Setter Property="Background">
                                 <Setter.Value>
                                     <ImageBrush ImageSource="/Images/GitHub-Mark-64px.png"/>
                                 </Setter.Value>
                             </Setter>
+                            
                             <Setter Property="Cursor" Value="Hand"/>
 
                             <Style.Triggers>
@@ -61,6 +60,7 @@
                                     </Setter>
                                 </Trigger>
                             </Style.Triggers>
+                            
                         </Style>
                     </Button.Style>
 
@@ -93,15 +93,14 @@
                                Height="23"
                                Width="90"/>
                     </InlineUIContainer>-->
-
                 </TextBlock>
-
+                
             </StackPanel>
 
 
             <StackPanel Grid.Row="1">
 
-                <RadioButton Content="Home"
+                <RadioButton Content="Data bank"
                              Height="50"
                              Foreground="Black"
                              FontSize="14"
@@ -109,7 +108,7 @@
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding HomeViewCommand}"/>
 
-                <RadioButton Content="Discovery"
+                <RadioButton Content="Hard drives"
                              Height="50"
                              Foreground="Black"
                              FontSize="14"
@@ -121,7 +120,6 @@
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"/>-->
-
             </StackPanel>
 
             <StackPanel Grid.Row="0"
@@ -149,6 +147,7 @@
                             <Setter Property="TextElement.FontFamily"
                                     Value="Arial"/>
                             <Setter Property="Background" Value="#FF0C0E0E"/>
+                            
                             <Setter Property="Button.Effect">
                                 <Setter.Value>
                                     <DropShadowEffect Color="DarkGray" Direction="30"
@@ -156,18 +155,19 @@
                                                               Opacity="0.7"/>
                                 </Setter.Value>
                             </Setter>
+                            
                             <!--<Setter Property="Cursor" Value="None"/>-->
                             <Style.Triggers>
+                                
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Background" Value="#FF454545"/>
-
                                 </Trigger>
 
                                 <Trigger Property="IsMouseOver" Value="False">
                                     <Setter Property="BorderBrush" Value="DarkGray"/>
                                     <Setter Property="Foreground" Value="Black"/>
                                 </Trigger>
-
+                                
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
@@ -234,12 +234,9 @@
                                 </Border>
                             </ControlTemplate>
                         </Button.Template>
-
                     </Button>
                 </Canvas>
-
             </StackPanel>
-
 
             <ContentControl Grid.Row="1"
                             Grid.Column="1"
@@ -247,12 +244,5 @@
                             Content="{Binding CurrentView}"/>
 
         </Grid>
-
     </Border>
-
-
-
-
-
-
 </Window>
