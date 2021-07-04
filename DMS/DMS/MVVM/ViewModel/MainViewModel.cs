@@ -9,12 +9,7 @@ namespace DMS.MVVM.ViewModel
     {
         private ICommand openLinkCommand;
 
-        public MainViewModel()
-        {
-            HomeVM = new HomeViewModel();
-            DicoveryVM = new DiscoveryViewModel();
-            CurrentView = HomeVM;
-        }
+        private object _currentView;
 
         #region Commands
 
@@ -25,7 +20,7 @@ namespace DMS.MVVM.ViewModel
         }
 
         private RelayCommand<object> _DiscoveryViewCommand;
-        public RelayCommand<object> DiscoveryViewCommand 
+        public RelayCommand<object> DiscoveryViewCommand
         {
             get => _DiscoveryViewCommand = _DiscoveryViewCommand == null ? new RelayCommand<object>(x => CurrentView = DicoveryVM) : _DiscoveryViewCommand;
         }
@@ -56,13 +51,12 @@ namespace DMS.MVVM.ViewModel
 
         #endregion Command
 
+        #region Properties
         public HomeViewModel HomeVM { get; set; }
         public DiscoveryViewModel DicoveryVM { get; set; }
 
         // created as command to open the link in the default users browser in a new tab
         public ICommand OpenLinkCommand => this.openLinkCommand = this.openLinkCommand == null ? new RelayCommand<object>(c => OpenLink()) : OpenLinkCommand;
-
-        private object _currentView;
 
         public object CurrentView
         {
@@ -73,7 +67,7 @@ namespace DMS.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-
+        #endregion Properties
 
         /// <summary>
         /// opens repository with this project
@@ -81,6 +75,13 @@ namespace DMS.MVVM.ViewModel
         private void OpenLink()
         {
             Process.Start("https://github.com/Togares/DMS");
+        }
+
+        public MainViewModel()
+        {
+            HomeVM = new HomeViewModel();
+            DicoveryVM = new DiscoveryViewModel();
+            CurrentView = HomeVM;
         }
     }
 }
