@@ -42,13 +42,13 @@
 
                     <Button.Style>
                         <Style TargetType="Button">
-                            
+
                             <Setter Property="Background">
                                 <Setter.Value>
                                     <ImageBrush ImageSource="/Images/GitHub-Mark-64px.png"/>
                                 </Setter.Value>
                             </Setter>
-                            
+
                             <Setter Property="Cursor" Value="Hand"/>
 
                             <Style.Triggers>
@@ -60,7 +60,7 @@
                                     </Setter>
                                 </Trigger>
                             </Style.Triggers>
-                            
+
                         </Style>
                     </Button.Style>
 
@@ -94,7 +94,7 @@
                                Width="90"/>
                     </InlineUIContainer>-->
                 </TextBlock>
-                
+
             </StackPanel>
 
 
@@ -132,7 +132,27 @@
                          HorizontalAlignment="Left"
                          Margin="5"
                          Grid.Column="1"
-                         Style="{StaticResource ModernTextbox}"/>
+                         Style="{StaticResource ModernTextbox}">
+                </TextBox>
+
+                <!--this Button we may use as alternative to the search icon if lately-->
+                <!--to decide to implement some logic to clear the Searbox from entries-->
+                <!--<Button Width="35"
+                        Height="35">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="35" Height="35"
+                                    CornerRadius="4"
+                                    Background="{TemplateBinding Background}">
+
+                                <ContentPresenter VerticalAlignment="Center"
+                                                 HorizontalAlignment="Center">
+                                </ContentPresenter>
+
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>-->
 
                 <!--Nice rounded button-->
                 <Button Width="80"
@@ -147,7 +167,7 @@
                             <Setter Property="TextElement.FontFamily"
                                     Value="Arial"/>
                             <Setter Property="Background" Value="#FF0C0E0E"/>
-                            
+
                             <Setter Property="Button.Effect">
                                 <Setter.Value>
                                     <DropShadowEffect Color="DarkGray" Direction="30"
@@ -155,10 +175,10 @@
                                                               Opacity="0.7"/>
                                 </Setter.Value>
                             </Setter>
-                            
+
                             <!--<Setter Property="Cursor" Value="None"/>-->
                             <Style.Triggers>
-                                
+
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Background" Value="#FF454545"/>
                                 </Trigger>
@@ -167,7 +187,7 @@
                                     <Setter Property="BorderBrush" Value="DarkGray"/>
                                     <Setter Property="Foreground" Value="Black"/>
                                 </Trigger>
-                                
+
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
