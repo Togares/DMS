@@ -23,8 +23,12 @@
                                      Background="Transparent"
                                      VerticalAlignment="Center"
                                      Padding="5"
-                                     Foreground="#000"
                                      x:Name="SearchBox"/>
+                            
+                            <Image HorizontalAlignment="Right"
+                                   Source="/Images/icons8-search-30.png"
+                                   Height="25"
+                                   Margin="0,1,4,0"/>
 
 
                             <TextBlock IsHitTestVisible="False"
@@ -34,7 +38,7 @@
                                        Margin="8,0,0,0"
                                        FontSize="14"
                                        FontFamily="/Fonts/#Poppins"
-                                       Foreground="Black"
+                                       Foreground="LightGray"
                                        Grid.Column="1">
 
                                 <TextBlock.Style>
