@@ -23,7 +23,9 @@
                                      Background="Transparent"
                                      VerticalAlignment="Center"
                                      Padding="5"
-                                     x:Name="SearchBox"/>
+                                     x:Name="SearchBox"
+                                     FontSize="16"
+                                     FontFamily="/Fonts/#Poppins"/>
                             
                             <Image HorizontalAlignment="Right"
                                    Source="/Images/icons8-search-30.png"
