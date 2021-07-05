@@ -11,7 +11,8 @@
         ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True"
-        MouseMove="Window_MouseMove">
+        MouseMove="Window_MouseMove"
+        WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
         <ViewModel:MainViewModel/>
@@ -86,18 +87,11 @@
                            Margin="5"
                            FontWeight="Bold"
                            FontFamily="/Fonts/#Collegiate">
-                    
-                    <!--if we want image instead of picture-->
-                    <!--<InlineUIContainer>
-                        <Image Source="/Images/GitHub-Logo.png"
-                               Height="23"
-                               Width="90"/>
-                    </InlineUIContainer>-->
                 </TextBlock>
-
+                
             </StackPanel>
 
-
+            
             <StackPanel Grid.Row="1">
 
                 <RadioButton Content="Data bank"
@@ -106,8 +100,9 @@
                              FontSize="14"
                              IsChecked="True"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding HomeViewCommand}"/>
-
+                             Command="{Binding HomeViewCommand}">
+                </RadioButton>
+                
                 <RadioButton Content="Hard drives"
                              Height="50"
                              Foreground="Black"
