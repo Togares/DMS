@@ -16,5 +16,23 @@ namespace CommonTypes
 			get { return _Name; }
 			set { _Name = value; OnPropertyChanged(); }
 		}
-	}
+
+        private string _Label;
+
+        public string Label
+        {
+            get { return _Label; }
+            set { _Label = value; OnPropertyChanged(); }
+        }
+
+
+        private string _Type;
+
+        public string Type
+        {
+            get { return _Type; }
+            set { _Type = value; OnPropertyChanged(); }
+        }
+
+    }
 }
