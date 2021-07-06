@@ -5,6 +5,7 @@ using System.Windows.Input;
 ﻿using BusinessLogic;
 using BusinessLogic.FileScanner;
 
+
 namespace DMS.MVVM.ViewModel
 {
     class MainViewModel : Bindable
