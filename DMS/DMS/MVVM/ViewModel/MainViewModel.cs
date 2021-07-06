@@ -3,18 +3,19 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 ﻿using BusinessLogic;
+using BusinessLogic.FileScanner;
 
 namespace DMS.MVVM.ViewModel
 {
     class MainViewModel : Bindable
     {
+        private IFileScanner _FileScanner = new FileScanner();
 
         public MainViewModel()
         {
-            HomeVM = new HomeViewModel();
+            HomeVM = new HomeViewModel(_FileScanner);
             DicoveryVM = new DiscoveryViewModel();
             CurrentView = HomeVM;
-
         }
 
         #region Commands
