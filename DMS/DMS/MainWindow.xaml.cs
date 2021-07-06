@@ -24,5 +24,11 @@ namespace DMS
         {
             InitializeComponent();
         }
+
+        private void Window_MouseMove(object sender, MouseEventArgs e)
+        {
+            if(Mouse.LeftButton == MouseButtonState.Pressed)
+                DragMove();
+        }
     }
 }
