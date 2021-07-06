@@ -46,7 +46,6 @@ namespace DMS.MVVM.ViewModel
         public HomeViewModel HomeVM { get; set; }
         public DiscoveryViewModel DicoveryVM { get; set; }
 
-
         private object _currentView;
 
         public object CurrentView
