@@ -18,7 +18,8 @@
 
                             <TextBlock Text="{TemplateBinding Property=Content}"
                                        VerticalAlignment="Center"
-                                       Margin="50,0,0,0"/>
+                                       Margin="50,0,0,0"
+                                       FontFamily="/Fonts/#Poppins"/>
 
                         </Grid>
 
@@ -33,7 +34,8 @@
 
         <Style.Triggers>
             <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Background" Value="#22202f"/>
+                <!--here we change the background color of the radio button-->
+                <Setter Property="Background" Value="DarkGray"/>
             </Trigger>
         </Style.Triggers>
 

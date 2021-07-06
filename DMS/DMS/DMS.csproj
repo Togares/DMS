@@ -85,6 +85,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MVVM\ICloseable.cs" />
     <Compile Include="MVVM\ViewModel\DiscoveryViewModel.cs" />
     <Compile Include="MVVM\ViewModel\HomeViewModel.cs" />
     <Compile Include="MVVM\ViewModel\MainViewModel.cs" />
@@ -111,6 +112,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Fonts\COLLEGIA.ttf" />
+    <Resource Include="Fonts\Poppins-Regular.ttf" />
+    <Resource Include="Fonts\TitilliumWeb-Regular.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -131,10 +135,69 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\" />
-    <Folder Include="Fonts\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\output.png" />
+    <Resource Include="Images\browser-market-shares-in.png" />
+    <Resource Include="Images\chart %281%29.png" />
+    <Resource Include="Images\icons8-billing-24.png" />
+    <Resource Include="Images\icons8-click-&amp;-collect-24.png" />
+    <Resource Include="Images\icons8-connect-32.png" />
+    <Resource Include="Images\icons8-download-graph-report-32.png" />
+    <Resource Include="Images\icons8-home-24 %282%29.png" />
+    <Resource Include="Images\icons8-initiate-money-transfer-24.png" />
+    <Resource Include="Images\icons8-refund-24.png" />
+    <Resource Include="Images\icons8-search-30.png" />
+    <Resource Include="Images\icons8-source-code-24.png" />
+    <Resource Include="Images\icons8-user-24 %282%29.png" />
+    <Resource Include="Images\styling-axes-and-columns.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GitHub_icon_with_text.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GitHub-Mark-120px-plus.png" />
+    <Resource Include="Images\GitHub-Mark-32px.png" />
+    <Resource Include="Images\GitHub-Mark-64px.png" />
+    <Resource Include="Images\GitHub-Mark-Light-120px-plus.png" />
+    <Resource Include="Images\GitHub-Mark-Light-32px.png" />
+    <Resource Include="Images\GitHub-Mark-Light-64px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GitHub_Logo1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GitHub-Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\5347-github_102542.png" />
+    <Resource Include="Images\67.png" />
+    <Resource Include="Images\94898-middle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\logo_github_icon_143196.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\blue_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\cancel.png" />
+    <Resource Include="Images\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\close3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\close1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\coding.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\817664_github_512x512.png" />
+    <Resource Include="Images\887457_logo_512x512.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
