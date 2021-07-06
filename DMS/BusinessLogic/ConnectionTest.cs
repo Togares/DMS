@@ -14,10 +14,9 @@ namespace BusinessLogic
             Connection con = new Connection();
             string user = "u_e2fi5githubprofis";
             string db = "E2FI5GitHubProfis"; // DMS
-            string host = "schuldb1.its-stuttgart.de";
+            string host = "10.194.9.131";
             int port = 5432;
             con.Connect(user, user, host, port, db);
         }
-        
     }
 }
