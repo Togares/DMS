@@ -1,7 +1,10 @@
+
 ﻿using CommonTypes.Utility;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
+﻿using BusinessLogic;
+using CommonTypes.Utility;
 
 namespace DMS.MVVM.ViewModel
 {
@@ -13,6 +16,8 @@ namespace DMS.MVVM.ViewModel
             HomeVM = new HomeViewModel();
             DicoveryVM = new DiscoveryViewModel();
             CurrentView = HomeVM;
+
+            ConnectionTest con = new ConnectionTest();
         }
 
         #region Commands
@@ -56,6 +61,7 @@ namespace DMS.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
+
 
         /// <summary>
         /// opens repository with this project
