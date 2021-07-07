@@ -11,7 +11,6 @@
         ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True"
-        MouseMove="Window_MouseMove"
         WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
@@ -30,10 +29,71 @@
                 <RowDefinition Height="75"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+            
+            <!--
+                Bar at the top 
+                Used for moving, closing, maximizing the window etc.
+            -->
+            <Border Height="20"
+                    Grid.ColumnSpan="2"
+                    CornerRadius="10,10,0,0"
+                    VerticalAlignment="Top"
+                    Width="920"
+                    Background="DarkGray"
+                    MouseMove="Border_MouseMove">
+                
+                <Button x:Name="CloseButton"
+                        HorizontalAlignment="Right"
+                        Height="20"
+                        Width="20"
+                        BorderThickness="0"                        
+                        Margin="0,0,5,0"
+                        Command="{Binding CloseCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/close1.png"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Button.Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Color="DarkGray" Direction="30"
+                                                              ShadowDepth="2" BlurRadius="15"
+                                                              Opacity="0.7"/>
+                                </Setter.Value>
+                            </Setter>
+                            <!--<Setter Property="Cursor" Value="Hand"/>-->
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <ImageBrush ImageSource="/Images/close.png"
+                                                            Stretch="UniformToFill"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="13" Height="13"
+                                    Background="{TemplateBinding Background}">
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Border>
 
             <StackPanel Orientation="Horizontal"
                         Grid.Column="0"
-                        Grid.Row="0">
+                        Grid.Row="0"
+                        Margin="0,20,0,0">
 
                 <Button x:Name="GitHub_button"
                         Height="50" Width="50"
@@ -88,11 +148,12 @@
                            FontWeight="Bold"
                            FontFamily="/Fonts/#Collegiate">
                 </TextBlock>
-                
+
             </StackPanel>
 
-            
-            <StackPanel Grid.Row="1">
+
+            <StackPanel Grid.Row="1"
+                        Margin="0,10,0,0">
 
                 <RadioButton Content="Data bank"
                              Height="50"
@@ -102,7 +163,7 @@
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding HomeViewCommand}">
                 </RadioButton>
-                
+
                 <RadioButton Content="Hard drives"
                              Height="50"
                              Foreground="Black"
@@ -119,7 +180,8 @@
 
             <StackPanel Grid.Row="0"
                         Grid.Column="1"
-                        Orientation="Horizontal">
+                        Orientation="Horizontal"
+                        Margin="0,20,0,0">
 
                 <TextBox Width="280"
                          Height="40"
@@ -202,55 +264,7 @@
                     </Button.Template>
 
                 </Button>
-
-                <Canvas>
-                    <Button x:Name="CloseButton"
-                            Height="20"
-                            Width="20"
-                            BorderThickness="0"
-                            Canvas.Left="310"
-                            Margin="5,13,10,0"
-                            Command="{Binding CloseCommand}"
-                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background">
-                                    <Setter.Value>
-                                        <ImageBrush ImageSource="/Images/close1.png"/>
-                                    </Setter.Value>
-                                </Setter>
-                                <Setter Property="Button.Effect">
-                                    <Setter.Value>
-                                        <DropShadowEffect Color="DarkGray" Direction="30"
-                                                              ShadowDepth="2" BlurRadius="15"
-                                                              Opacity="0.7"/>
-                                    </Setter.Value>
-                                </Setter>
-                                <!--<Setter Property="Cursor" Value="Hand"/>-->
-
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background">
-                                            <Setter.Value>
-                                                <ImageBrush ImageSource="/Images/close.png"
-                                                            Stretch="UniformToFill"/>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Width="20" Height="20"
-                                    Background="{TemplateBinding Background}">
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                </Canvas>
+              
             </StackPanel>
 
             <ContentControl Grid.Row="1"
