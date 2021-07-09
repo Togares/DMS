@@ -19,7 +19,7 @@
 
         <StackPanel Orientation="Horizontal"
                     Margin="0,0,0,10">
-            <Border Width="795"
+            <Border Width="700"
                     Height="380">
 
                 <Border.Background>
@@ -35,7 +35,16 @@
                                        Rect="0,0,700,380"/>
                 </Border.Clip>
 
-                <Grid>
+                <DataGrid Style="{StaticResource DataGridTheme}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name"/>
+                        <DataGridTextColumn Header="Date modified"/>
+                        <DataGridTextColumn Header="Typ"/>
+                        <DataGridTextColumn Header="Path"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!--<Grid>
                     <StackPanel>
                         <TextBlock Text="World leaders&#x0a;in global coding"
                                    Foreground="Black"
@@ -50,7 +59,7 @@
                                    FontFamily="/Fonts/#Poppins"/>
                     </StackPanel>
 
-                </Grid>
+                </Grid>-->
 
             </Border>
 
