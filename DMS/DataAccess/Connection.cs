@@ -1,31 +1,82 @@
 ﻿using Npgsql;
+using System.Data.Entity;
 
 namespace DataAccess
 {
     public class Connection
     {
+        private const string user = "u_e2fi5githubprofis";
+        private const string password = user;
+        private const string db = "E2FI5GitHubProfis";
+        private const string host = "schuldb1.its-stuttgart.de";
+        private const int port = 5432;
+
         private NpgsqlConnection _Connection;
 
-        public Connection()
+        #region Singleton
+
+        private static Connection _Instance = null;
+
+        private Connection()
         {
             _Connection = new NpgsqlConnection();
         }
 
-        public void Connect(string user, string password, string host, int port, string database)
+        public static Connection Get()
         {
-            NpgsqlConnectionStringBuilder builder = new NpgsqlConnectionStringBuilder();
-            builder.Username = user;
-            builder.Password = password;
-            builder.Database = database;
-            builder.Port = port;
-            builder.Host = host;
-            _Connection.ConnectionString = builder.ConnectionString;
-            _Connection.Open();
+            return _Instance = _Instance == null ? new Connection() : _Instance;
+        }
+
+        #endregion Singleton
+
+        #region Config
+
+        private class NpgsqlConfiguration : DbConfiguration
+        {
+            public NpgsqlConfiguration() : base()
+            {
+                SetProviderFactory("Npgsql", NpgsqlFactory.Instance);
+
+                SetProviderServices("Npgsql", NpgsqlServices.Instance);
+
+                SetDefaultConnectionFactory(new NpgsqlConnectionFactory());
+            }
+        }
+
+        public DbConfiguration Configuration { get; set; } = new NpgsqlConfiguration();
+
+        #endregion Config
+
+        public bool IsConnected { get; set; } = false;
+
+        public void Connect()
+        {
+            if (!IsConnected)
+            {
+                NpgsqlConnectionStringBuilder builder = new NpgsqlConnectionStringBuilder();
+                builder.Username = user;
+                builder.Password = password;
+                builder.Database = db;
+                builder.Port = port;
+                builder.Host = host;
+                _Connection.ConnectionString = builder.ConnectionString;
+                _Connection.Open();
+                IsConnected = true;
+            }
         }
 
         public void Disconnect()
         {
-            _Connection.Close();
+            if (IsConnected)
+            {
+                _Connection.Close();
+                IsConnected = false;
+            }
+        }
+
+        internal NpgsqlConnection GetConnection()
+        {
+            return _Connection;
         }
     }
 }
