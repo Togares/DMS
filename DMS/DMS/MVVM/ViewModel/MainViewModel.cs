@@ -17,6 +17,7 @@ namespace DMS.MVVM.ViewModel
             HomeVM = new HomeViewModel(_FileScanner);
             DicoveryVM = new DiscoveryViewModel();
             CurrentView = HomeVM;
+            new ConnectionTest();
         }
 
         #region Commands
