@@ -4,6 +4,7 @@ using BusinessLogic.FileScanner.Events;
 using System.IO;
 using Visualis.Extractor;
 using System.Text;
+using System;
 
 namespace BusinessLogic.FileScanner
 {
@@ -35,6 +36,10 @@ namespace BusinessLogic.FileScanner
                 try
                 { // nicht benannte oder nicht bereite laufwerke lösen eine exception aus
                     drive.Label = driveInfo.VolumeLabel;
+                }
+                catch(UnauthorizedAccessException)
+                {
+                    continue; // Laufwerke auf die nicht Zugegriffen werden kann, werden nicht angezeigt
                 }
                 catch (IOException)
                 {
