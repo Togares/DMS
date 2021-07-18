@@ -4,6 +4,8 @@ using CommonTypes.Utility;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Management;
 using System.Windows;
@@ -47,7 +49,7 @@ namespace DMS.MVVM.ViewModel
         private void DeviceRemovedEvent(object sender, EventArrivedEventArgs e)
         {
             Application.Current.Dispatcher.Invoke(() => ScanDrives());
-        }        
+        }
 
         public void LoadSubHierarchie(Hierarchical hierachical)
         {
@@ -70,7 +72,7 @@ namespace DMS.MVVM.ViewModel
         {
             foreach (Drive drive in drives)
             {
-                if(!Drives.Contains(drive))
+                if (!Drives.Contains(drive))
                 {
                     Drives.Add(drive);
                     LoadSubHierarchie(drive);
@@ -129,15 +131,58 @@ namespace DMS.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-               
+
         private File _SelectedFile;
 
         public File SelectedFile
         {
             get { return _SelectedFile; }
-            set { _SelectedFile = value; OnPropertyChanged(); }
+            set
+            {
+                _SelectedFile = value;
+                Debug.WriteLine("SelectedFileChanged");
+                OnPropertyChanged();
+            }
         }
 
         #endregion Properties
+
+        #region Commands
+
+        private RelayCommand<object> _OpenCommand;
+        public RelayCommand<object> OpenCommand => _OpenCommand = _OpenCommand ?? new RelayCommand<object>(x => OpenSelectedFile());
+
+        private RelayCommand<object> _SaveCommand;
+        public RelayCommand<object> SaveCommand => _SaveCommand = _SaveCommand ?? new RelayCommand<object>(x => throw new NotImplementedException());
+
+        #endregion Commands
+
+        private void OpenSelectedFile()
+        {
+            string path = @SelectedFile.Qualifier;
+            ProcessStartInfo psi = new ProcessStartInfo();
+            psi.FileName = System.IO.Path.GetFileName(path);
+            psi.WorkingDirectory = System.IO.Path.GetDirectoryName(path);
+            try
+            {
+                Process.Start(psi);
+            }
+            catch (Win32Exception) // kein Standardprogramm vorhanden
+            {
+                psi.ErrorDialog = true;
+                //psi.Verb = "openas";
+                try
+                {
+                    Process.Start(psi);
+                }
+                catch (Win32Exception e)
+                {
+                    if (e.NativeErrorCode == 1223) // vom Benutzer abgebrochen
+                        return;
+                    else throw;
+                }
+            }
+        }
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CommonTypes.Utility;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace CommonTypes
 {
@@ -66,7 +67,9 @@ namespace CommonTypes
 
         public string NameAndType => Name + Type;
 
-        public string Qualifier => Path + NameAndType;
+        public string Qualifier => Path + "/" + NameAndType;
+
+        public string ContentAsString => Encoding.UTF8.GetString(Content);
 
         public override bool Equals(object obj)
         {
