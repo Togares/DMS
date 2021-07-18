@@ -9,13 +9,6 @@
     
     
     <StackPanel>
-        <TextBlock Text="Search Results"
-                   Foreground="Black"
-                   FontSize="28"
-                   HorizontalAlignment="Left"
-                   Margin="0,0,0,20"
-                   FontFamily="/Fonts/#Poppins"/>
-
 
         <StackPanel Orientation="Horizontal"
                     Margin="0,0,0,10">
@@ -38,9 +31,9 @@
                 <DataGrid Style="{StaticResource DataGridTheme}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name"/>
-                        <DataGridTextColumn Header="Date modified"/>
                         <DataGridTextColumn Header="Typ"/>
                         <DataGridTextColumn Header="Path"/>
+                        <DataGridTextColumn Header="Date modified"/>
                     </DataGrid.Columns>
                 </DataGrid>
 

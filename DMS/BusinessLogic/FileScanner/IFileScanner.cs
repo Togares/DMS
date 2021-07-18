@@ -16,6 +16,11 @@ namespace BusinessLogic.FileScanner
         event FileScanFinishedEventHandler FileScanFinished;
 
         void ScanDrives();
+
+        void GetDirectories(Hierarchical hierachical);
+        void ExtractContent(File file);
+
         void ScanDirectory(string path, bool recursive);
+
     }
 }

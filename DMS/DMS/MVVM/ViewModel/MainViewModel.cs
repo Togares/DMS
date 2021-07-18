@@ -14,10 +14,10 @@ namespace DMS.MVVM.ViewModel
 
         public MainViewModel()
         {
-            HomeVM = new HomeViewModel(_FileScanner);
-            DicoveryVM = new DiscoveryViewModel();
-            CurrentView = HomeVM;
-            new ConnectionTest();
+            HomeVM = new HomeViewModel();
+            DicoveryVM = new DiscoveryViewModel(_FileScanner);
+            CurrentView = DicoveryVM;
+            //new ConnectionTest();
         }
 
         #region Commands
