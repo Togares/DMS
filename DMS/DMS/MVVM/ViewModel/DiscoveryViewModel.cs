@@ -140,7 +140,6 @@ namespace DMS.MVVM.ViewModel
             set
             {
                 _SelectedFile = value;
-                Debug.WriteLine("SelectedFileChanged");
                 OnPropertyChanged();
             }
         }
@@ -163,24 +162,16 @@ namespace DMS.MVVM.ViewModel
             ProcessStartInfo psi = new ProcessStartInfo();
             psi.FileName = System.IO.Path.GetFileName(path);
             psi.WorkingDirectory = System.IO.Path.GetDirectoryName(path);
+            psi.ErrorDialog = true;
             try
             {
                 Process.Start(psi);
             }
-            catch (Win32Exception) // kein Standardprogramm vorhanden
+            catch (Win32Exception e)
             {
-                psi.ErrorDialog = true;
-                //psi.Verb = "openas";
-                try
-                {
-                    Process.Start(psi);
-                }
-                catch (Win32Exception e)
-                {
-                    if (e.NativeErrorCode == 1223) // vom Benutzer abgebrochen
-                        return;
-                    else throw;
-                }
+                if (e.NativeErrorCode == 1223) // vom Benutzer abgebrochen
+                    return;
+                else throw;
             }
         }
 
