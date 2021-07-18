@@ -7,11 +7,11 @@
 
 
         <Style.Setters>
-
+            
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">
-
+                                                  
                         <Grid VerticalAlignment="Stretch"
                               HorizontalAlignment="Stretch"
                               Background="{TemplateBinding Background}">
@@ -26,13 +26,19 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-
+            
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
 
         </Style.Setters>
 
         <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="LightGray"/>
+            </Trigger>
             <Trigger Property="IsChecked" Value="True">
                 <!--here we change the background color of the radio button-->
                 <Setter Property="Background" Value="DarkGray"/>

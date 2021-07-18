@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,11 +48,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-
     <Compile Include="FileScanner\FileScanner.cs" />
     <Compile Include="FileScanner\IFileScanner.cs" />
     <Compile Include="ConnectionTest.cs" />
-
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

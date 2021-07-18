@@ -31,13 +31,13 @@ namespace BusinessLogic.FileScanner
             foreach (DriveInfo driveInfo in DriveInfo.GetDrives())
             {
                 Drive drive = new Drive();
-                drive.Name = driveInfo.Name;              
+                drive.Name = driveInfo.Name;
                 drive.Type = driveInfo.DriveType.ToString();
                 try
                 { // nicht benannte oder nicht bereite laufwerke lösen eine exception aus
                     drive.Label = driveInfo.VolumeLabel;
                 }
-                catch(UnauthorizedAccessException)
+                catch (UnauthorizedAccessException)
                 {
                     continue; // Laufwerke auf die nicht Zugegriffen werden kann, werden nicht angezeigt
                 }
@@ -49,6 +49,98 @@ namespace BusinessLogic.FileScanner
             }
 
             DriveScanFinished?.Invoke(drives);
+        }
+
+        /// <summary>
+        /// Fügt der Liste von Directory des <paramref name="drive"/> eine Auflistung 
+        /// von unter ihm liegenden Verzeichnissen hinzu
+        /// Zudem werden alle Dateien auf der Ebende des Laufwerks eingescannt
+        /// </summary>
+        /// <param name="drive">Das Laufwerk, auf dem nach Unterverzeichnissen gesucht wird</param>
+        public void GetDirectories(Drive drive)
+        {
+            string[] directories;
+            try
+            {
+                directories = System.IO.Directory.GetDirectories(drive.Name);
+            }
+            catch (IOException)
+            {
+                return; // wenn das Laufwerk nicht bereit ist
+            }
+            foreach (string dir in directories)
+            {
+                CommonTypes.Directory directory = new CommonTypes.Directory();
+                directory.Name = dir.Substring(dir.LastIndexOf("\\") + 1);
+                directory.Path = dir.Substring(0, dir.Length - directory.Name.Length);
+                if (!drive.Directories.Contains(directory))
+                {
+                    drive.Directories.Add(directory);
+                    foreach (CommonTypes.File file in GetFiles(drive.Name))
+                    {
+                        if (!drive.Files.Contains(file))
+                        {
+                            drive.Files.Add(file);
+                        }
+                    }
+                }
+                GetDirectories(directory);
+            }
+        }
+
+        /// <summary>
+        /// Fügt der Liste von Directory des <paramref name="directory"/> eine Auflistung
+        /// von unter ihm liegende Verzeichnissen hinzu
+        /// Zudem werden alle Dateien auf der Ebende des Verzeichnisses eingescannt
+        /// </summary>
+        /// <param name="directory">Das Verzeichnis, in dem nach Unterverzeichnissen gesucht wird</param>
+        public void GetDirectories(Hierarchical hierachical)
+        {
+            InternalGetDirectories(hierachical);
+            foreach (Hierarchical hierarchical in hierachical.Directories)
+            {
+                InternalGetDirectories(hierarchical);
+            }
+        }
+
+        private void InternalGetDirectories(Hierarchical hierarchical)
+        {
+            string fullPath = hierarchical.Qualifier;
+            if (!fullPath.EndsWith("\\"))
+            {
+                fullPath += "\\";
+            }
+            string[] directories;
+            try
+            {
+                directories = System.IO.Directory.GetDirectories(fullPath);
+            }
+            catch (IOException)
+            {
+                return;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return;
+            }
+            foreach (string dir in directories)
+            {
+                CommonTypes.Directory d = new CommonTypes.Directory();
+                d.Name = dir.Substring(dir.LastIndexOf("\\") + 1);
+                d.Path = dir.Substring(0, dir.Length - d.Name.Length);
+                if (!hierarchical.Directories.Contains(d))
+                {
+                    hierarchical.Directories.Add(d);                    
+                }
+            }
+            foreach (CommonTypes.File file in GetFiles(fullPath))
+            {
+                if (!hierarchical.Files.Contains(file))
+                {
+                    hierarchical.Files.Add(file);
+                }
+            }
+
         }
 
         /// <summary>
@@ -66,8 +158,8 @@ namespace BusinessLogic.FileScanner
 
             if (recursive)
             {
-                foreach (string directory in Directory.GetDirectories(path))
-                { 
+                foreach (string directory in System.IO.Directory.GetDirectories(path))
+                {
                     ScanDirectory(directory, true);
                 }
             }
@@ -83,25 +175,33 @@ namespace BusinessLogic.FileScanner
         private List<CommonTypes.File> GetFiles(string path)
         {
             List<CommonTypes.File> files = new List<CommonTypes.File>();
-            string[] paths = Directory.GetFiles(path);
+            string[] paths;
+            try
+            {
+                paths = System.IO.Directory.GetFiles(path);
+            }
+            catch (IOException e)
+            {
+                return files;
+            }
 
             // nicht in der foreach, da der Iterationsvariable nichts zugewiesen werden kann
-            for(int i = 0; i < paths.Length; ++i)
+            for (int i = 0; i < paths.Length; ++i)
             {
                 paths[i] = paths[i].Replace("\\", "/");
             }
 
             foreach (string filePath in paths)
             {
-                CommonTypes.File file = new CommonTypes.File();                
+                CommonTypes.File file = new CommonTypes.File();
                 file.Path = filePath.Substring(0, filePath.LastIndexOf("/"));
 
                 int lastDS = filePath.LastIndexOf("/") + 1;
 
                 string nameAndType = filePath.Substring(lastDS);
                 // falls der datei kein typ gegeben wurde
-                if(nameAndType.Contains("."))
-                { 
+                if (nameAndType.Contains("."))
+                {
                     int dot = filePath.LastIndexOf(".");
                     file.Name = filePath.Substring(lastDS, dot - lastDS);
                     file.Type = filePath.Substring(dot);
@@ -110,23 +210,27 @@ namespace BusinessLogic.FileScanner
                 {
                     file.Name = filePath.Substring(lastDS);
                     file.Type = string.Empty;
-                }                             
+                }
 
                 file.Created = System.IO.File.GetCreationTime(filePath);
                 file.Modified = System.IO.File.GetLastWriteTime(filePath);
 
-                if (file.Type.Equals(".pdf"))
-                {
-                    file.Content = Encoding.UTF8.GetBytes(_TextExtractor.ExtractPdf(filePath));
-                }
-                else
-                {
-                    file.Content = Encoding.UTF8.GetBytes(_TextExtractor.Extract(filePath));
-                }
-
                 files.Add(file);
             }
             return files;
+        }
+
+        public void ExtractContent(CommonTypes.File file)
+        {
+            string filePath = file.Qualifier;
+            if (file.Type.Equals(".pdf"))
+            {
+                file.Content = Encoding.UTF8.GetBytes(_TextExtractor.ExtractPdf(filePath));
+            }
+            else
+            {
+                file.Content = Encoding.UTF8.GetBytes(_TextExtractor.Extract(filePath));
+            }
         }
     }
 }
