@@ -15,18 +15,24 @@
                                   ItemsSource="{Binding Directories}">
             <TextBlock Text="{Binding Name}"/>
         </HierarchicalDataTemplate>
-        
-        <DataTemplate DataType="{x:Type CommonTypes:File}">
+
+        <HierarchicalDataTemplate DataType="{x:Type CommonTypes:File}"
+                                  ItemsSource="{Binding Files}">
             <TextBlock Text="{Binding NameAndType}"/>
-        </DataTemplate>
+        </HierarchicalDataTemplate>
 
     </UserControl.Resources>
-    
+
     <Grid>
-        <TreeView Name="FileSystemTree"
-                  ItemsSource="{Binding Drives}"
-                  TreeViewItem.Expanded="FileSystemTree_Expanded"
-                  SelectedItemChanged="TreeView_SelectedItemChanged"/>
+        <DockPanel>
+            <TreeView Name="FileSystemTree"
+                      Width="350"
+                      ItemsSource="{Binding Drives}"
+                      TreeViewItem.Expanded="FileSystemTree_Expanded"
+                      SelectedItemChanged="TreeView_SelectedItemChanged"/>
+
+            <ListBox ItemsSource="{Binding Path=SelectedHierarchical.Files}"/>
+        </DockPanel>
     </Grid>
 
 </UserControl>

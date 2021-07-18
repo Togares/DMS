@@ -1,9 +1,12 @@
 ﻿using BusinessLogic.FileScanner;
 using CommonTypes;
 using CommonTypes.Utility;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Management;
+using System.Windows;
 
 namespace DMS.MVVM.ViewModel
 {
@@ -20,9 +23,31 @@ namespace DMS.MVVM.ViewModel
         {
             _FileScanner = fileScanner;
             _FileScanner.DriveScanFinished += DriveScanFinished;
-            _FileScanner.FileScanFinished += FileScanFinished;
             ScanDrives();
+
+            //https://stackoverflow.com/a/19435744
+            // Hier wird auf das Windows-Event reagiert, dass aufeglöst wird, wenn ein Laufwerk hinzugefügt respektive entfernt wird
+            WqlEventQuery insertQuery = new WqlEventQuery("SELECT * FROM __InstanceCreationEvent WITHIN 2 WHERE TargetInstance ISA 'Win32_USBHub'");
+
+            ManagementEventWatcher insertWatcher = new ManagementEventWatcher(insertQuery);
+            insertWatcher.EventArrived += new EventArrivedEventHandler(DeviceInsertedEvent);
+            insertWatcher.Start();
+
+            WqlEventQuery removeQuery = new WqlEventQuery("SELECT * FROM __InstanceDeletionEvent WITHIN 2 WHERE TargetInstance ISA 'Win32_USBHub'");
+            ManagementEventWatcher removeWatcher = new ManagementEventWatcher(removeQuery);
+            removeWatcher.EventArrived += new EventArrivedEventHandler(DeviceRemovedEvent);
+            removeWatcher.Start();
+
         }
+        private void DeviceInsertedEvent(object sender, EventArrivedEventArgs e)
+        {
+            Application.Current.Dispatcher.Invoke(() => ScanDrives());
+        }
+
+        private void DeviceRemovedEvent(object sender, EventArrivedEventArgs e)
+        {
+            Application.Current.Dispatcher.Invoke(() => ScanDrives());
+        }        
 
         public void LoadSubHierarchie(Hierarchical hierachical)
         {
@@ -35,31 +60,6 @@ namespace DMS.MVVM.ViewModel
         public void ScanDrives()
         {
             _FileScanner.ScanDrives();
-        }
-
-        /// <summary>
-        /// Scant unter dem angegebenen Pfad nach Dateien.
-        /// Insofern <paramref name="recursive"/> true ist, werden alle Unterverzeichnisse mitgescannt.
-        /// Ergebnisse landen in Files
-        /// </summary>
-        /// <param name="path">Der Pfad unter dem initial gescannt wird</param>
-        /// <param name="recursive">Angabe ob Rekursiv gesucht werden soll</param>
-        public void ScanFiles(string path, bool recursive)
-        {
-            _FileScanner.ScanDirectory(path, recursive);
-        }
-
-        /// <summary>
-        /// Listener für FileScanFinished des Scanners
-        /// </summary>
-        /// <param name="drives">Liste der gefundenen Dateien</param>
-        private void FileScanFinished(IEnumerable<File> files)
-        {
-            foreach (File file in files)
-            {
-                //currentDrive.Items.Add(file);
-                //Files.Add(file);
-            }
         }
 
         /// <summary>
@@ -76,6 +76,13 @@ namespace DMS.MVVM.ViewModel
                     LoadSubHierarchie(drive);
                 }
             }
+            // Laufwerke, die in der Collection im ViewModel sind, aber nicht beim Scannen nach Laufwerken
+            // gefunden wurden, sind Laufwerke, die entfernt wurden.
+            var removedDrives = Drives.Where(x => !drives.Contains(x)).ToList();
+            foreach (Drive drive1 in removedDrives)
+            {
+                Drives.Remove(drive1);
+            }
         }
 
         #region Properties
@@ -87,6 +94,15 @@ namespace DMS.MVVM.ViewModel
             get { return _Drives; }
             set { _Drives = value; OnPropertyChanged(); }
         }
+
+        private Hierarchical _SelectedHierarchical;
+
+        public Hierarchical SelectedHierarchical
+        {
+            get { return _SelectedHierarchical; }
+            set { _SelectedHierarchical = value; OnPropertyChanged(); }
+        }
+
 
         private Drive _SelectedDrive;
 
