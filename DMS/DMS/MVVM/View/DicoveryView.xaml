@@ -16,10 +16,9 @@
             <TextBlock Text="{Binding Name}"/>
         </HierarchicalDataTemplate>
 
-        <HierarchicalDataTemplate DataType="{x:Type CommonTypes:File}"
-                                  ItemsSource="{Binding Files}">
+        <DataTemplate DataType="{x:Type CommonTypes:File}">
             <TextBlock Text="{Binding NameAndType}"/>
-        </HierarchicalDataTemplate>
+        </DataTemplate>
 
     </UserControl.Resources>
 
