@@ -62,7 +62,7 @@ namespace CommonTypes
         /// <summary>
         /// Bytes
         /// </summary>
-        public int Size => _Content.Length;
+        public int Size => _Content == null ? 0 : _Content.Length;
 
         public string NameAndType => Name + Type;
 

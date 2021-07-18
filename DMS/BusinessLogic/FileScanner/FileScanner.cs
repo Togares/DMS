@@ -89,9 +89,8 @@ namespace BusinessLogic.FileScanner
         }
 
         /// <summary>
-        /// Fügt der Liste von Directory des <paramref name="directory"/> eine Auflistung
+        /// Fügt der Liste von Directory des <paramref name="hierachical"/> eine Auflistung
         /// von unter ihm liegende Verzeichnissen hinzu
-        /// Zudem werden alle Dateien auf der Ebende des Verzeichnisses eingescannt
         /// </summary>
         /// <param name="directory">Das Verzeichnis, in dem nach Unterverzeichnissen gesucht wird</param>
         public void GetDirectories(Hierarchical hierachical)

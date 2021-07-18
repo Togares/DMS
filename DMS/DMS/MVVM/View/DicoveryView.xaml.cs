@@ -16,14 +16,7 @@ namespace DMS.MVVM.View
 
         private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if (e.NewValue.GetType() == typeof(CommonTypes.Drive))
-            {
-                (DataContext as DiscoveryViewModel).SelectedDrive = e.NewValue as CommonTypes.Drive;
-            }
-            else if (e.NewValue.GetType() == typeof(CommonTypes.Directory))
-            {
-                (DataContext as DiscoveryViewModel).SelectedDirectory = e.NewValue as CommonTypes.Directory;
-            }
+            (DataContext as DiscoveryViewModel).SelectedHierarchical = e.NewValue as CommonTypes.Hierarchical;
         }
 
         private void FileSystemTree_Expanded(object sender, RoutedEventArgs e)
