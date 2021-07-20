@@ -224,11 +224,11 @@ namespace BusinessLogic.FileScanner
             string filePath = file.Qualifier;
             if (file.Type.Equals(".pdf"))
             {
-                file.Content = Encoding.UTF8.GetBytes(_TextExtractor.ExtractPdf(filePath));
+                file.Content = _TextExtractor.ExtractPdf(filePath);
             }
             else
             {
-                file.Content = Encoding.UTF8.GetBytes(_TextExtractor.Extract(filePath));
+                file.Content = _TextExtractor.Extract(filePath);
             }
         }
     }

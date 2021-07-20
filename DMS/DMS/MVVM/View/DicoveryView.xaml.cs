@@ -16,12 +16,18 @@ namespace DMS.MVVM.View
 
         private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            (DataContext as DiscoveryViewModel).SelectedHierarchical = e.NewValue as CommonTypes.Hierarchical;
+            if (DataContext != null && DataContext is DiscoveryViewModel)
+            {
+                (DataContext as DiscoveryViewModel).SelectedHierarchical = e.NewValue as CommonTypes.Hierarchical;
+            }
         }
 
         private void FileSystemTree_Expanded(object sender, RoutedEventArgs e)
         {
-            (DataContext as DiscoveryViewModel).LoadSubHierarchie((e.OriginalSource as TreeViewItem).Header as CommonTypes.Hierarchical);
+            if (DataContext != null && DataContext is DiscoveryViewModel)
+            {
+                (DataContext as DiscoveryViewModel).LoadSubHierarchie((e.OriginalSource as TreeViewItem).Header as CommonTypes.Hierarchical);
+            }
         }
     }
 }
