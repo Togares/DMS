@@ -1,4 +1,5 @@
-﻿using BusinessLogic.FileScanner;
+﻿using BusinessLogic;
+using BusinessLogic.FileScanner;
 using CommonTypes;
 using CommonTypes.Utility;
 using System;
@@ -15,6 +16,7 @@ namespace DMS.MVVM.ViewModel
     public class DiscoveryViewModel : Bindable
     {
         private IFileScanner _FileScanner;
+        private Database _Database = new Database();
 
         public DiscoveryViewModel()
         {
@@ -152,9 +154,14 @@ namespace DMS.MVVM.ViewModel
         public RelayCommand<object> OpenCommand => _OpenCommand = _OpenCommand ?? new RelayCommand<object>(x => OpenSelectedFile());
 
         private RelayCommand<object> _SaveCommand;
-        public RelayCommand<object> SaveCommand => _SaveCommand = _SaveCommand ?? new RelayCommand<object>(x => throw new NotImplementedException());
+        public RelayCommand<object> SaveCommand => _SaveCommand = _SaveCommand ?? new RelayCommand<object>(x => SaveSelectedFile());
 
         #endregion Commands
+        private void SaveSelectedFile()
+        {
+            _FileScanner.ExtractContent(SelectedFile);
+            _Database.Save(SelectedFile);
+        }
 
         private void OpenSelectedFile()
         {

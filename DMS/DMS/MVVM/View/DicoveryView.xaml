@@ -36,7 +36,7 @@
                          Height="400"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Width="75" Content="Open" Command="{Binding OpenCommand}" />
-                    <Button Width="75" Margin="5,0,0,0" Content="Save" />
+                    <Button Width="75" Margin="5,0,0,0" Content="Save" Command="{Binding SaveCommand}" />
                 </StackPanel>
             </StackPanel>
         </DockPanel>

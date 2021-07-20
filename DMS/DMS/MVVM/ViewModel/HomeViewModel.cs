@@ -8,6 +8,18 @@ namespace DMS.MVVM.ViewModel
 {
     public class HomeViewModel : Bindable
     {
-        
-    }
+		public HomeViewModel()
+		{
+			
+		}
+
+		private ObservableCollection<File> _Files;
+
+		public ObservableCollection<File> Files
+		{
+			get { return _Files; }
+			set { _Files = value; OnPropertyChanged(); }
+		}
+
+	}
 }
