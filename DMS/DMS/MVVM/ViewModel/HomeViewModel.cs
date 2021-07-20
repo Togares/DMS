@@ -13,7 +13,7 @@ namespace DMS.MVVM.ViewModel
 			
 		}
 
-		private ObservableCollection<File> _Files;
+		private ObservableCollection<File> _Files = new ObservableCollection<File>();
 
 		public ObservableCollection<File> Files
 		{

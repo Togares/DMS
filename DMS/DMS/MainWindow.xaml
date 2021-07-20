@@ -3,8 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Interactions="http://schemas.microsoft.com/expression/2010/interactions"
-        xmlns:Interactivity="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:DMS"
         xmlns:ViewModel="clr-namespace:DMS.MVVM.ViewModel"
         mc:Ignorable="d"
@@ -16,7 +14,7 @@
         WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
-        <ViewModel:MainViewModel/>
+        <ViewModel:MainViewModel />
     </Window.DataContext>
 
     <Border Background="GhostWhite" CornerRadius="10">
@@ -187,11 +185,6 @@
                          Grid.Column="1"                         
                          Text="{Binding Path=SearchText}"
                          Style="{StaticResource ModernTextbox}">
-                    <Interactivity:Interaction.Triggers>
-                        <Interactivity:EventTrigger EventName="TextChanged">
-                            <Interactivity:InvokeCommandAction Command="{Binding SearchCommand}"/>
-                        </Interactivity:EventTrigger>
-                    </Interactivity:Interaction.Triggers>
                 </TextBox>
 
                 <!--this Button we may use as alternative to the search icon if lately-->
@@ -219,7 +212,8 @@
                         Foreground="WhiteSmoke"
                         FontFamily="Arial"
                         FontSize="20"
-                        Content="Go">
+                        Content="Go"
+                        Command="{Binding SearchCommand}">
 
                     <Button.Style>
                         <Style TargetType="Button">

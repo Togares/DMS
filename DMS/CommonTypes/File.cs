@@ -20,9 +20,9 @@ namespace CommonTypes
             set { _ID = value; OnPropertyChanged(); }
         }
 
-        private byte[] _Content;
+        private string _Content;
 
-        public byte[] Content
+        public string Content
         {
             get { return _Content; }
             set { _Content = value; OnPropertyChanged(); }
@@ -69,7 +69,7 @@ namespace CommonTypes
 
         public string Qualifier => Path + "/" + NameAndType;
 
-        public string ContentAsString => Encoding.UTF8.GetString(Content);
+        //public string ContentAsString => Encoding.UTF8.GetString(Content);
 
         public override bool Equals(object obj)
         {
@@ -94,8 +94,8 @@ namespace CommonTypes
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
             hashCode = hashCode * -1521134295 + _ID.GetHashCode();
             hashCode = hashCode * -1521134295 + ID.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<byte[]>.Default.GetHashCode(_Content);
-            hashCode = hashCode * -1521134295 + EqualityComparer<byte[]>.Default.GetHashCode(Content);
+            //hashCode = hashCode * -1521134295 + EqualityComparer<byte[]>.Default.GetHashCode(_Content);
+            //hashCode = hashCode * -1521134295 + EqualityComparer<byte[]>.Default.GetHashCode(Content);
             hashCode = hashCode * -1521134295 + _Created.GetHashCode();
             hashCode = hashCode * -1521134295 + Created.GetHashCode();
             hashCode = hashCode * -1521134295 + _Modified.GetHashCode();

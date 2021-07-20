@@ -10,8 +10,7 @@ namespace DMS.MVVM.ViewModel
 {
     class MainViewModel : Bindable
     {
-        private IFileScanner _FileScanner = new FileScanner();
-        private Database _Database = new Database();
+        private IFileScanner _FileScanner = new FileScanner();        
 
         public MainViewModel()
         {
@@ -71,7 +70,7 @@ namespace DMS.MVVM.ViewModel
         public string SearchText
         {
             get { return _SearchText; }
-            set { _SearchText = value; Debug.WriteLine("SerachText: " + _SearchText); OnPropertyChanged(); }
+            set { _SearchText = value; OnPropertyChanged(); }
         }
 
         /// <summary>
@@ -84,9 +83,11 @@ namespace DMS.MVVM.ViewModel
 
         private void Search()
         {
-            if (SearchText != null)
+            Database database = new Database();
+            if (!string.IsNullOrEmpty(SearchText))
             {
-                foreach (CommonTypes.File file in _Database.Search(SearchText))
+                HomeVM.Files.Clear();
+                foreach (CommonTypes.File file in database.Search(SearchText))
                 {
                     if (!HomeVM.Files.Contains(file))
                     {
