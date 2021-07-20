@@ -34,59 +34,14 @@ namespace DMS.MVVM.ViewModel
             WqlEventQuery insertQuery = new WqlEventQuery("SELECT * FROM __InstanceCreationEvent WITHIN 2 WHERE TargetInstance ISA 'Win32_USBHub'");
 
             ManagementEventWatcher insertWatcher = new ManagementEventWatcher(insertQuery);
-            insertWatcher.EventArrived += new EventArrivedEventHandler(DeviceInsertedEvent);
+            insertWatcher.EventArrived += new EventArrivedEventHandler((sender, evt) => Application.Current.Dispatcher.Invoke(() => ScanDrives()));
             insertWatcher.Start();
 
             WqlEventQuery removeQuery = new WqlEventQuery("SELECT * FROM __InstanceDeletionEvent WITHIN 2 WHERE TargetInstance ISA 'Win32_USBHub'");
             ManagementEventWatcher removeWatcher = new ManagementEventWatcher(removeQuery);
-            removeWatcher.EventArrived += new EventArrivedEventHandler(DeviceRemovedEvent);
+            removeWatcher.EventArrived += new EventArrivedEventHandler((sender, evt) => Application.Current.Dispatcher.Invoke(() => ScanDrives()));
             removeWatcher.Start();
 
-        }
-        private void DeviceInsertedEvent(object sender, EventArrivedEventArgs e)
-        {
-            Application.Current.Dispatcher.Invoke(() => ScanDrives());
-        }
-
-        private void DeviceRemovedEvent(object sender, EventArrivedEventArgs e)
-        {
-            Application.Current.Dispatcher.Invoke(() => ScanDrives());
-        }
-
-        public void LoadSubHierarchie(Hierarchical hierachical)
-        {
-            _FileScanner.GetDirectories(hierachical);
-        }
-
-        /// <summary>
-        /// Scant nach Laufwerken
-        /// </summary>
-        public void ScanDrives()
-        {
-            _FileScanner.ScanDrives();
-        }
-
-        /// <summary>
-        /// Listener für DriveScanFinished des Scanners
-        /// </summary>
-        /// <param name="drives">Liste der gefundenen Laufwerke</param>
-        private void DriveScanFinished(IEnumerable<Drive> drives)
-        {
-            foreach (Drive drive in drives)
-            {
-                if (!Drives.Contains(drive))
-                {
-                    Drives.Add(drive);
-                    LoadSubHierarchie(drive);
-                }
-            }
-            // Laufwerke, die in der Collection im ViewModel sind, aber nicht beim Scannen nach Laufwerken
-            // gefunden wurden, sind Laufwerke, die entfernt wurden.
-            var removedDrives = Drives.Where(x => !drives.Contains(x)).ToList();
-            foreach (Drive drive1 in removedDrives)
-            {
-                Drives.Remove(drive1);
-            }
         }
 
         #region Properties
@@ -154,9 +109,48 @@ namespace DMS.MVVM.ViewModel
         public RelayCommand<object> OpenCommand => _OpenCommand = _OpenCommand ?? new RelayCommand<object>(x => OpenSelectedFile());
 
         private RelayCommand<object> _SaveCommand;
-        public RelayCommand<object> SaveCommand => _SaveCommand = _SaveCommand ?? new RelayCommand<object>(x => SaveSelectedFile());
+        public RelayCommand<object> SaveCommand => _SaveCommand = _SaveCommand ?? new RelayCommand<object>(x => SaveSelectedFile(), x => _Database.IsConnected());
 
         #endregion Commands
+
+        #region Methods
+
+        public void LoadSubHierarchie(Hierarchical hierachical)
+        {
+            _FileScanner.GetDirectories(hierachical);
+        }
+
+        /// <summary>
+        /// Scant nach Laufwerken
+        /// </summary>
+        public void ScanDrives()
+        {
+            _FileScanner.ScanDrives();
+        }
+
+        /// <summary>
+        /// Listener für DriveScanFinished des Scanners
+        /// </summary>
+        /// <param name="drives">Liste der gefundenen Laufwerke</param>
+        private void DriveScanFinished(IEnumerable<Drive> drives)
+        {
+            foreach (Drive drive in drives)
+            {
+                if (!Drives.Contains(drive))
+                {
+                    Drives.Add(drive);
+                    LoadSubHierarchie(drive);
+                }
+            }
+            // Laufwerke, die in der Collection im ViewModel sind, aber nicht beim Scannen nach Laufwerken
+            // gefunden wurden, sind Laufwerke, die entfernt wurden.
+            var removedDrives = Drives.Where(x => !drives.Contains(x)).ToList();
+            foreach (Drive drive1 in removedDrives)
+            {
+                Drives.Remove(drive1);
+            }
+        }
+
         private void SaveSelectedFile()
         {
             _FileScanner.ExtractContent(SelectedFile);
@@ -181,6 +175,8 @@ namespace DMS.MVVM.ViewModel
                 else throw;
             }
         }
+
+        #endregion Methods
 
     }
 }

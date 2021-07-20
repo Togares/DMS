@@ -12,6 +12,11 @@ namespace BusinessLogic
             Connection.Get().Connect();
         }
 
+        public bool IsConnected()
+        {
+            return Connection.Get().IsConnected;
+        }
+
         public IEnumerable<File> Search(string search)
         {
             return Connection.Get().Search(search);

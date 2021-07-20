@@ -4,13 +4,13 @@ using System.Windows;
 using System.Windows.Input;
 using BusinessLogic;
 using BusinessLogic.FileScanner;
-using System;
 
 namespace DMS.MVVM.ViewModel
 {
     class MainViewModel : Bindable
     {
-        private IFileScanner _FileScanner = new FileScanner();        
+        private IFileScanner _FileScanner = new FileScanner();
+        private Database _Database = new Database();
 
         public MainViewModel()
         {
@@ -44,11 +44,11 @@ namespace DMS.MVVM.ViewModel
         public ICommand OpenLinkCommand => this.openLinkCommand = this.openLinkCommand ?? new RelayCommand<object>(c => OpenLink());
 
         private RelayCommand<object> _SearchCommand;
-        public RelayCommand<object> SearchCommand => _SearchCommand = _SearchCommand ?? new RelayCommand<object>(x => Search());
+        public RelayCommand<object> SearchCommand => _SearchCommand = _SearchCommand ?? new RelayCommand<object>(x => Search(), x => _Database.IsConnected());
 
         #endregion Commands
 
-
+        #region Properties
 
         public HomeViewModel HomeVM { get; set; }
         public DiscoveryViewModel DicoveryVM { get; set; }
@@ -73,6 +73,10 @@ namespace DMS.MVVM.ViewModel
             set { _SearchText = value; OnPropertyChanged(); }
         }
 
+        #endregion Properties
+
+        #region Methods
+
         /// <summary>
         /// opens repository with this project
         /// </summary>
@@ -83,11 +87,10 @@ namespace DMS.MVVM.ViewModel
 
         private void Search()
         {
-            Database database = new Database();
             if (!string.IsNullOrEmpty(SearchText))
             {
                 HomeVM.Files.Clear();
-                foreach (CommonTypes.File file in database.Search(SearchText))
+                foreach (CommonTypes.File file in _Database.Search(SearchText))
                 {
                     if (!HomeVM.Files.Contains(file))
                     {
@@ -97,6 +100,8 @@ namespace DMS.MVVM.ViewModel
                 CurrentView = HomeVM;
             }
         }
+
+        #endregion Methods
 
     }
 }
