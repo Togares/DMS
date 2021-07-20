@@ -50,7 +50,7 @@
   <ItemGroup>
     <Compile Include="FileScanner\FileScanner.cs" />
     <Compile Include="FileScanner\IFileScanner.cs" />
-    <Compile Include="ConnectionTest.cs" />
+    <Compile Include="Database.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

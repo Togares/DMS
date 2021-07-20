@@ -1,5 +1,11 @@
-﻿using Npgsql;
+﻿using CommonTypes;
+using DataAccess.DatabaseContext;
+using Npgsql;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
 
 namespace DataAccess
 {
@@ -77,6 +83,36 @@ namespace DataAccess
         internal NpgsqlConnection GetConnection()
         {
             return _Connection;
+        }
+
+        public IEnumerable<File> Search(string filter)
+        {
+            IEnumerable<File> result = null;
+            using (FileContext context = new FileContext(Get(), false))
+            {
+                const string paramName = "@filter";
+                const string tableName = "\"file\"";
+                //  {tableName}.id, {tableName}.content, {tableName}.created, {tableName}.modified, {tableName}.name, {tableName}.path, {tableName}.type, 
+                //var x = context.Files.SqlQuery(
+                //    $"SELECT to_tsvector('{paramName}')",
+                //    new NpgsqlParameter(paramName, filter)).ToList();
+
+                //var x = context.Files.SqlQuery(
+                //    $"SELECT * FROM {tableName} WHERE id = 12",
+                //    new NpgsqlParameter(paramName, filter)).ToList();
+
+                
+            }
+            return result;
+        }
+
+        public void Save(File file)
+        {
+            using (FileContext context = new FileContext(Get(), false))
+            {
+                context.Files.Add(file);
+                context.SaveChanges();
+            }
         }
     }
 }
