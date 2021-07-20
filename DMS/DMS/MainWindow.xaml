@@ -183,8 +183,22 @@
                          HorizontalAlignment="Left"
                          Margin="5"
                          Grid.Column="1"                         
-                         Text="{Binding Path=SearchText}"
-                         Style="{StaticResource ModernTextbox}">
+                         Text="{Binding Path=SearchText}">
+                    <!--<TextBox.Style>
+                        <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="TextBox" >
+                                        <Border CornerRadius="3"
+                                                Background="DarkGray">
+                                            <ContentPresenter />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>                            
+                            
+                        </Style>
+                    </TextBox.Style>-->
                 </TextBox>
 
                 <!--this Button we may use as alternative to the search icon if lately-->
@@ -213,7 +227,7 @@
                         FontFamily="Arial"
                         FontSize="20"
                         Content="Go"
-                        Command="{Binding SearchCommand}">
+                        Command="{Binding Path=SearchCommand}">
 
                     <Button.Style>
                         <Style TargetType="Button">

@@ -17,7 +17,7 @@
 
                             <Rectangle StrokeThickness="1"/>
 
-                            <TextBox Margin="1"
+                            <!--<TextBox Margin="1"
                                      Text="{TemplateBinding Text}"
                                      BorderThickness="0"
                                      Background="Transparent"
@@ -25,7 +25,7 @@
                                      Padding="5"
                                      x:Name="SearchBox"
                                      FontSize="16"
-                                     FontFamily="/Fonts/#Poppins"/>
+                                     FontFamily="/Fonts/#Poppins"/>-->
                             
                             <Image HorizontalAlignment="Right"
                                    Source="/Images/icons8-search-30.png"

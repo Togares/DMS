@@ -3,6 +3,7 @@ using DataAccess.DatabaseContext;
 using Npgsql;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -90,18 +91,7 @@ namespace DataAccess
             IEnumerable<File> result = null;
             using (FileContext context = new FileContext(Get(), false))
             {
-                const string paramName = "@filter";
-                const string tableName = "\"file\"";
-                //  {tableName}.id, {tableName}.content, {tableName}.created, {tableName}.modified, {tableName}.name, {tableName}.path, {tableName}.type, 
-                //var x = context.Files.SqlQuery(
-                //    $"SELECT to_tsvector('{paramName}')",
-                //    new NpgsqlParameter(paramName, filter)).ToList();
-
-                //var x = context.Files.SqlQuery(
-                //    $"SELECT * FROM {tableName} WHERE id = 12",
-                //    new NpgsqlParameter(paramName, filter)).ToList();
-
-                
+                result = context.Files.Where(x => NpgsqlTextFunctions.Match(NpgsqlTextFunctions.ToTsVector(x.Content), NpgsqlTextFunctions.PlainToTsQuery(filter))).ToList();
             }
             return result;
         }
