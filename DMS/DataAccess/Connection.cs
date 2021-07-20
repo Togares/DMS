@@ -67,7 +67,15 @@ namespace DataAccess
                 builder.Port = port;
                 builder.Host = host;
                 _Connection.ConnectionString = builder.ConnectionString;
-                _Connection.Open();
+                try
+                {
+                    _Connection.Open();
+                }
+                catch (System.Net.Sockets.SocketException)
+                {
+                    IsConnected = false;
+                    return;
+                }
                 IsConnected = true;
             }
         }
