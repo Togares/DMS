@@ -10,7 +10,6 @@ namespace DMS.MVVM.ViewModel
     class MainViewModel : Bindable
     {
         private IFileScanner _FileScanner = new FileScanner();
-        private Database _Database = new Database();
 
         public MainViewModel()
         {
@@ -44,12 +43,13 @@ namespace DMS.MVVM.ViewModel
         public ICommand OpenLinkCommand => this.openLinkCommand = this.openLinkCommand ?? new RelayCommand<object>(c => OpenLink());
 
         private RelayCommand<object> _SearchCommand;
-        public RelayCommand<object> SearchCommand => _SearchCommand = _SearchCommand ?? new RelayCommand<object>(x => Search(), x => _Database.IsConnected());
+        public RelayCommand<object> SearchCommand => _SearchCommand = _SearchCommand ?? new RelayCommand<object>(x => Search(), x => Database.HasConnection);
 
         #endregion Commands
 
         #region Properties
 
+        public Database Database { get; } = new Database();
         public HomeViewModel HomeVM { get; set; }
         public DiscoveryViewModel DicoveryVM { get; set; }
 
@@ -90,7 +90,7 @@ namespace DMS.MVVM.ViewModel
             if (!string.IsNullOrEmpty(SearchText))
             {
                 HomeVM.Files.Clear();
-                foreach (CommonTypes.File file in _Database.Search(SearchText))
+                foreach (CommonTypes.File file in Database.Search(SearchText))
                 {
                     if (!HomeVM.Files.Contains(file))
                     {

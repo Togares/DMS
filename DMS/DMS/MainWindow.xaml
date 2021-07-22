@@ -29,7 +29,7 @@
                 <RowDefinition Height="75"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            
+
             <!--
                 Bar at the top 
                 Used for moving, closing, maximizing the window etc.
@@ -41,8 +41,26 @@
                     Width="920"
                     Background="DarkGray"
                     MouseMove="Border_MouseMove">
-                
-                <Button x:Name="CloseButton"
+
+                <DockPanel>                   
+                    <TextBlock Margin="10,0,0,0" Padding="0" VerticalAlignment="Center" FontFamily="/Fonts/#Poppins">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=Database.HasConnection}" Value="True">
+                                        <Setter Property="Text" Value="Connected"/>
+                                        <Setter Property="Foreground" Value="Green"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=Database.HasConnection}" Value="False">                                        
+                                        <Setter Property="Text" Value="Disconnected"/>
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <Button x:Name="CloseButton"
                         HorizontalAlignment="Right"
                         Height="20"
                         Width="20"
@@ -51,43 +69,44 @@
                         Command="{Binding CloseCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
 
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background">
-                                <Setter.Value>
-                                    <ImageBrush ImageSource="/Images/close1.png"/>
-                                </Setter.Value>
-                            </Setter>
-                            <Setter Property="Button.Effect">
-                                <Setter.Value>
-                                    <DropShadowEffect Color="DarkGray" Direction="30"
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/Images/close1.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Button.Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="DarkGray" Direction="30"
                                                               ShadowDepth="2" BlurRadius="15"
                                                               Opacity="0.7"/>
-                                </Setter.Value>
-                            </Setter>
-                            <!--<Setter Property="Cursor" Value="Hand"/>-->
+                                    </Setter.Value>
+                                </Setter>
+                                <!--<Setter Property="Cursor" Value="Hand"/>-->
 
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background">
-                                        <Setter.Value>
-                                            <ImageBrush ImageSource="/Images/close.png"
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background">
+                                            <Setter.Value>
+                                                <ImageBrush ImageSource="/Images/close.png"
                                                             Stretch="UniformToFill"/>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
 
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="13" Height="13"
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="13" Height="13"
                                     Background="{TemplateBinding Background}">
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </DockPanel>
             </Border>
 
             <StackPanel Orientation="Horizontal"
@@ -164,7 +183,7 @@
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding HomeViewCommand}">
                 </RadioButton>
-                
+
                 <!--<RadioButton Content="Featured"
                              Height="50"
                              Foreground="White"
@@ -274,7 +293,7 @@
                     </Button.Template>
 
                 </Button>
-              
+
             </StackPanel>
 
             <ContentControl Grid.Row="1"

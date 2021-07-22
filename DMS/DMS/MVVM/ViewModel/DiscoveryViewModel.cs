@@ -109,7 +109,7 @@ namespace DMS.MVVM.ViewModel
         public RelayCommand<object> OpenCommand => _OpenCommand = _OpenCommand ?? new RelayCommand<object>(x => OpenSelectedFile());
 
         private RelayCommand<object> _SaveCommand;
-        public RelayCommand<object> SaveCommand => _SaveCommand = _SaveCommand ?? new RelayCommand<object>(x => SaveSelectedFile(), x => _Database.IsConnected());
+        public RelayCommand<object> SaveCommand => _SaveCommand = _SaveCommand ?? new RelayCommand<object>(x => SaveSelectedFile(), x => _Database.HasConnection);
 
         #endregion Commands
 
