@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -73,6 +74,7 @@ namespace DataAccess
                 }
                 catch (System.Net.Sockets.SocketException)
                 {
+                    Debug.WriteLine("SocketException upon connection to the database");
                     IsConnected = false;
                     return;
                 }
