@@ -42,7 +42,7 @@
                     Background="DarkGray"
                     MouseMove="Border_MouseMove">
 
-                <DockPanel>                   
+                <DockPanel>
                     <TextBlock Margin="10,0,0,0" Padding="0" VerticalAlignment="Center" FontFamily="/Fonts/#Poppins">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
@@ -51,7 +51,7 @@
                                         <Setter Property="Text" Value="Connected"/>
                                         <Setter Property="Foreground" Value="Green"/>
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path=Database.HasConnection}" Value="False">                                        
+                                    <DataTrigger Binding="{Binding Path=Database.HasConnection}" Value="False">
                                         <Setter Property="Text" Value="Disconnected"/>
                                         <Setter Property="Foreground" Value="Red"/>
                                     </DataTrigger>
@@ -196,29 +196,26 @@
                         Orientation="Horizontal"
                         Margin="0,20,0,0">
 
-                <TextBox Width="280"
-                         Height="40"
-                         VerticalAlignment="Center"
-                         HorizontalAlignment="Left"
-                         Margin="5"
-                         Grid.Column="1"                         
-                         Text="{Binding Path=SearchText}">
-                    <!--<TextBox.Style>
-                        <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="TextBox" >
-                                        <Border CornerRadius="3"
-                                                Background="DarkGray">
-                                            <ContentPresenter />
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>                            
-                            
-                        </Style>
-                    </TextBox.Style>-->
-                </TextBox>
+                <!--
+                x:Name muss "SearchBox" sein, damit der Style des TextBlocks greift
+                -->
+                <StackPanel VerticalAlignment="Center">
+                    <TextBox Width="280"
+                             Height="40"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Left"
+                             Margin="5" Padding="0"
+                             Grid.Column="1"
+                             Background="DarkGray"
+                             x:Name="SearchBox"
+                             Style="{StaticResource ModernTextbox}"
+                             VerticalContentAlignment="Center"
+                             Foreground="White"
+                             FontSize="16"
+                             Text="{Binding Path=SearchText}"/>
+                    <TextBlock Margin="10,-50,0,0"
+                               Style="{StaticResource PlaceholderStyle}"/>
+                </StackPanel>
 
                 <!--this Button we may use as alternative to the search icon if lately-->
                 <!--to decide to implement some logic to clear the Searbox from entries-->
