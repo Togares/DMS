@@ -7,68 +7,51 @@
         <Setter Property="Template">
 
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type TextBox}">
-
-                    <Border CornerRadius="5"
-                            Background="DarkGray"
-                            Width="260" Height="35">
-
+                <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True"
+                            CornerRadius="5">
                         <Grid>
-
-                            <Rectangle StrokeThickness="1"/>
-
-                            <!--<TextBox Margin="1"
-                                     Text="{TemplateBinding Text}"
-                                     BorderThickness="0"
-                                     Background="Transparent"
-                                     VerticalAlignment="Center"
-                                     Padding="5"
-                                     x:Name="SearchBox"
-                                     FontSize="16"
-                                     FontFamily="/Fonts/#Poppins"/>-->
-                            
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
                             <Image HorizontalAlignment="Right"
                                    Source="/Images/icons8-search-30.png"
                                    Height="25"
-                                   Margin="0,1,4,0"/>
-
-
-                            <TextBlock IsHitTestVisible="False"
-                                       Text="Search"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Left"
-                                       Margin="8,0,0,0"
-                                       FontSize="14"
-                                       FontFamily="/Fonts/#Poppins"
-                                       Foreground="LightGray"
-                                       Grid.Column="1">
-
-                                <TextBlock.Style>
-                                    <Style TargetType="{x:Type TextBlock}">
-
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-
-                                        <Setter Property="Visibility" Value="Hidden"/>
-
-                                    </Style>
-                                </TextBlock.Style>
-
-                            </TextBlock>
-
+                                   Margin="0,1,4,0"
+                                   IsHitTestVisible="False"/>
                         </Grid>
-
                     </Border>
-
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" TargetName="border" Value="#FF454545"/>
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter Property="BorderBrush" TargetName="border" Value="#FF454545"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
 
             </Setter.Value>
 
         </Setter>
 
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="PlaceholderStyle">
+        <Setter Property="IsHitTestVisible" Value="False"/>
+        <Setter Property="Text" Value="Search"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="/Fonts/#Poppins"/>
+        <Setter Property="Foreground" Value="LightGray"/>
+        <Setter Property="Visibility" Value="Hidden"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>
