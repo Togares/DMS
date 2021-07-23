@@ -30,7 +30,7 @@
 
                 <DataGrid Style="{StaticResource DataGridTheme}"
                           AutoGenerateColumns="False"
-                          ItemsSource="{Binding Files}">
+                          ItemsSource="{Binding LoadedFiles}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
                         <DataGridTextColumn Header="Typ" Binding="{Binding Path=Type}"/>
@@ -39,7 +39,7 @@
                         <DataGridTemplateColumn Header="Open file...">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Command="{Binding ClickCommand}" Content="Klick to view the file"/>
+                                    <Button Command="{Binding OpenCommand}" Content="Klick to view the file"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

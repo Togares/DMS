@@ -90,6 +90,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MVVM\FileViewModel\FileViewOpenerModel.cs" />
     <Compile Include="MVVM\ICloseable.cs" />
     <Compile Include="MVVM\ViewModel\DiscoveryViewModel.cs" />
     <Compile Include="MVVM\ViewModel\HomeViewModel.cs" />
