@@ -89,12 +89,12 @@ namespace DMS.MVVM.ViewModel
         {
             if (!string.IsNullOrEmpty(SearchText))
             {
-                HomeVM.Files.Clear();
+                HomeVM.LoadedFiles.Clear();
                 foreach (CommonTypes.File file in Database.Search(SearchText))
                 {
-                    if (!HomeVM.Files.Contains(file))
+                    if (!HomeVM.LoadedFiles.Contains(file))
                     {
-                        HomeVM.Files.Add(file);
+                        HomeVM.LoadedFiles.Add(file);
                     }
                 }
                 CurrentView = HomeVM;
