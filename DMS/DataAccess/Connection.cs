@@ -28,7 +28,7 @@ namespace DataAccess
 
         private Connection()
         {
-            _Connection = new NpgsqlConnection();
+            
         }
 
         public static Connection Get()
@@ -56,12 +56,19 @@ namespace DataAccess
 
         #endregion Config
 
+        /// <summary>
+        /// Gibt an, ob eine Datenbankverbindung besteht
+        /// </summary>
         public bool IsConnected { get; set; } = false;
 
+        /// <summary>
+        /// Stellt die Verbindung mit der Datenbank her
+        /// </summary>
         public void Connect()
         {
             if (!IsConnected)
             {
+                _Connection = new NpgsqlConnection();
                 NpgsqlConnectionStringBuilder builder = new NpgsqlConnectionStringBuilder();
                 builder.Username = user;
                 builder.Password = password;
@@ -83,68 +90,86 @@ namespace DataAccess
             }
         }
 
+        /// <summary>
+        /// Trennt die Verbindung zur Datenbank
+        /// </summary>
         public void Disconnect()
         {
             if (IsConnected)
             {
                 _Connection.Close();
+                _Connection.Dispose();
                 IsConnected = false;
             }
         }
 
+        /// <summary>
+        /// Gibt die unterliegende Verbindung zurück.
+        /// Wird für FileContext benötigt (s. FileContext und ContextBase Konstruktor)
+        /// </summary>
         internal NpgsqlConnection GetConnection()
         {
             return _Connection;
         }
 
+        /// <summary>
+        /// Volltextsuche in der Datenbank, vergleich auf Content 
+        /// </summary>
+        /// <param name="filter">Der Text, nachdem die Datenbank durchsucht wird</param>
+        /// <returns>Eine Auflistung von Dateien, welche den gesuchten Text enthalten</returns>
         public IEnumerable<File> Search(string filter)
         {
             IEnumerable<File> result = null;
-            FileContext context = new FileContext(Get(), false);
-            result = context.Files.Where(x => NpgsqlTextFunctions.Match(NpgsqlTextFunctions.ToTsVector(x.Content), NpgsqlTextFunctions.PlainToTsQuery(filter))).ToList();
-            context.Dispose();
+            using (FileContext context = new FileContext(Get(), false))
+            {
+                result = context.Files.Where(x => NpgsqlTextFunctions.Match(NpgsqlTextFunctions.ToTsVector(x.Content), NpgsqlTextFunctions.PlainToTsQuery(filter))).ToList();
+            }
             return result;
         }
 
+        /// <summary>
+        /// Speichert ein File in der Datenbank
+        /// </summary>
+        /// <param name="file">Das File, welches gespeichert wird</param>
         public void Save(File file)
         {
-            FileContext context = new FileContext(Get(), false);
-
-            File existing = null;
-            var files = context.Files.Where(x =>
-                    x.Modified.Equals(file.Modified) &&
-                    x.Created.Equals(file.Created) &&
-                    x.Content.Equals(file.Content) &&
-                    x.Name.Equals(file.Name) &&
-                    x.Path.Equals(file.Path) &&
-                    x.Type.Equals(file.Type)).ToList();
-
-            if (files.Count > 0)
+            using (FileContext context = new FileContext(Get(), false))
             {
-                existing = files[0];
+                File existing = null;
+                var files = context.Files.Where(x =>
+                        x.Modified.Equals(file.Modified) &&
+                        x.Created.Equals(file.Created) &&
+                        x.Content.Equals(file.Content) &&
+                        x.Name.Equals(file.Name) &&
+                        x.Path.Equals(file.Path) &&
+                        x.Type.Equals(file.Type)).ToList();
 
-                context.Entry(existing).State = EntityState.Modified;
-                context.Entry(existing).Entity.Created = file.Created;
-                context.Entry(existing).Entity.Modified = file.Modified;
-                context.Entry(existing).Entity.Content = file.Content;
-                context.Entry(existing).Entity.Name = file.Name;
-                context.Entry(existing).Entity.Path = file.Path;
-                context.Entry(existing).Entity.Type = file.Type;
-            }
-            else
-            {
-                context.Files.Add(file);
-            }
+                if (files.Count > 0)
+                {
+                    existing = files[0];
 
-            try
-            {
-                context.SaveChanges();
+                    context.Entry(existing).State = EntityState.Modified;
+                    context.Entry(existing).Entity.Created = file.Created;
+                    context.Entry(existing).Entity.Modified = file.Modified;
+                    context.Entry(existing).Entity.Content = file.Content;
+                    context.Entry(existing).Entity.Name = file.Name;
+                    context.Entry(existing).Entity.Path = file.Path;
+                    context.Entry(existing).Entity.Type = file.Type;
+                }
+                else
+                {
+                    context.Files.Add(file);
+                }
+
+                try
+                {
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("SaveChanges Error: " + e.Message);
+                }
             }
-            catch (Exception e)
-            {
-                Debug.WriteLine("SaveChanges Error: " + e.Message);
-            }
-            context.Dispose();
         }
     }
 }
