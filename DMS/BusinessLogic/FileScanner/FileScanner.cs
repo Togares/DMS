@@ -5,6 +5,8 @@ using System.IO;
 using Visualis.Extractor;
 using System.Text;
 using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace BusinessLogic.FileScanner
 {
@@ -24,31 +26,34 @@ namespace BusinessLogic.FileScanner
         /// Scant alle Laufwerke des Rechners und Baut CommonTypes.Drive Objekte entsprechend auf.
         /// Nachdem der Vorgang beendet ist, wird DriveScanFinished ausgelöst.
         /// </summary>
-        public void ScanDrives()
+        public async void ScanDrives()
         {
-            List<Drive> drives = new List<Drive>();
-
-            foreach (DriveInfo driveInfo in DriveInfo.GetDrives())
+            await Task.Run(() =>
             {
-                Drive drive = new Drive();
-                drive.Name = driveInfo.Name;
-                drive.Type = driveInfo.DriveType.ToString();
-                try
-                { // nicht benannte oder nicht bereite laufwerke lösen eine exception aus
-                    drive.Label = driveInfo.VolumeLabel;
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    continue; // Laufwerke auf die nicht Zugegriffen werden kann, werden nicht angezeigt
-                }
-                catch (IOException)
-                {
-                    drive.Label = string.Empty;
-                }
-                drives.Add(drive);
-            }
+                List<Drive> drives = new List<Drive>();
 
-            DriveScanFinished?.Invoke(drives);
+                foreach (DriveInfo driveInfo in DriveInfo.GetDrives())
+                {
+                    Drive drive = new Drive();
+                    drive.Name = driveInfo.Name;
+                    drive.Type = driveInfo.DriveType.ToString();
+                    try
+                    { // nicht benannte oder nicht bereite laufwerke lösen eine exception aus
+                        drive.Label = driveInfo.VolumeLabel;
+                    }
+                    catch (UnauthorizedAccessException)
+                    {
+                        continue; // Laufwerke auf die nicht Zugegriffen werden kann, werden nicht angezeigt
+                    }
+                    catch (IOException)
+                    {
+                        drive.Label = string.Empty;
+                    }
+                    drives.Add(drive);
+                }
+
+                DriveScanFinished?.Invoke(drives);
+            });
         }
 
         /// <summary>
@@ -124,12 +129,21 @@ namespace BusinessLogic.FileScanner
             }
             foreach (string dir in directories)
             {
+                DirectoryInfo info = new DirectoryInfo(dir);
+
+                // Versteckte Verzeichnisse werden nicht angezeigt
+                if (info.Attributes.HasFlag(FileAttributes.Hidden))
+                {
+                    continue;
+                }
+
                 CommonTypes.Directory d = new CommonTypes.Directory();
-                d.Name = dir.Substring(dir.LastIndexOf("\\") + 1);
+
+                d.Name = info.Name;//dir.Substring(dir.LastIndexOf("\\") + 1);
                 d.Path = dir.Substring(0, dir.Length - d.Name.Length);
                 if (!hierarchical.Directories.Contains(d))
                 {
-                    hierarchical.Directories.Add(d);                    
+                    hierarchical.Directories.Add(d);
                 }
             }
             foreach (CommonTypes.File file in GetFiles(fullPath))
@@ -149,21 +163,24 @@ namespace BusinessLogic.FileScanner
         /// </summary>
         /// <param name="path">Das Verzeichnis, Vollqualifiziert</param>
         /// <param name="recursive">Angabe, ob rekursiv gescannt wird</param>
-        public void ScanDirectory(string path, bool recursive)
+        public async void ScanDirectory(string path, bool recursive)
         {
-            List<CommonTypes.File> files = new List<CommonTypes.File>();
-
-            files.AddRange(GetFiles(path));
-
-            if (recursive)
+            await Task.Run(() =>
             {
-                foreach (string directory in System.IO.Directory.GetDirectories(path))
-                {
-                    ScanDirectory(directory, true);
-                }
-            }
+                List<CommonTypes.File> files = new List<CommonTypes.File>();
 
-            FileScanFinished?.Invoke(files);
+                files.AddRange(GetFiles(path));
+
+                if (recursive)
+                {
+                    foreach (string directory in System.IO.Directory.GetDirectories(path))
+                    {
+                        ScanDirectory(directory, true);
+                    }
+                }
+
+                FileScanFinished?.Invoke(files);
+            });
         }
 
         /// <summary>
