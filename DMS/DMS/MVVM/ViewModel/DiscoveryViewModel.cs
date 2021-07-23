@@ -3,6 +3,7 @@ using BusinessLogic.FileOpener;
 using BusinessLogic.FileScanner;
 using CommonTypes;
 using CommonTypes.Utility;
+using DMS.MVVM.FileViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,7 +15,7 @@ using System.Windows;
 
 namespace DMS.MVVM.ViewModel
 {
-    public class DiscoveryViewModel : Bindable
+    public class DiscoveryViewModel : FileViewOpenerModel
     {
         private IFileScanner _FileScanner;
         private Database _Database = new Database();
@@ -63,24 +64,9 @@ namespace DMS.MVVM.ViewModel
             set { _SelectedHierarchical = value; OnPropertyChanged(); }
         }
 
-        private File _SelectedFile;
-
-        public File SelectedFile
-        {
-            get { return _SelectedFile; }
-            set
-            {
-                _SelectedFile = value;
-                OnPropertyChanged();
-            }
-        }
-
         #endregion Properties
 
         #region Commands
-
-        private RelayCommand<object> _OpenCommand;
-        public RelayCommand<object> OpenCommand => _OpenCommand = _OpenCommand ?? new RelayCommand<object>(x => FileOpener.OpenFile(SelectedFile), x => SelectedFile != null);
 
         private RelayCommand<object> _SaveCommand;
         public RelayCommand<object> SaveCommand => _SaveCommand = _SaveCommand ?? new RelayCommand<object>(x => SaveSelectedFile(), x => _Database.HasConnection && _SelectedFile != null);
