@@ -48,6 +48,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileOpener\FileOpener.cs" />
     <Compile Include="FileScanner\FileScanner.cs" />
     <Compile Include="FileScanner\IFileScanner.cs" />
     <Compile Include="Database.cs" />

@@ -1,4 +1,5 @@
 ﻿using BusinessLogic;
+using BusinessLogic.FileOpener;
 using BusinessLogic.FileScanner;
 using CommonTypes;
 using CommonTypes.Utility;
@@ -106,7 +107,7 @@ namespace DMS.MVVM.ViewModel
         #region Commands
 
         private RelayCommand<object> _OpenCommand;
-        public RelayCommand<object> OpenCommand => _OpenCommand = _OpenCommand ?? new RelayCommand<object>(x => OpenSelectedFile());
+        public RelayCommand<object> OpenCommand => _OpenCommand = _OpenCommand ?? new RelayCommand<object>(x => FileOpener.OpenFile(SelectedFile));
 
         private RelayCommand<object> _SaveCommand;
         public RelayCommand<object> SaveCommand => _SaveCommand = _SaveCommand ?? new RelayCommand<object>(x => SaveSelectedFile(), x => _Database.HasConnection);
@@ -155,25 +156,6 @@ namespace DMS.MVVM.ViewModel
         {
             _FileScanner.ExtractContent(SelectedFile);
             _Database.Save(SelectedFile);
-        }
-
-        private void OpenSelectedFile()
-        {
-            string path = @SelectedFile.Qualifier;
-            ProcessStartInfo psi = new ProcessStartInfo();
-            psi.FileName = System.IO.Path.GetFileName(path);
-            psi.WorkingDirectory = System.IO.Path.GetDirectoryName(path);
-            psi.ErrorDialog = true;
-            try
-            {
-                Process.Start(psi);
-            }
-            catch (Win32Exception e)
-            {
-                if (e.NativeErrorCode == 1223) // vom Benutzer abgebrochen
-                    return;
-                else throw;
-            }
         }
 
         #endregion Methods

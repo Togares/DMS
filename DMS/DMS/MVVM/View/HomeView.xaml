@@ -30,12 +30,19 @@
 
                 <DataGrid Style="{StaticResource DataGridTheme}"
                           AutoGenerateColumns="False"
-                          ItemsSource="{Binding Files}">
+                          ItemsSource="{Binding Files}" SelectionChanged="DataGrid_SelectionChanged">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
                         <DataGridTextColumn Header="Typ" Binding="{Binding Path=Type}"/>
                         <DataGridTextColumn Header="Path" Binding="{Binding Path=Path}"/>
                         <DataGridTextColumn Header="Date modified" Binding="{Binding Path=Modified}"/>
+                        <DataGridTemplateColumn Header="Open file...">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Command="{Binding ClickCommand}" Content="Klick to view the file"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
 
