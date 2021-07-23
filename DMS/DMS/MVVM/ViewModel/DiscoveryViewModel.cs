@@ -63,31 +63,31 @@ namespace DMS.MVVM.ViewModel
         }
 
 
-        private Drive _SelectedDrive;
+        //private Drive _SelectedDrive;
 
-        public Drive SelectedDrive
-        {
-            get { return _SelectedDrive; }
-            set
-            {
-                _SelectedDrive = value;
-                _FileScanner.GetDirectories(_SelectedDrive);
-                OnPropertyChanged();
-            }
-        }
+        //public Drive SelectedDrive
+        //{
+        //    get { return _SelectedDrive; }
+        //    set
+        //    {
+        //        _SelectedDrive = value;
+        //        _FileScanner.GetDirectories(_SelectedDrive);
+        //        OnPropertyChanged();
+        //    }
+        //}
 
-        private Directory _SelectedDirectory;
+        //private Directory _SelectedDirectory;
 
-        public Directory SelectedDirectory
-        {
-            get { return _SelectedDirectory; }
-            set
-            {
-                _SelectedDirectory = value;
-                _FileScanner.GetDirectories(_SelectedDirectory);
-                OnPropertyChanged();
-            }
-        }
+        //public Directory SelectedDirectory
+        //{
+        //    get { return _SelectedDirectory; }
+        //    set
+        //    {
+        //        _SelectedDirectory = value;
+        //        _FileScanner.GetDirectories(_SelectedDirectory);
+        //        OnPropertyChanged();
+        //    }
+        //}
 
         private File _SelectedFile;
 
@@ -106,10 +106,10 @@ namespace DMS.MVVM.ViewModel
         #region Commands
 
         private RelayCommand<object> _OpenCommand;
-        public RelayCommand<object> OpenCommand => _OpenCommand = _OpenCommand ?? new RelayCommand<object>(x => OpenSelectedFile());
+        public RelayCommand<object> OpenCommand => _OpenCommand = _OpenCommand ?? new RelayCommand<object>(x => OpenSelectedFile(), x => SelectedFile != null);
 
         private RelayCommand<object> _SaveCommand;
-        public RelayCommand<object> SaveCommand => _SaveCommand = _SaveCommand ?? new RelayCommand<object>(x => SaveSelectedFile(), x => _Database.HasConnection);
+        public RelayCommand<object> SaveCommand => _SaveCommand = _SaveCommand ?? new RelayCommand<object>(x => SaveSelectedFile(), x => _Database.HasConnection && SelectedFile != null);
 
         #endregion Commands
 
