@@ -13,12 +13,12 @@ namespace DMS.MVVM.ViewModel
 			
 		}
 
-		private ObservableCollection<File> _Files = new ObservableCollection<File>();
+		private ObservableCollection<File> _LoadedFiles = new ObservableCollection<File>();
 
-		public ObservableCollection<File> Files
+		public ObservableCollection<File> LoadedFiles
 		{
-			get { return _Files; }
-			set { _Files = value; OnPropertyChanged(); }
+			get { return _LoadedFiles; }
+			set { _LoadedFiles = value; OnPropertyChanged(); }
 		}
 
 	}
