@@ -81,7 +81,7 @@ namespace BusinessLogic.FileScanner
                 if (!drive.Directories.Contains(directory))
                 {
                     drive.Directories.Add(directory);
-                    foreach (CommonTypes.File file in GetFiles(drive.Name))
+                    foreach (CommonTypes.File file in GetFiles(drive.Name, false))
                     {
                         if (!drive.Files.Contains(file))
                         {
@@ -146,7 +146,7 @@ namespace BusinessLogic.FileScanner
                     hierarchical.Directories.Add(d);
                 }
             }
-            foreach (CommonTypes.File file in GetFiles(fullPath))
+            foreach (CommonTypes.File file in GetFiles(fullPath, false))
             {
                 if (!hierarchical.Files.Contains(file))
                 {
@@ -169,7 +169,7 @@ namespace BusinessLogic.FileScanner
             {
                 List<CommonTypes.File> files = new List<CommonTypes.File>();
 
-                files.AddRange(GetFiles(path));
+                files.AddRange(GetFiles(path, true));
 
                 if (recursive)
                 {
@@ -187,8 +187,9 @@ namespace BusinessLogic.FileScanner
         /// Baut CommonTypes.File Objekte aus alles Dateien, die unter path gefunden werden
         /// </summary>
         /// <param name="path">Der Pfad unter dem nach Dateien gesucht wird</param>
+        /// <param name="withContent">Angabe, ob die Datei direkt ausgelesen werden soll</param>
         /// <returns>Eine Liste mit CommonTypes.File Objekten, die die Dateien des Dateisystems repräsentieren</returns>
-        private List<CommonTypes.File> GetFiles(string path)
+        private List<CommonTypes.File> GetFiles(string path, bool withContent)
         {
             List<CommonTypes.File> files = new List<CommonTypes.File>();
             string[] paths;
@@ -230,6 +231,11 @@ namespace BusinessLogic.FileScanner
 
                 file.Created = System.IO.File.GetCreationTime(filePath);
                 file.Modified = System.IO.File.GetLastWriteTime(filePath);
+
+                if(withContent)
+                {
+                    ExtractContent(file);
+                }
 
                 files.Add(file);
             }
