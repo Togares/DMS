@@ -14,13 +14,17 @@ namespace BusinessLogic.FileScanner.Tests
             // Arrange
             IFileScanner scanner = new FileScanner();
             List<Drive> drives = new List<Drive>();
-            scanner.DriveScanFinished += new DriveScanFinishedEventHandler(x => drives.AddRange(x));
-            
+
             // Act
             scanner.ScanDrives();
 
-            // Assert
-            Assert.IsTrue(drives.Count > 0);
+            scanner.DriveScanFinished += new DriveScanFinishedEventHandler(x =>
+            {
+                drives.AddRange(x);
+
+                // Assert
+                Assert.IsTrue(drives.Count > 0);
+            });
         }
 
         /// <summary>
@@ -30,20 +34,25 @@ namespace BusinessLogic.FileScanner.Tests
         /// C:/temp
         ///     +---temp_root.txt
         /// </summary>
-        [TestMethod()]        
+        [TestMethod()]
         public void ScanDirectory_NonRecursive_Test()
         {
             // Arrange
             IFileScanner scanner = new FileScanner();
             List<File> files = new List<File>();
-            scanner.FileScanFinished += new FileScanFinishedEventHandler(x => files.AddRange(x));
             string directory = "C:/temp";
 
             // Act
             scanner.ScanDirectory(directory, false);
 
-            // Assert
-            Assert.IsTrue(files.Count == 1, $"Tatsächliche Anzahl: {files.Count}");
+            scanner.FileScanFinished += new FileScanFinishedEventHandler(x =>
+            {
+                files.AddRange(x);
+
+                // Assert
+                // jetzt hier, da async
+                Assert.IsTrue(files.Count == 1, $"Tatsächliche Anzahl: {files.Count}");
+            });
         }
 
         /// <summary>
@@ -65,14 +74,19 @@ namespace BusinessLogic.FileScanner.Tests
             // Arrange
             IFileScanner scanner = new FileScanner();
             List<File> files = new List<File>();
-            scanner.FileScanFinished += new FileScanFinishedEventHandler(x => files.AddRange(x));
             string directory = "C:/temp";
 
             // Act
             scanner.ScanDirectory(directory, true);
 
-            // Assert
-            Assert.IsTrue(files.Count == 4, $"Tatsächliche Anzahl: {files.Count}");
+            scanner.FileScanFinished += new FileScanFinishedEventHandler(x =>
+            {
+                files.AddRange(x);
+
+                // Assert
+                // jetzt hier, da async
+                Assert.IsTrue(files.Count == 4, $"Tatsächliche Anzahl: {files.Count}");
+            });
         }
     }
 }
