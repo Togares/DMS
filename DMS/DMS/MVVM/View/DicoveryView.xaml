@@ -16,9 +16,9 @@
             <TextBlock Text="{Binding Name}"/>
         </HierarchicalDataTemplate>
 
-        <DataTemplate DataType="{x:Type CommonTypes:File}">
+        <!--<DataTemplate DataType="{x:Type CommonTypes:File}">
             <TextBlock Text="{Binding NameAndType}"/>
-        </DataTemplate>
+        </DataTemplate>-->
     </UserControl.Resources>
 
     <Grid>
@@ -31,8 +31,9 @@
                       BorderBrush="Transparent" Background="GhostWhite"/>
 
             <StackPanel>
-                <ListBox SelectedItem="{Binding SelectedFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                <ListBox SelectedItem="{Binding Path=SelectedFile, Mode=TwoWay}"
                          ItemsSource="{Binding Path=SelectedHierarchical.Files}"
+                         DisplayMemberPath="NameAndType"
                          Height="400" BorderBrush="Transparent" Background="GhostWhite"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <StackPanel.Resources>
