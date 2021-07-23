@@ -30,7 +30,7 @@
 
                 <DataGrid Style="{StaticResource DataGridTheme}"
                           AutoGenerateColumns="False"
-                          ItemsSource="{Binding Files}" SelectionChanged="DataGrid_SelectionChanged">
+                          ItemsSource="{Binding Files}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
                         <DataGridTextColumn Header="Typ" Binding="{Binding Path=Type}"/>
