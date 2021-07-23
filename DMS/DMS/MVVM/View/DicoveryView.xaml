@@ -19,7 +19,6 @@
         <DataTemplate DataType="{x:Type CommonTypes:File}">
             <TextBlock Text="{Binding NameAndType}"/>
         </DataTemplate>
-
     </UserControl.Resources>
 
     <Grid>
@@ -28,15 +27,49 @@
                       Width="350"
                       ItemsSource="{Binding Drives}"
                       TreeViewItem.Expanded="FileSystemTree_Expanded"
-                      SelectedItemChanged="TreeView_SelectedItemChanged"/>
+                      SelectedItemChanged="TreeView_SelectedItemChanged"
+                      BorderBrush="Transparent" Background="GhostWhite"/>
 
             <StackPanel>
                 <ListBox SelectedItem="{Binding SelectedFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          ItemsSource="{Binding Path=SelectedHierarchical.Files}"
-                         Height="400"/>
+                         Height="400" BorderBrush="Transparent" Background="GhostWhite"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Width="75" Content="Open" Command="{Binding OpenCommand}" />
-                    <Button Width="75" Margin="5,0,0,0" Content="Save" Command="{Binding SaveCommand}" />
+                    <StackPanel.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true"
+                                                CornerRadius="5">
+                                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsDefaulted" Value="true">
+                                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="true">
+                                                <Setter Property="Background" TargetName="border" Value="Gray"/>
+                                                <Setter Property="BorderBrush" TargetName="border" Value="#FF454545"/>
+                                            </Trigger>
+                                            <Trigger Property="IsPressed" Value="true">
+                                                <Setter Property="Background" TargetName="border" Value="LightGray"/>
+                                                <Setter Property="BorderBrush" TargetName="border" Value="#FF454545"/>
+                                            </Trigger>
+                                            <Trigger Property="IsEnabled" Value="false">
+                                                <Setter Property="Opacity" Value="0.5"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Background" Value="DarkGray"/>
+                            <Setter Property="Foreground" Value="GhostWhite"/>
+                            <Setter Property="FontFamily" Value="/Fonts/#Poppins"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <Button Width="75" Margin="0,5,0,0" Content="Open" Command="{Binding OpenCommand}" />
+                    <Button Width="75" Margin="5,5,0,0" Content="Save" Command="{Binding SaveCommand}" />
                 </StackPanel>
             </StackPanel>
         </DockPanel>
