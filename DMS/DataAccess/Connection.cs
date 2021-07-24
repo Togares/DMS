@@ -33,7 +33,7 @@ namespace DataAccess
 
         public static Connection Get()
         {
-            return _Instance = _Instance == null ? new Connection() : _Instance;
+            return _Instance = _Instance ?? new Connection();
         }
 
         #endregion Singleton

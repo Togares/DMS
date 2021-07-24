@@ -98,8 +98,8 @@ namespace DMS.MVVM.ViewModel
             {
                 if (!Drives.Contains(drive))
                 {
-                    Drives.Add(drive);
-                    LoadSubHierarchie(drive);
+                    Application.Current.Dispatcher.Invoke(() => Drives.Add(drive));
+                    Application.Current.Dispatcher.Invoke(() => LoadSubHierarchie(drive));
                 }
             }
             // Laufwerke, die in der Collection im ViewModel sind, aber nicht beim Scannen nach Laufwerken
@@ -107,7 +107,7 @@ namespace DMS.MVVM.ViewModel
             var removedDrives = Drives.Where(x => !drives.Contains(x)).ToList();
             foreach (Drive drive1 in removedDrives)
             {
-                Drives.Remove(drive1);
+                Application.Current.Dispatcher.Invoke(() => Drives.Remove(drive1));
             }
         }
 
