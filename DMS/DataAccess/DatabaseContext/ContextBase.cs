@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.DatabaseContext
 {
-    public class ContextBase : DbContext
+    internal class ContextBase : DbContext
     {        
         public ContextBase(Connection existingConnection, bool ownsConnection)
             : base(existingConnection.GetConnection(), ownsConnection)
