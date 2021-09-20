@@ -7,11 +7,11 @@
 
 
         <Style.Setters>
-            
+
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">
-                                                  
+
                         <Grid VerticalAlignment="Stretch"
                               HorizontalAlignment="Stretch"
                               Background="{TemplateBinding Background}">
@@ -26,7 +26,7 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            
+
             <Setter Property="Height" Value="50"/>
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="FontSize" Value="14"/>
