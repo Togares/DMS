@@ -69,7 +69,7 @@
                             Style="{StaticResource CloseButtonTheme}"
                             CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
                     </Button>
-                    
+
                 </DockPanel>
             </Border>
 
@@ -144,6 +144,8 @@
                     </Grid.RowDefinitions>
 
                     <Border Padding="10"
+                            Width="50"
+                            HorizontalAlignment="Left"
                             Grid.Row="0" 
                             Background="DarkGray">
                         <Grid Grid.Row="0">
@@ -165,13 +167,14 @@
                                         </Grid>
                                     </ControlTemplate>
                                 </CheckBox.Template>
+                                <CheckBox.ToolTip>
+                                    <TextBlock Text="{Binding Path=CurrentView}" 
+                                               Grid.Column="1" 
+                                               VerticalAlignment="Center"
+                                               FontSize="16"/>
+                                </CheckBox.ToolTip>
                             </CheckBox>
-                            <TextBlock Text="{Binding Path=CurrentView}" 
-                                       Grid.Column="1" 
-                                       Foreground="GhostWhite"
-                                       VerticalAlignment="Center"
-                                       Margin="40 0"
-                                       FontSize="16"/>
+                            
                         </Grid>
                     </Border>
 
@@ -180,7 +183,7 @@
                             <ColumnDefinition Width="auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        
+
                         <Controls:HamburgerMenu Height="250"
                                                 Grid.Column="0"
                                                 Background="#f2f2f2"
@@ -190,7 +193,7 @@
                                                 IsOpen="{Binding IsChecked, ElementName=cbToggleMenu}"
                                                 OpenCloseDuration="0:0:0.25">
                             <Controls:HamburgerMenu.Content>
-                                <StackPanel Margin="0 10" Width="250" x:Name="MenuContent">
+                                <StackPanel Margin="0 10" x:Name="MenuContent">
                                     <Controls:HamburgerMenuItem Command="{Binding DiscoveryViewCommand}">
                                         <TextBlock Text="Scan files"/>
                                     </Controls:HamburgerMenuItem>
@@ -220,7 +223,7 @@
                         Margin="0,20,0,0"
                         Orientation="Horizontal"
                         VerticalAlignment="Center">
-              
+
                 <!--textbox for text search entries-->
                 <TextBox x:Name="SearchBox"
                         Style="{StaticResource ModernTextbox}"
