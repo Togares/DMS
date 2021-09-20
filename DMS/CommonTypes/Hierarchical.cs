@@ -6,7 +6,7 @@ namespace CommonTypes
     {
         private ObservableCollection<Directory> _Directories = new ObservableCollection<Directory>();
 
-        public ObservableCollection<Directory> Directories
+        public virtual ObservableCollection<Directory> Directories
         {
             get { return _Directories; }
             set { _Directories = value; OnPropertyChanged(); }
@@ -14,7 +14,7 @@ namespace CommonTypes
 
         private ObservableCollection<File> _Files = new ObservableCollection<File>();
 
-        public ObservableCollection<File> Files
+        public virtual ObservableCollection<File> Files
         {
             get { return _Files; }
             set { _Files = value; OnPropertyChanged(); }

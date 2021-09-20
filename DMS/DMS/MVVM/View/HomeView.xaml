@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DMS.MVVM.View"
+             xmlns:ViewModel="clr-namespace:DMS.MVVM.FileViewModel"
+             xmlns:Utility="clr-namespace:CommonTypes.Utility;assembly=CommonTypes"
              mc:Ignorable="d" 
              d:DesignHeight="460" d:DesignWidth="800">
 
@@ -28,14 +30,26 @@
                                        Rect="0,0,700,380"/>
                 </Border.Clip>
 
-                <DataGrid Style="{StaticResource DataGridTheme}"
+                <DataGrid SelectedItem="{Binding SelectedFile, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Style="{StaticResource DataGridTheme}"
                           AutoGenerateColumns="False"
-                          ItemsSource="{Binding Files}">
+                          ItemsSource="{Binding LoadedFiles}">
+
+                    <DataGrid.Resources>
+                        <Utility:BindingProxy x:Key="proxy" Data="{Binding}"/>
+                    </DataGrid.Resources>
+                    
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
                         <DataGridTextColumn Header="Typ" Binding="{Binding Path=Type}"/>
                         <DataGridTextColumn Header="Path" Binding="{Binding Path=Path}"/>
                         <DataGridTextColumn Header="Date modified" Binding="{Binding Path=Modified}"/>
+                        <DataGridTemplateColumn Header="Open file...">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Command="{Binding Source={StaticResource proxy}, Path=Data.OpenCommand}" Content="Doubleclick to view the file"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
 

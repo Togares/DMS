@@ -1,7 +1,9 @@
 ﻿using BusinessLogic;
+using BusinessLogic.FileOpener;
 using BusinessLogic.FileScanner;
 using CommonTypes;
 using CommonTypes.Utility;
+using DMS.MVVM.FileViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,7 +15,7 @@ using System.Windows;
 
 namespace DMS.MVVM.ViewModel
 {
-    public class DiscoveryViewModel : Bindable
+    public class DiscoveryViewModel : FileViewOpenerModel
     {
         private IFileScanner _FileScanner;
         private Database _Database = new Database();
@@ -62,54 +64,12 @@ namespace DMS.MVVM.ViewModel
             set { _SelectedHierarchical = value; OnPropertyChanged(); }
         }
 
-
-        private Drive _SelectedDrive;
-
-        public Drive SelectedDrive
-        {
-            get { return _SelectedDrive; }
-            set
-            {
-                _SelectedDrive = value;
-                _FileScanner.GetDirectories(_SelectedDrive);
-                OnPropertyChanged();
-            }
-        }
-
-        private Directory _SelectedDirectory;
-
-        public Directory SelectedDirectory
-        {
-            get { return _SelectedDirectory; }
-            set
-            {
-                _SelectedDirectory = value;
-                _FileScanner.GetDirectories(_SelectedDirectory);
-                OnPropertyChanged();
-            }
-        }
-
-        private File _SelectedFile;
-
-        public File SelectedFile
-        {
-            get { return _SelectedFile; }
-            set
-            {
-                _SelectedFile = value;
-                OnPropertyChanged();
-            }
-        }
-
         #endregion Properties
 
         #region Commands
 
-        private RelayCommand<object> _OpenCommand;
-        public RelayCommand<object> OpenCommand => _OpenCommand = _OpenCommand ?? new RelayCommand<object>(x => OpenSelectedFile());
-
         private RelayCommand<object> _SaveCommand;
-        public RelayCommand<object> SaveCommand => _SaveCommand = _SaveCommand ?? new RelayCommand<object>(x => SaveSelectedFile(), x => _Database.HasConnection);
+        public RelayCommand<object> SaveCommand => _SaveCommand = _SaveCommand ?? new RelayCommand<object>(x => SaveSelectedFile(), x => _Database.HasConnection && _SelectedFile != null);
 
         #endregion Commands
 
@@ -138,8 +98,8 @@ namespace DMS.MVVM.ViewModel
             {
                 if (!Drives.Contains(drive))
                 {
-                    Drives.Add(drive);
-                    LoadSubHierarchie(drive);
+                    Application.Current.Dispatcher.Invoke(() => Drives.Add(drive));
+                    Application.Current.Dispatcher.Invoke(() => LoadSubHierarchie(drive));
                 }
             }
             // Laufwerke, die in der Collection im ViewModel sind, aber nicht beim Scannen nach Laufwerken
@@ -147,7 +107,7 @@ namespace DMS.MVVM.ViewModel
             var removedDrives = Drives.Where(x => !drives.Contains(x)).ToList();
             foreach (Drive drive1 in removedDrives)
             {
-                Drives.Remove(drive1);
+                Application.Current.Dispatcher.Invoke(() => Drives.Remove(drive1));
             }
         }
 
@@ -157,26 +117,11 @@ namespace DMS.MVVM.ViewModel
             _Database.Save(SelectedFile);
         }
 
-        private void OpenSelectedFile()
-        {
-            string path = @SelectedFile.Qualifier;
-            ProcessStartInfo psi = new ProcessStartInfo();
-            psi.FileName = System.IO.Path.GetFileName(path);
-            psi.WorkingDirectory = System.IO.Path.GetDirectoryName(path);
-            psi.ErrorDialog = true;
-            try
-            {
-                Process.Start(psi);
-            }
-            catch (Win32Exception e)
-            {
-                if (e.NativeErrorCode == 1223) // vom Benutzer abgebrochen
-                    return;
-                else throw;
-            }
-        }
-
         #endregion Methods
 
+        public override string ToString()
+        {
+            return "Scan Files";
+        }
     }
 }

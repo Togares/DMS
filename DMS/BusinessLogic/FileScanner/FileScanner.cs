@@ -5,6 +5,8 @@ using System.IO;
 using Visualis.Extractor;
 using System.Text;
 using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace BusinessLogic.FileScanner
 {
@@ -24,31 +26,34 @@ namespace BusinessLogic.FileScanner
         /// Scant alle Laufwerke des Rechners und Baut CommonTypes.Drive Objekte entsprechend auf.
         /// Nachdem der Vorgang beendet ist, wird DriveScanFinished ausgelöst.
         /// </summary>
-        public void ScanDrives()
+        public async void ScanDrives()
         {
-            List<Drive> drives = new List<Drive>();
-
-            foreach (DriveInfo driveInfo in DriveInfo.GetDrives())
+            await Task.Run(() =>
             {
-                Drive drive = new Drive();
-                drive.Name = driveInfo.Name;
-                drive.Type = driveInfo.DriveType.ToString();
-                try
-                { // nicht benannte oder nicht bereite laufwerke lösen eine exception aus
-                    drive.Label = driveInfo.VolumeLabel;
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    continue; // Laufwerke auf die nicht Zugegriffen werden kann, werden nicht angezeigt
-                }
-                catch (IOException)
-                {
-                    drive.Label = string.Empty;
-                }
-                drives.Add(drive);
-            }
+                List<Drive> drives = new List<Drive>();
 
-            DriveScanFinished?.Invoke(drives);
+                foreach (DriveInfo driveInfo in DriveInfo.GetDrives())
+                {
+                    Drive drive = new Drive();
+                    drive.Name = driveInfo.Name;
+                    drive.Type = driveInfo.DriveType.ToString();
+                    try
+                    { // nicht benannte oder nicht bereite laufwerke lösen eine exception aus
+                        drive.Label = driveInfo.VolumeLabel;
+                    }
+                    catch (UnauthorizedAccessException)
+                    {
+                        continue; // Laufwerke auf die nicht Zugegriffen werden kann, werden nicht angezeigt
+                    }
+                    catch (IOException)
+                    {
+                        drive.Label = string.Empty;
+                    }
+                    drives.Add(drive);
+                }
+
+                DriveScanFinished?.Invoke(drives);
+            });
         }
 
         /// <summary>
@@ -76,7 +81,7 @@ namespace BusinessLogic.FileScanner
                 if (!drive.Directories.Contains(directory))
                 {
                     drive.Directories.Add(directory);
-                    foreach (CommonTypes.File file in GetFiles(drive.Name))
+                    foreach (CommonTypes.File file in GetFiles(drive.Name, false))
                     {
                         if (!drive.Files.Contains(file))
                         {
@@ -124,15 +129,24 @@ namespace BusinessLogic.FileScanner
             }
             foreach (string dir in directories)
             {
+                DirectoryInfo info = new DirectoryInfo(dir);
+
+                // Versteckte Verzeichnisse werden nicht angezeigt
+                if (info.Attributes.HasFlag(FileAttributes.Hidden))
+                {
+                    continue;
+                }
+
                 CommonTypes.Directory d = new CommonTypes.Directory();
-                d.Name = dir.Substring(dir.LastIndexOf("\\") + 1);
+
+                d.Name = info.Name;//dir.Substring(dir.LastIndexOf("\\") + 1);
                 d.Path = dir.Substring(0, dir.Length - d.Name.Length);
                 if (!hierarchical.Directories.Contains(d))
                 {
-                    hierarchical.Directories.Add(d);                    
+                    hierarchical.Directories.Add(d);
                 }
             }
-            foreach (CommonTypes.File file in GetFiles(fullPath))
+            foreach (CommonTypes.File file in GetFiles(fullPath, false))
             {
                 if (!hierarchical.Files.Contains(file))
                 {
@@ -149,29 +163,33 @@ namespace BusinessLogic.FileScanner
         /// </summary>
         /// <param name="path">Das Verzeichnis, Vollqualifiziert</param>
         /// <param name="recursive">Angabe, ob rekursiv gescannt wird</param>
-        public void ScanDirectory(string path, bool recursive)
+        public async void ScanDirectory(string path, bool recursive)
         {
-            List<CommonTypes.File> files = new List<CommonTypes.File>();
-
-            files.AddRange(GetFiles(path));
-
-            if (recursive)
+            await Task.Run(() =>
             {
-                foreach (string directory in System.IO.Directory.GetDirectories(path))
-                {
-                    ScanDirectory(directory, true);
-                }
-            }
+                List<CommonTypes.File> files = new List<CommonTypes.File>();
 
-            FileScanFinished?.Invoke(files);
+                files.AddRange(GetFiles(path, true));
+
+                if (recursive)
+                {
+                    foreach (string directory in System.IO.Directory.GetDirectories(path))
+                    {
+                        ScanDirectory(directory, true);
+                    }
+                }
+
+                FileScanFinished?.Invoke(files);
+            });
         }
 
         /// <summary>
         /// Baut CommonTypes.File Objekte aus alles Dateien, die unter path gefunden werden
         /// </summary>
         /// <param name="path">Der Pfad unter dem nach Dateien gesucht wird</param>
+        /// <param name="withContent">Angabe, ob die Datei direkt ausgelesen werden soll</param>
         /// <returns>Eine Liste mit CommonTypes.File Objekten, die die Dateien des Dateisystems repräsentieren</returns>
-        private List<CommonTypes.File> GetFiles(string path)
+        private List<CommonTypes.File> GetFiles(string path, bool withContent)
         {
             List<CommonTypes.File> files = new List<CommonTypes.File>();
             string[] paths;
@@ -213,6 +231,11 @@ namespace BusinessLogic.FileScanner
 
                 file.Created = System.IO.File.GetCreationTime(filePath);
                 file.Modified = System.IO.File.GetLastWriteTime(filePath);
+
+                if(withContent)
+                {
+                    ExtractContent(file);
+                }
 
                 files.Add(file);
             }
