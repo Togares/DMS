@@ -47,13 +47,14 @@ namespace DMS.MVVM.ViewModel
 
         #endregion Commands
 
+        private object _currentView;
+        private string _SearchText = string.Empty;
+
         #region Properties
 
         public Database Database { get; } = new Database();
         public HomeViewModel HomeVM { get; set; }
         public DiscoveryViewModel DicoveryVM { get; set; }
-
-        private object _currentView;
 
         public object CurrentView
         {
@@ -64,12 +65,9 @@ namespace DMS.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-
-        private string _SearchText = string.Empty;
-
         public string SearchText
         {
-            get { return _SearchText; }
+            get => _SearchText;
             set { _SearchText = value; OnPropertyChanged(); }
         }
 

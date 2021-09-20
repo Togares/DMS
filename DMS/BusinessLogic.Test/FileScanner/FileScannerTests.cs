@@ -15,7 +15,7 @@ namespace BusinessLogic.FileScanner.Tests
             IFileScanner scanner = new FileScanner();
             List<Drive> drives = new List<Drive>();
             scanner.DriveScanFinished += new DriveScanFinishedEventHandler(x => drives.AddRange(x));
-            
+
             // Act
             scanner.ScanDrives();
 
@@ -30,7 +30,7 @@ namespace BusinessLogic.FileScanner.Tests
         /// C:/temp
         ///     +---temp_root.txt
         /// </summary>
-        [TestMethod()]        
+        [TestMethod()]
         public void ScanDirectory_NonRecursive_Test()
         {
             // Arrange

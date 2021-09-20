@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:DMS.MVVM.View"
              mc:Ignorable="d" 
              d:DesignHeight="460" d:DesignWidth="800">
-    
-    
+
+
     <StackPanel>
 
         <StackPanel Orientation="Horizontal"
