@@ -65,18 +65,11 @@
                         </TextBlock.Style>
                     </TextBlock>
 
-                    <Button 
-                        Command="{Binding CloseCommand}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Width="13" Height="13"
-                                    Background="{TemplateBinding Background}">
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
+                    <Button Command="{Binding CloseCommand}"
+                            Style="{StaticResource CloseButtonTheme}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
                     </Button>
+                    
                 </DockPanel>
             </Border>
 
