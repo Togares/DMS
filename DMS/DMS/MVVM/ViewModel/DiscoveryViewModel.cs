@@ -119,5 +119,9 @@ namespace DMS.MVVM.ViewModel
 
         #endregion Methods
 
+        public override string ToString()
+        {
+            return "Scan Files";
+        }
     }
 }
