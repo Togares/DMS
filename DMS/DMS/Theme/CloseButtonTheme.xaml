@@ -18,15 +18,26 @@
                 <ImageBrush ImageSource="/Images/close1.png"/>
             </Setter.Value>
         </Setter>
-        
+
         <Setter Property="Button.Effect">
             <Setter.Value>
                 <DropShadowEffect Color="DarkGray" Direction="30"
-                                                              ShadowDepth="2" BlurRadius="15"
-                                                              Opacity="0.7"/>
+                                  ShadowDepth="2" BlurRadius="15"
+                                  Opacity="0.7"/>
             </Setter.Value>
         </Setter>
         <!--<Setter Property="Cursor" Value="Hand"/>-->
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="13" Height="13"
+                                    Background="{TemplateBinding Background}">
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+
+        </Setter>
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
@@ -38,10 +49,6 @@
                 </Setter>
             </Trigger>
         </Style.Triggers>
-        
-        
-        
-
 
     </Style>
 
