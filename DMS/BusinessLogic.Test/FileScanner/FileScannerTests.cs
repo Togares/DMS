@@ -14,6 +14,9 @@ namespace BusinessLogic.FileScanner.Tests
             // Arrange
             IFileScanner scanner = new FileScanner();
             List<Drive> drives = new List<Drive>();
+          
+            scanner.DriveScanFinished += new DriveScanFinishedEventHandler(x => drives.AddRange(x));
+
 
             // Act
             scanner.ScanDrives();
