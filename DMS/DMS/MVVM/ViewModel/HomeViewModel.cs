@@ -14,5 +14,10 @@ namespace DMS.MVVM.ViewModel
 		{
 			
 		}
+
+        public override string ToString()
+        {
+            return "Search Results";
+        }
     }
 }
