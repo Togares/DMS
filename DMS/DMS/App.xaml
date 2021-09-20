@@ -15,8 +15,7 @@
                 <ResourceDictionary Source="Theme/DataGridTheme.xaml"/>
                 <ResourceDictionary Source="Theme/UIButtonTheme.xaml"/>
                 <ResourceDictionary Source="Theme/CloseButtonTheme.xaml"/>
-              
-                <ResourceDictionary Source="Controls/Generic.xaml"/>
+                <ResourceDictionary Source="Theme/HamburgerMenu.xaml"/>
 
             </ResourceDictionary.MergedDictionaries>
 
