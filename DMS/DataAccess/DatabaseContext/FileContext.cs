@@ -3,7 +3,7 @@ using System.Data.Entity;
 
 namespace DataAccess.DatabaseContext
 {
-    public class FileContext : ContextBase
+    internal class FileContext : ContextBase
     {
         public FileContext(Connection existingConnection, bool ownsConnection)
             : base (existingConnection, ownsConnection)
