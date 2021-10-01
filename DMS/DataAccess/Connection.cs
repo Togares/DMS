@@ -14,12 +14,6 @@ namespace DataAccess
 {
     public class Connection
     {
-        private const string user = "u_e2fi5githubprofis";
-        private const string password = user;
-        private const string db = "E2FI5GitHubProfis";
-        private const string host = "schuldb1.its-stuttgart.de";
-        private const int port = 5432;
-
         private NpgsqlConnection _Connection;
 
         #region Singleton
@@ -70,19 +64,20 @@ namespace DataAccess
             {
                 _Connection = new NpgsqlConnection();
                 NpgsqlConnectionStringBuilder builder = new NpgsqlConnectionStringBuilder();
-                builder.Username = user;
-                builder.Password = password;
-                builder.Database = db;
-                builder.Port = port;
-                builder.Host = host;
+
+                builder.Username = System.Configuration.ConfigurationManager.AppSettings.Get("user");
+                builder.Password = System.Configuration.ConfigurationManager.AppSettings.Get("password");
+                builder.Database = System.Configuration.ConfigurationManager.AppSettings.Get("db");
+                builder.Port = int.Parse(System.Configuration.ConfigurationManager.AppSettings.Get("port"));
+                builder.Host = System.Configuration.ConfigurationManager.AppSettings.Get("host");
+                
                 _Connection.ConnectionString = builder.ConnectionString;
                 try
                 {
                     _Connection.Open();
                 }
-                catch (System.Net.Sockets.SocketException)
+                catch (Exception)
                 {
-                    Debug.WriteLine("SocketException upon connection to the database");
                     IsConnected = false;
                     return;
                 }
