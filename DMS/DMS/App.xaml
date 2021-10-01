@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="Theme/DataGridTheme.xaml"/>
                 <ResourceDictionary Source="Theme/UIButtonTheme.xaml"/>
                 <ResourceDictionary Source="Theme/CloseButtonTheme.xaml"/>
+                <ResourceDictionary Source="Theme/GitHubLogoButtonTheme.xaml"/>
                 <ResourceDictionary Source="Theme/HamburgerMenu.xaml"/>
 
             </ResourceDictionary.MergedDictionaries>
