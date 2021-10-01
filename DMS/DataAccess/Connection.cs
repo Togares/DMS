@@ -142,6 +142,7 @@ namespace DataAccess
         {
             using (FileContext context = new FileContext(Get(), false))
             {
+              
                 File existing = null;
                 var files = context.Files.Where(x =>
                         x.Modified.Equals(file.Modified) &&
