@@ -29,5 +29,10 @@ namespace BusinessLogic.FileOpener
                 else throw;
             }
         }
+
+        public static void ShowExplorer(File selectedFile)
+        {
+            Process.Start(@selectedFile.Path);
+        }
     }
 }
