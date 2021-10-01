@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DMS.MVVM.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DMS.MVVM.View
 {
@@ -23,6 +12,22 @@ namespace DMS.MVVM.View
         public DicoveryView()
         {
             InitializeComponent();
+        }
+
+        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (DataContext is DiscoveryViewModel discoveryViewModel)
+            {
+                discoveryViewModel.SelectedHierarchical = e.NewValue as CommonTypes.Hierarchical;
+            }
+        }
+
+        private void FileSystemTree_Expanded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is DiscoveryViewModel discoveryViewModel)
+            {
+                discoveryViewModel.LoadSubHierarchie((e.OriginalSource as TreeViewItem).Header as CommonTypes.Hierarchical);
+            }
         }
     }
 }

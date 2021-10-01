@@ -1,75 +1,88 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Style TargetType="{x:Type TextBox}"
-           x:Key="ModernTextbox">
+    <Style x:Key="PlaceholderStyle" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False" />
+        <Setter Property="Text" Value="Search" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="/Fonts/#Poppins" />
+        <Setter Property="Foreground" Value="LightGray" />
+        <Setter Property="Visibility" Value="Hidden" />
+        <Setter Property="Margin" Value="2,0,0,0" />
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
+                <Setter Property="Visibility" Value="Visible" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ModernTextbox" TargetType="{x:Type TextBox}">
+        <Setter Property="Width" Value="280" />
+        <Setter Property="Height" Value="35" />
+        <Setter Property="Margin" Value="0,0,10,0" />
+        <Setter Property="Background" Value="DarkGray" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="/Fonts/#Poppins" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
 
         <Setter Property="Template">
 
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type TextBox}">
+                <ControlTemplate TargetType="{x:Type TextBoxBase}">
 
-                    <Border CornerRadius="5"
-                            Background="DarkGray"
-                            Width="260" Height="35">
+                    <Border
+                        x:Name="TextboxBorder"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="White"
+                        BorderThickness="0.8"
+                        CornerRadius="5"
+                        SnapsToDevicePixels="True">
 
-                        <Grid>
+                        <Grid Margin="5,0,0,0">
+                            <ScrollViewer
+                                x:Name="PART_ContentHost"
+                                Focusable="False"
+                                HorizontalScrollBarVisibility="Hidden"
+                                VerticalScrollBarVisibility="Hidden" />
 
-                            <Rectangle StrokeThickness="1"/>
+                            <!--  placeholder style and value  -->
+                            <TextBlock Style="{StaticResource PlaceholderStyle}" Text="Search" />
 
-                            <TextBox Margin="1"
-                                     Text="{TemplateBinding Text}"
-                                     BorderThickness="0"
-                                     Background="Transparent"
-                                     VerticalAlignment="Center"
-                                     Padding="5"
-                                     x:Name="SearchBox"
-                                     FontSize="16"
-                                     FontFamily="/Fonts/#Poppins"/>
-                            
-                            <Image HorizontalAlignment="Right"
-                                   Source="/Images/icons8-search-30.png"
-                                   Height="25"
-                                   Margin="0,1,4,0"/>
-
-
-                            <TextBlock IsHitTestVisible="False"
-                                       Text="Search"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Left"
-                                       Margin="8,0,0,0"
-                                       FontSize="14"
-                                       FontFamily="/Fonts/#Poppins"
-                                       Foreground="LightGray"
-                                       Grid.Column="1">
-
-                                <TextBlock.Style>
-                                    <Style TargetType="{x:Type TextBlock}">
-
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-
-                                        <Setter Property="Visibility" Value="Hidden"/>
-
-                                    </Style>
-                                </TextBlock.Style>
-
-                            </TextBlock>
-
+                            <!--  lupa image in our textbox  -->
+                            <Image
+                                Height="25"
+                                Margin="5,1,5,1"
+                                HorizontalAlignment="Right"
+                                IsHitTestVisible="False"
+                                Source="/Images/icons8-search-30.png" />
                         </Grid>
-
                     </Border>
 
+                    <!--  changes border color of the textbox when user hovers on it  -->
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="TextboxBorder" Property="Opacity" Value="0.56" />
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="TextboxBorder" Property="BorderBrush" Value="LightGray" />
+                        </Trigger>
+
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="TextboxBorder" Property="BorderBrush" Value="LightGray" />
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+
                 </ControlTemplate>
-
             </Setter.Value>
-
         </Setter>
 
     </Style>
 
+
 </ResourceDictionary>
-    

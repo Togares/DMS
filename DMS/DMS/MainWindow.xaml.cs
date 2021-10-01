@@ -14,9 +14,9 @@ namespace DMS
             InitializeComponent();
         }
 
-        private void Window_MouseMove(object sender, MouseEventArgs e)
+        private void Border_MouseMove(object sender, MouseEventArgs e)
         {
-            if(Mouse.LeftButton == MouseButtonState.Pressed)
+            if (Mouse.LeftButton == MouseButtonState.Pressed)
                 DragMove();
         }
     }

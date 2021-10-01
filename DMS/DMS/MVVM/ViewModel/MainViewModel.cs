@@ -2,9 +2,8 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
-﻿using BusinessLogic;
+using BusinessLogic;
 using BusinessLogic.FileScanner;
-
 
 namespace DMS.MVVM.ViewModel
 {
@@ -14,16 +13,16 @@ namespace DMS.MVVM.ViewModel
 
         public MainViewModel()
         {
-            HomeVM = new HomeViewModel(_FileScanner);
-            DicoveryVM = new DiscoveryViewModel();
-            CurrentView = HomeVM;
+            HomeVM = new HomeViewModel();
+            DicoveryVM = new DiscoveryViewModel(_FileScanner);
+            CurrentView = DicoveryVM;
         }
 
         #region Commands
 
         private RelayCommand<object> _HomeViewCommand;
         public RelayCommand<object> HomeViewCommand => _HomeViewCommand = _HomeViewCommand == null ? new RelayCommand<object>(x => CurrentView = HomeVM) : _HomeViewCommand;
-        
+
         private RelayCommand<object> _DiscoveryViewCommand;
         public RelayCommand<object> DiscoveryViewCommand => _DiscoveryViewCommand = _DiscoveryViewCommand == null ? new RelayCommand<object>(x => CurrentView = DicoveryVM) : _DiscoveryViewCommand;
 
@@ -35,20 +34,27 @@ namespace DMS.MVVM.ViewModel
 
         private RelayCommand<object> _MaximizeCommand;
         public RelayCommand<object> MaximizeCommand => _MaximizeCommand = _MaximizeCommand == null ? new RelayCommand<object>(x => Application.Current.MainWindow.WindowState = WindowState.Maximized) : _MaximizeCommand;
-        
+
         private RelayCommand<object> _NormalizeCommand;
         public RelayCommand<object> NormalizeCommand => _NormalizeCommand = _NormalizeCommand == null ? new RelayCommand<object>(x => Application.Current.MainWindow.WindowState = WindowState.Normal) : _NormalizeCommand;
-    
+
         private ICommand openLinkCommand;
         // created as command to open the link in the default users browser in a new tab
-        public ICommand OpenLinkCommand => this.openLinkCommand = this.openLinkCommand == null ? new RelayCommand<object>(c => OpenLink()) : OpenLinkCommand;
-        
+        public ICommand OpenLinkCommand => this.openLinkCommand = this.openLinkCommand ?? new RelayCommand<object>(c => OpenLink());
+
+        private RelayCommand<object> _SearchCommand;
+        public RelayCommand<object> SearchCommand => _SearchCommand = _SearchCommand ?? new RelayCommand<object>(x => Search(), x => Database.HasConnection);
+
         #endregion Commands
 
+        private object _currentView;
+        private string _SearchText = string.Empty;
+
+        #region Properties
+
+        public Database Database { get; } = new Database();
         public HomeViewModel HomeVM { get; set; }
         public DiscoveryViewModel DicoveryVM { get; set; }
-
-        private object _currentView;
 
         public object CurrentView
         {
@@ -59,7 +65,15 @@ namespace DMS.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
+        public string SearchText
+        {
+            get => _SearchText;
+            set { _SearchText = value; OnPropertyChanged(); }
+        }
 
+        #endregion Properties
+
+        #region Methods
 
         /// <summary>
         /// opens repository with this project
@@ -68,5 +82,21 @@ namespace DMS.MVVM.ViewModel
         {
             Process.Start("https://github.com/Togares/DMS");
         }
+
+        private void Search()
+        {
+            HomeVM.LoadedFiles.Clear();
+            foreach (CommonTypes.File file in Database.Search(SearchText))
+            {
+                if (!HomeVM.LoadedFiles.Contains(file))
+                {
+                    HomeVM.LoadedFiles.Add(file);
+                }
+            }
+            CurrentView = HomeVM;
+        }
+
+        #endregion Methods
+
     }
 }

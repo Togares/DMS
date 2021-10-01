@@ -1,41 +1,68 @@
-﻿<UserControl x:Class="DMS.MVVM.View.HomeView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:DMS.MVVM.View"
-             mc:Ignorable="d" 
-             d:DesignHeight="460" d:DesignWidth="800">
-    
-    
+﻿<UserControl
+    x:Class="DMS.MVVM.View.HomeView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Utility="clr-namespace:CommonTypes.Utility;assembly=CommonTypes"
+    xmlns:ViewModel="clr-namespace:DMS.MVVM.FileViewModel"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:DMS.MVVM.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="460"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+
     <StackPanel>
-        <TextBlock Text="Search Results"
-                   Foreground="Black"
-                   FontSize="28"
-                   HorizontalAlignment="Left"
-                   Margin="0,0,0,20"
-                   FontFamily="/Fonts/#Poppins"/>
 
-
-        <StackPanel Orientation="Horizontal"
-                    Margin="0,0,0,10">
-            <Border Width="795"
-                    Height="380">
+        <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+            <Border Width="700" Height="380">
 
                 <Border.Background>
                     <LinearGradientBrush>
-                        <GradientStop Color="GhostWhite" Offset="0.0"/>
-                        <GradientStop Color="GhostWhite" Offset="1"/>
+                        <GradientStop Offset="0.0" Color="GhostWhite" />
+                        <GradientStop Offset="1" Color="GhostWhite" />
                     </LinearGradientBrush>
                 </Border.Background>
 
                 <Border.Clip>
-                    <RectangleGeometry RadiusX="0"
-                                       RadiusY="0"
-                                       Rect="0,0,700,380"/>
+                    <RectangleGeometry
+                        RadiusX="0"
+                        RadiusY="0"
+                        Rect="0,0,700,380" />
                 </Border.Clip>
 
-                <Grid>
+                <DataGrid
+                    AutoGenerateColumns="False"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding LoadedFiles}"
+                    SelectedItem="{Binding SelectedFile, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource DataGridTheme}">
+
+                    <DataGrid.Resources>
+                        <Utility:BindingProxy x:Key="proxy" Data="{Binding}" />
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Path=Name}" Header="Name" />
+                        <DataGridTextColumn Binding="{Binding Path=Type}" Header="Typ" />
+                        <DataGridTextColumn Binding="{Binding Path=Path}" Header="Path" />
+                        <DataGridTextColumn Binding="{Binding Path=Modified}" Header="Date modified" />
+                        <DataGridTemplateColumn Header="Open file...">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Command="{Binding Source={StaticResource proxy}, Path=Data.OpenCommand}" Content="Doubleclick to view the file" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Show in Explorer" Command="{Binding Path=ShowExplorerCommand}"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+
+                <!--<Grid>
                     <StackPanel>
                         <TextBlock Text="World leaders&#x0a;in global coding"
                                    Foreground="Black"
@@ -50,7 +77,7 @@
                                    FontFamily="/Fonts/#Poppins"/>
                     </StackPanel>
 
-                </Grid>
+                </Grid>-->
 
             </Border>
 
@@ -73,7 +100,7 @@
 
             <StackPanel.Resources>
                 <Style TargetType="{x:Type Border}">
-                    <Setter Property="Margin" Value="15,0,0,0"/>
+                    <Setter Property="Margin" Value="15,0,0,0" />
                 </Style>
             </StackPanel.Resources>
 

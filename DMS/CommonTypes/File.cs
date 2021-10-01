@@ -1,9 +1,11 @@
 ﻿using CommonTypes.Utility;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace CommonTypes
 {
-    public class File : Bindable
+    public class File : Item
     {
         public File()
         {
@@ -18,9 +20,9 @@ namespace CommonTypes
             set { _ID = value; OnPropertyChanged(); }
         }
 
-        private byte[] _Content;
+        private string _Content;
 
-        public byte[] Content
+        public string Content
         {
             get { return _Content; }
             set { _Content = value; OnPropertyChanged(); }
@@ -42,14 +44,6 @@ namespace CommonTypes
             set { _Modified = value; OnPropertyChanged(); }
         }
 
-        private string _Name;
-
-        public string Name
-        {
-            get { return _Name; }
-            set { _Name = value; OnPropertyChanged(); }
-        }
-
         private string _Path;
 
         public string Path
@@ -57,7 +51,7 @@ namespace CommonTypes
             get { return _Path; }
             set { _Path = value; OnPropertyChanged(); }
         }
-
+        
         private string _Type;
 
         public string Type
@@ -66,15 +60,53 @@ namespace CommonTypes
             set { _Type = value; OnPropertyChanged(); }
         }
 
-
         /// <summary>
         /// Bytes
         /// </summary>
-        public int Size
+        public int Size => _Content == null ? 0 : _Content.Length;
+
+        public string NameAndType => Name + Type;
+
+        public string Qualifier => Path + "/" + NameAndType;
+
+        //public string ContentAsString => Encoding.UTF8.GetString(Content);
+
+        public override bool Equals(object obj)
         {
-            get { return _Content.Length; }
+            return obj is File file &&
+                   Name == file.Name &&
+                   _ID == file._ID &&
+                   ID == file.ID &&
+                   _Created == file._Created &&
+                   Created == file.Created &&
+                   _Modified == file._Modified &&
+                   Modified == file.Modified &&
+                   _Path == file._Path &&
+                   Path == file.Path &&
+                   Name == file.Name &&
+                   _Type == file._Type &&
+                   Type == file.Type;
         }
 
-
+        public override int GetHashCode()
+        {
+            int hashCode = -1733013141;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            hashCode = hashCode * -1521134295 + _ID.GetHashCode();
+            hashCode = hashCode * -1521134295 + ID.GetHashCode();
+            //hashCode = hashCode * -1521134295 + EqualityComparer<byte[]>.Default.GetHashCode(_Content);
+            //hashCode = hashCode * -1521134295 + EqualityComparer<byte[]>.Default.GetHashCode(Content);
+            hashCode = hashCode * -1521134295 + _Created.GetHashCode();
+            hashCode = hashCode * -1521134295 + Created.GetHashCode();
+            hashCode = hashCode * -1521134295 + _Modified.GetHashCode();
+            hashCode = hashCode * -1521134295 + Modified.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(_Path);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Path);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(_Type);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Type);
+            hashCode = hashCode * -1521134295 + Size.GetHashCode();
+            return hashCode;
+        }
     }
 }
