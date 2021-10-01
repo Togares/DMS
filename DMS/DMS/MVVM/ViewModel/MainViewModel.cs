@@ -85,18 +85,15 @@ namespace DMS.MVVM.ViewModel
 
         private void Search()
         {
-            if (!string.IsNullOrEmpty(SearchText))
+            HomeVM.LoadedFiles.Clear();
+            foreach (CommonTypes.File file in Database.Search(SearchText))
             {
-                HomeVM.LoadedFiles.Clear();
-                foreach (CommonTypes.File file in Database.Search(SearchText))
+                if (!HomeVM.LoadedFiles.Contains(file))
                 {
-                    if (!HomeVM.LoadedFiles.Contains(file))
-                    {
-                        HomeVM.LoadedFiles.Add(file);
-                    }
+                    HomeVM.LoadedFiles.Add(file);
                 }
-                CurrentView = HomeVM;
             }
+            CurrentView = HomeVM;
         }
 
         #endregion Methods

@@ -69,7 +69,7 @@
                             Style="{StaticResource CloseButtonTheme}"
                             CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
                     </Button>
-                    
+
                 </DockPanel>
             </Border>
 
@@ -152,7 +152,7 @@
                                 <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
 
-                            <CheckBox x:Name="cbToggleMenu" Grid.Column="0">
+                            <CheckBox x:Name="cbToggleMenu" Grid.Column="0" Cursor="Hand">
                                 <CheckBox.Template>
                                     <ControlTemplate TargetType="CheckBox">
                                         <Grid Background="Transparent">
@@ -160,7 +160,7 @@
                                                 <Path
                                                     Data="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
                                                     Fill="GhostWhite"
-                                                    Stretch="Fill" />
+                                                    Stretch="Fill"/>
                                             </Viewbox>
                                         </Grid>
                                     </ControlTemplate>
@@ -180,7 +180,7 @@
                             <ColumnDefinition Width="auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        
+
                         <Controls:HamburgerMenu Height="250"
                                                 Grid.Column="0"
                                                 Background="#f2f2f2"
@@ -220,7 +220,7 @@
                         Margin="0,20,0,0"
                         Orientation="Horizontal"
                         VerticalAlignment="Center">
-              
+
                 <!--textbox for text search entries-->
                 <TextBox x:Name="SearchBox"
                         Style="{StaticResource ModernTextbox}"
