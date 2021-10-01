@@ -32,5 +32,10 @@ namespace DMS.MVVM.FileViewModel
 
         private RelayCommand<object> _OpenCommand;
         public RelayCommand<object> OpenCommand => _OpenCommand = _OpenCommand ?? new RelayCommand<object>(x => FileOpener.OpenFile(SelectedFile), x => _SelectedFile != null);
+
+        private RelayCommand<object> _ShowExplorerCommand;
+
+        public RelayCommand<object> ShowExplorerCommand => _ShowExplorerCommand = _ShowExplorerCommand ?? new RelayCommand<object>(x => FileOpener.ShowExplorer(SelectedFile), x => SelectedFile != null);
+
     }
 }
