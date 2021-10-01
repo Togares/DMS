@@ -28,7 +28,7 @@ namespace DataAccess
 
         private Connection()
         {
-            
+
         }
 
         public static Connection Get()
@@ -122,7 +122,14 @@ namespace DataAccess
             IEnumerable<File> result = null;
             using (FileContext context = new FileContext(Get(), false))
             {
-                result = context.Files.Where(x => NpgsqlTextFunctions.Match(NpgsqlTextFunctions.ToTsVector(x.Content), NpgsqlTextFunctions.PlainToTsQuery(filter))).ToList();
+                if (string.IsNullOrEmpty(filter))
+                {
+                    result = context.Files.ToList();
+                }
+                else
+                {
+                    result = context.Files.Where(x => NpgsqlTextFunctions.Match(NpgsqlTextFunctions.ToTsVector(x.Content), NpgsqlTextFunctions.PlainToTsQuery(filter))).ToList();
+                }
             }
             return result;
         }
@@ -135,6 +142,7 @@ namespace DataAccess
         {
             using (FileContext context = new FileContext(Get(), false))
             {
+              
                 File existing = null;
                 var files = context.Files.Where(x =>
                         x.Modified.Equals(file.Modified) &&

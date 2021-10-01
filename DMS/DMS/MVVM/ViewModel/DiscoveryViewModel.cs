@@ -29,10 +29,11 @@ namespace DMS.MVVM.ViewModel
         {
             _FileScanner = fileScanner;
             _FileScanner.DriveScanFinished += DriveScanFinished;
+            _FileScanner.FileScanFinished += FileScanFinished;
             ScanDrives();
 
             //https://stackoverflow.com/a/19435744
-            // Hier wird auf das Windows-Event reagiert, dass aufeglöst wird, wenn ein Laufwerk hinzugefügt respektive entfernt wird
+            // Hier wird auf das Windows-Event reagiert, dass auseglöst wird, wenn ein Laufwerk hinzugefügt respektive entfernt wird
             WqlEventQuery insertQuery = new WqlEventQuery("SELECT * FROM __InstanceCreationEvent WITHIN 2 WHERE TargetInstance ISA 'Win32_USBHub'");
 
             ManagementEventWatcher insertWatcher = new ManagementEventWatcher(insertQuery);
@@ -69,7 +70,7 @@ namespace DMS.MVVM.ViewModel
         #region Commands
 
         private RelayCommand<object> _SaveCommand;
-        public RelayCommand<object> SaveCommand => _SaveCommand = _SaveCommand ?? new RelayCommand<object>(x => SaveSelectedFile(), x => _Database.HasConnection && _SelectedFile != null);
+        public RelayCommand<object> SaveCommand => _SaveCommand = _SaveCommand ?? new RelayCommand<object>(x => SaveSelectedHierarchie(), x => _Database.HasConnection && _SelectedHierarchical != null);
 
         #endregion Commands
 
@@ -111,10 +112,30 @@ namespace DMS.MVVM.ViewModel
             }
         }
 
-        private void SaveSelectedFile()
+        private void FileScanFinished(IEnumerable<File> files)
         {
-            _FileScanner.ExtractContent(SelectedFile);
-            _Database.Save(SelectedFile);
+            foreach(File file in files)
+            {
+                Application.Current.Dispatcher.Invoke(() => _Database.Save(file));
+            }
+        }
+
+        private void SaveSelectedHierarchie()
+        {
+            if(SelectedHierarchical is Drive drive)
+            {
+                _FileScanner.ScanDirectory(drive.Qualifier, true);
+            }
+            else if( SelectedHierarchical is Directory directory)
+            {
+                _FileScanner.ScanDirectory(directory.Qualifier, true);
+            }
+            else if (SelectedFile != null)
+            {
+                _FileScanner.ExtractContent(SelectedFile);
+                _Database.Save(SelectedFile);
+            }
+
         }
 
         #endregion Methods
