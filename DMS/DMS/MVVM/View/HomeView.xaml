@@ -38,25 +38,15 @@
                     SelectedItem="{Binding SelectedFile, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource DataGridTheme}">
 
-                    <DataGrid.Resources>
-                        <Utility:BindingProxy x:Key="proxy" Data="{Binding}" />
-                    </DataGrid.Resources>
-
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Path=Name}" Header="Name" />
                         <DataGridTextColumn Binding="{Binding Path=Type}" Header="Typ" />
                         <DataGridTextColumn Binding="{Binding Path=Path}" Header="Path" />
                         <DataGridTextColumn Binding="{Binding Path=Modified}" Header="Date modified" />
-                        <DataGridTemplateColumn Header="Open file...">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button Command="{Binding Source={StaticResource proxy}, Path=Data.OpenCommand}" Content="Doubleclick to view the file" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
+                            <MenuItem Header="Open" Command="{Binding Path=OpenCommand}"/>
                             <MenuItem Header="Show in Explorer" Command="{Binding Path=ShowExplorerCommand}"/>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
