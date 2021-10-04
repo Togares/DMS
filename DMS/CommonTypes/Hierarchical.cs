@@ -20,6 +20,5 @@ namespace CommonTypes
             set { _Files = value; OnPropertyChanged(); }
         }
 
-        public virtual string Qualifier { get; }
     }
 }

@@ -15,6 +15,7 @@ using System.Windows;
 
 namespace DMS.MVVM.ViewModel
 {
+
     public class DirectoryViewModel : FileViewOpenerModel
     {
         private IFileScanner _FileScanner;
@@ -24,6 +25,7 @@ namespace DMS.MVVM.ViewModel
         {
 
         }
+
 
         public DirectoryViewModel(IFileScanner fileScanner)
         {
@@ -62,7 +64,12 @@ namespace DMS.MVVM.ViewModel
         public Hierarchical SelectedHierarchical
         {
             get { return _SelectedHierarchical; }
-            set { _SelectedHierarchical = value; OnPropertyChanged(); }
+            set
+            {
+                _SelectedHierarchical = value;
+                State = ScanState.Hierarchical;
+                OnPropertyChanged();
+            }
         }
 
         #endregion Properties
@@ -114,7 +121,7 @@ namespace DMS.MVVM.ViewModel
 
         private void FileScanFinished(IEnumerable<File> files)
         {
-            foreach(File file in files)
+            foreach (File file in files)
             {
                 Application.Current.Dispatcher.Invoke(() => _Database.Save(file));
             }
@@ -122,20 +129,18 @@ namespace DMS.MVVM.ViewModel
 
         private void SaveSelectedHierarchie()
         {
-            if(SelectedHierarchical is Drive drive)
+            switch (State)
             {
-                _FileScanner.ScanDirectory(drive.Qualifier, true);
+                case ScanState.File:
+                    _FileScanner.ExtractContent(SelectedFile);
+                    _Database.Save(SelectedFile);
+                    break;
+                case ScanState.Hierarchical:
+                    _FileScanner.ScanDirectory(SelectedHierarchical.Qualifier, true);
+                    break;
+                default:
+                    break;
             }
-            else if( SelectedHierarchical is Directory directory)
-            {
-                _FileScanner.ScanDirectory(directory.Qualifier, true);
-            }
-            else if (SelectedFile != null)
-            {
-                _FileScanner.ExtractContent(SelectedFile);
-                _Database.Save(SelectedFile);
-            }
-
         }
 
         #endregion Methods
