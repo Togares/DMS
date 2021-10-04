@@ -5,21 +5,14 @@
     xmlns:CommonTypes="clr-namespace:CommonTypes;assembly=CommonTypes"
     xmlns:ViewModel="clr-namespace:DMS.MVVM.ViewModel"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DataContext="{d:DesignInstance Type=ViewModel:DirectoryViewModel}"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:vsm="http://schemas.microsoft.com/netfx/2009/xaml/presentation" d:DataContext="{d:DesignInstance Type=ViewModel:DirectoryViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     Background="GhostWhite"
     mc:Ignorable="d">
 
     <UserControl.Resources>
-
-        <HierarchicalDataTemplate DataType="{x:Type CommonTypes:Hierarchical}" ItemsSource="{Binding Directories}">
-            <TextBlock Text="{Binding Name}" />
-        </HierarchicalDataTemplate>
-
-        <!--<DataTemplate DataType="{x:Type CommonTypes:File}">
-            <TextBlock Text="{Binding NameAndType}"/>
-        </DataTemplate>-->
+        
     </UserControl.Resources>
 
     <Grid>
@@ -30,18 +23,23 @@
                 Background="GhostWhite"
                 BorderBrush="Transparent"
                 ItemsSource="{Binding Drives}"
-                SelectedItemChanged="TreeView_SelectedItemChanged"
-                TreeViewItem.Expanded="FileSystemTree_Expanded">
-                <TreeView.ItemTemplate>
-                    <HierarchicalDataTemplate>
+                SelectedItemChanged="TreeView_SelectedItemChanged">
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate DataType="{x:Type CommonTypes:Drive}" ItemsSource="{Binding Directories}">
                         <StackPanel Orientation="Horizontal">
                             <Image  Source="/DMS;component/Images/img_drive.png"  Width="15"/>
-                            <TextBlock Text="{Binding Name}" Margin="5 0 0 0">
-                            </TextBlock>
+                            <TextBlock Text="{Binding Name}" Margin="5 0 0 0"/>
                         </StackPanel>
                     </HierarchicalDataTemplate>
-                </TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate DataType="{x:Type CommonTypes:Directory}" ItemsSource="{Binding Directories}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image  Source="/DMS;component/Images/img_folder.png"  Width="15"/>
+                            <TextBlock Text="{Binding Name}" Margin="5 0 0 0"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.Resources>
             </TreeView>
+            
             <StackPanel>
                 <ListBox
                     Height="400"
