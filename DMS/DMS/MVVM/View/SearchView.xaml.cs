@@ -18,9 +18,9 @@ namespace DMS.MVVM.View
     /// <summary>
     /// Interaction logic for HomeView.xaml
     /// </summary>
-    public partial class HomeView : UserControl
+    public partial class SearchView : UserControl
     {
-        public HomeView()
+        public SearchView()
         {
             InitializeComponent();
         }
