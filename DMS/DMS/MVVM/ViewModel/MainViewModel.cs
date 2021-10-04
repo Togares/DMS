@@ -13,18 +13,18 @@ namespace DMS.MVVM.ViewModel
 
         public MainViewModel()
         {
-            HomeVM = new SearchViewModel();
-            DicoveryVM = new DirectoryViewModel(_FileScanner);
-            CurrentView = DicoveryVM;
+            SearchVM = new SearchViewModel();
+            DirectoryVM = new DirectoryViewModel(_FileScanner);
+            CurrentView = DirectoryVM;
         }
 
         #region Commands
 
         private RelayCommand<object> _HomeViewCommand;
-        public RelayCommand<object> HomeViewCommand => _HomeViewCommand = _HomeViewCommand == null ? new RelayCommand<object>(x => CurrentView = HomeVM) : _HomeViewCommand;
+        public RelayCommand<object> HomeViewCommand => _HomeViewCommand = _HomeViewCommand == null ? new RelayCommand<object>(x => CurrentView = SearchVM) : _HomeViewCommand;
 
         private RelayCommand<object> _DiscoveryViewCommand;
-        public RelayCommand<object> DiscoveryViewCommand => _DiscoveryViewCommand = _DiscoveryViewCommand == null ? new RelayCommand<object>(x => CurrentView = DicoveryVM) : _DiscoveryViewCommand;
+        public RelayCommand<object> DiscoveryViewCommand => _DiscoveryViewCommand = _DiscoveryViewCommand == null ? new RelayCommand<object>(x => CurrentView = DirectoryVM) : _DiscoveryViewCommand;
 
         private RelayCommand<ICloseable> _CloseCommand;
         public RelayCommand<ICloseable> CloseCommand => _CloseCommand = _CloseCommand == null ? new RelayCommand<ICloseable>(x => x.Close()) : _CloseCommand;
@@ -53,8 +53,8 @@ namespace DMS.MVVM.ViewModel
         #region Properties
 
         public Database Database { get; } = new Database();
-        public SearchViewModel HomeVM { get; set; }
-        public DirectoryViewModel DicoveryVM { get; set; }
+        public SearchViewModel SearchVM { get; set; }
+        public DirectoryViewModel DirectoryVM { get; set; }
 
         public object CurrentView
         {
@@ -85,15 +85,15 @@ namespace DMS.MVVM.ViewModel
 
         private void Search()
         {
-            HomeVM.LoadedFiles.Clear();
+            SearchVM.LoadedFiles.Clear();
             foreach (CommonTypes.File file in Database.Search(SearchText))
             {
-                if (!HomeVM.LoadedFiles.Contains(file))
+                if (!SearchVM.LoadedFiles.Contains(file))
                 {
-                    HomeVM.LoadedFiles.Add(file);
+                    SearchVM.LoadedFiles.Add(file);
                 }
             }
-            CurrentView = HomeVM;
+            CurrentView = SearchVM;
         }
 
         #endregion Methods
