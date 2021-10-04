@@ -5,7 +5,7 @@
     xmlns:CommonTypes="clr-namespace:CommonTypes;assembly=CommonTypes"
     xmlns:ViewModel="clr-namespace:DMS.MVVM.ViewModel"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DataContext="{d:DesignInstance Type=ViewModel:DirectoryViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     Background="GhostWhite"

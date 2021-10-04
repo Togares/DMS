@@ -123,7 +123,7 @@ namespace DMS.MVVM.ViewModel
         {
             foreach (File file in files)
             {
-                Application.Current.Dispatcher.Invoke(() => _Database.Save(file));
+                Application.Current.Dispatcher.Invoke(() => TrySave(file));
             }
         }
 
@@ -133,13 +133,31 @@ namespace DMS.MVVM.ViewModel
             {
                 case ScanState.File:
                     _FileScanner.ExtractContent(SelectedFile);
-                    _Database.Save(SelectedFile);
+                    TrySave(SelectedFile);
                     break;
                 case ScanState.Hierarchical:
                     _FileScanner.ScanDirectory(SelectedHierarchical.Qualifier, true);
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void TrySave(File file)
+        {
+            try
+            {
+                _Database.Save(file);
+            }
+            catch (Exception e)
+            {
+                string error = $"Es ist ein unbekannter Fehler aufgetreten.\n{e.Message}\nDatei: {file.Qualifier}";
+                if (e.InnerException.Message.Contains("0x00"))
+                {
+                    error = $"Datei '{file.Qualifier}' enthaelt Null-Bytes.\nPostgres mag das nicht.";
+                }
+                MessageBox.Show(error, "DMS - Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
         }
 
