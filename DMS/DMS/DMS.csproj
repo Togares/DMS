@@ -158,7 +158,10 @@
       <Name>CommonTypes</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\img_drive.png" />
+    <Resource Include="Images\img_folder.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\browser-market-shares-in.png" />
     <Resource Include="Images\chart %281%29.png" />
