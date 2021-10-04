@@ -1,20 +1,18 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-
     <Style
-        x:Key="UIButtonTheme"
+        x:Key="DirectoryViewUIButtonTheme"
         BasedOn="{StaticResource {x:Type Button}}"
-        TargetType="{x:Type Button}">
+        TargetType="Button">
 
-        <Setter Property="Width" Value="50" />
-        <Setter Property="Height" Value="33" />
         <Setter Property="Foreground" Value="WhiteSmoke" />
         <Setter Property="FontFamily" Value="Arial" />
-        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontSize" Value="14" />
         <Setter Property="Content" Value="Go" />
         <Setter Property="FontFamily" Value="/Fonts/#Poppins" />
         <Setter Property="Background" Value="#FF0C0E0E" />
         <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Margin" Value="0,15,15,0" />
 
         <!--  to make button with rounded corners. another aprroach?  -->
         <Setter Property="Template">
@@ -23,8 +21,8 @@
 
                     <Border
                         x:Name="border"
-                        Width="50"
-                        Height="33"
+                        Width="63"
+                        Height="27"
                         Background="{TemplateBinding Background}"
                         BorderBrush="White"
                         BorderThickness="{TemplateBinding BorderThickness}"
@@ -41,9 +39,9 @@
             <Setter.Value>
                 <DropShadowEffect
                     BlurRadius="25"
-                    Direction="25"
+                    Direction="15"
                     Opacity="0.5"
-                    ShadowDepth="2"
+                    ShadowDepth="1"
                     Color="DarkGray" />
             </Setter.Value>
         </Setter>
@@ -53,7 +51,6 @@
                 <Setter Property="Opacity" Value="0.8" />
             </Trigger>
         </Style.Triggers>
-
     </Style>
 
 </ResourceDictionary>

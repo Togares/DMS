@@ -48,7 +48,7 @@
                     DisplayMemberPath="NameAndType"
                     ItemsSource="{Binding Path=SelectedHierarchical.Files}"
                     SelectedItem="{Binding Path=SelectedFile, Mode=TwoWay}" />
-                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <StackPanel.Resources>
                         <Style TargetType="Button">
                             <Setter Property="Template">
@@ -95,15 +95,13 @@
                         </Style>
                     </StackPanel.Resources>
                     <Button
-                        Width="75"
                         Command="{Binding OpenCommand}"
                         Content="Open"
-                        Style="{StaticResource UIButtonTheme}" />
+                        Style="{StaticResource DirectoryViewUIButtonTheme}" />
                     <Button
-                        Width="75"
                         Command="{Binding SaveCommand}"
                         Content="Save"
-                        Style="{StaticResource UIButtonTheme}" />
+                        Style="{StaticResource DirectoryViewUIButtonTheme}" />
                 </StackPanel>
             </StackPanel>
         </DockPanel>

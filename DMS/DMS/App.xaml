@@ -10,14 +10,15 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-              
-                <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
-                <ResourceDictionary Source="Theme/TextboxTheme.xaml"/>
-                <ResourceDictionary Source="Theme/DataGridTheme.xaml"/>
-                <ResourceDictionary Source="Theme/UIButtonTheme.xaml"/>
-                <ResourceDictionary Source="Theme/CloseButtonTheme.xaml"/>
-                <ResourceDictionary Source="Theme/GitHubLogoButtonTheme.xaml"/>
-                <ResourceDictionary Source="Theme/HamburgerMenu.xaml"/>
+
+                <ResourceDictionary Source="Theme/MenuButtonTheme.xaml" />
+                <ResourceDictionary Source="Theme/TextboxTheme.xaml" />
+                <ResourceDictionary Source="Theme/DataGridTheme.xaml" />
+                <ResourceDictionary Source="Theme/UIButtonTheme.xaml" />
+                <ResourceDictionary Source="Theme/CloseButtonTheme.xaml" />
+                <ResourceDictionary Source="Theme/GitHubLogoButtonTheme.xaml" />
+                <ResourceDictionary Source="Theme/HamburgerMenu.xaml" />
+                <ResourceDictionary Source="Theme/DirectoryViewUIButtonTheme.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
 
