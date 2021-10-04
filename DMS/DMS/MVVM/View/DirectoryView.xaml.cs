@@ -1,6 +1,7 @@
 ﻿using DMS.MVVM.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 
 namespace DMS.MVVM.View
 {
@@ -26,7 +27,7 @@ namespace DMS.MVVM.View
         {
             if (DataContext is DirectoryViewModel directoryViewModel)
             {
-                directoryViewModel.LoadSubHierarchie((e.OriginalSource as TreeViewItem).Header as CommonTypes.Hierarchical);
+                directoryViewModel.LoadSubHierarchie((e.OriginalSource as ToggleButton).DataContext as CommonTypes.Hierarchical);
             }
         }
     }
