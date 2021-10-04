@@ -31,8 +31,17 @@
                 BorderBrush="Transparent"
                 ItemsSource="{Binding Drives}"
                 SelectedItemChanged="TreeView_SelectedItemChanged"
-                TreeViewItem.Expanded="FileSystemTree_Expanded" />
-
+                TreeViewItem.Expanded="FileSystemTree_Expanded">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image  Source="/DMS;component/Images/img_drive.png"  Width="15"/>
+                            <TextBlock Text="{Binding Name}" Margin="5 0 0 0">
+                            </TextBlock>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
             <StackPanel>
                 <ListBox
                     Height="400"
