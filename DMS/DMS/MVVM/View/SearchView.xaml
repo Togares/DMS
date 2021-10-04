@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="DMS.MVVM.View.HomeView"
+    x:Class="DMS.MVVM.View.SearchView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Utility="clr-namespace:CommonTypes.Utility;assembly=CommonTypes"

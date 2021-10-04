@@ -8,9 +8,9 @@ using System.Collections.ObjectModel;
 
 namespace DMS.MVVM.ViewModel
 {
-    public class HomeViewModel : FileViewOpenerModel
+    public class SearchViewModel : FileViewOpenerModel
     {
-		public HomeViewModel()
+		public SearchViewModel()
 		{
 			
 		}

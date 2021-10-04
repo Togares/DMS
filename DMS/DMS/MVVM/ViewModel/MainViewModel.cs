@@ -13,8 +13,8 @@ namespace DMS.MVVM.ViewModel
 
         public MainViewModel()
         {
-            HomeVM = new HomeViewModel();
-            DicoveryVM = new DiscoveryViewModel(_FileScanner);
+            HomeVM = new SearchViewModel();
+            DicoveryVM = new DirectoryViewModel(_FileScanner);
             CurrentView = DicoveryVM;
         }
 
@@ -53,8 +53,8 @@ namespace DMS.MVVM.ViewModel
         #region Properties
 
         public Database Database { get; } = new Database();
-        public HomeViewModel HomeVM { get; set; }
-        public DiscoveryViewModel DicoveryVM { get; set; }
+        public SearchViewModel HomeVM { get; set; }
+        public DirectoryViewModel DicoveryVM { get; set; }
 
         public object CurrentView
         {

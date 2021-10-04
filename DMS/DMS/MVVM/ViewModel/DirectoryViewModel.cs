@@ -15,17 +15,17 @@ using System.Windows;
 
 namespace DMS.MVVM.ViewModel
 {
-    public class DiscoveryViewModel : FileViewOpenerModel
+    public class DirectoryViewModel : FileViewOpenerModel
     {
         private IFileScanner _FileScanner;
         private Database _Database = new Database();
 
-        public DiscoveryViewModel()
+        public DirectoryViewModel()
         {
 
         }
 
-        public DiscoveryViewModel(IFileScanner fileScanner)
+        public DirectoryViewModel(IFileScanner fileScanner)
         {
             _FileScanner = fileScanner;
             _FileScanner.DriveScanFinished += DriveScanFinished;

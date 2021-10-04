@@ -56,6 +56,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="MVVM\View\DirectoryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MVVM\View\SearchView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Theme\HamburgerMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -74,14 +82,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MVVM\View\DicoveryView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MVVM\View\HomeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Theme\CloseButtonTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -110,14 +110,14 @@
   <ItemGroup>
     <Compile Include="MVVM\FileViewModel\FileViewOpenerModel.cs" />
     <Compile Include="MVVM\ICloseable.cs" />
-    <Compile Include="MVVM\ViewModel\DiscoveryViewModel.cs" />
-    <Compile Include="MVVM\ViewModel\HomeViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\DirectoryViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\SearchViewModel.cs" />
     <Compile Include="MVVM\ViewModel\MainViewModel.cs" />
-    <Compile Include="MVVM\View\DicoveryView.xaml.cs">
-      <DependentUpon>DicoveryView.xaml</DependentUpon>
+    <Compile Include="MVVM\View\DirectoryView.xaml.cs">
+      <DependentUpon>DirectoryView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\View\HomeView.xaml.cs">
-      <DependentUpon>HomeView.xaml</DependentUpon>
+    <Compile Include="MVVM\View\SearchView.xaml.cs">
+      <DependentUpon>SearchView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

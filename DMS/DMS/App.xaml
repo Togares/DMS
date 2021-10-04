@@ -21,12 +21,12 @@
 
             </ResourceDictionary.MergedDictionaries>
 
-            <DataTemplate DataType="{x:Type ViewModel:HomeViewModel}">
-                <View:HomeView />
+            <DataTemplate DataType="{x:Type ViewModel:SearchViewModel}">
+                <View:SearchView />
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type ViewModel:DiscoveryViewModel}">
-                <View:DicoveryView />
+            <DataTemplate DataType="{x:Type ViewModel:DirectoryViewModel}">
+                <View:DirectoryView />
             </DataTemplate>
 
         </ResourceDictionary>
