@@ -108,6 +108,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MVVM\Converter\ViewModelConverter.cs" />
     <Compile Include="MVVM\FileViewModel\FileViewOpenerModel.cs" />
     <Compile Include="MVVM\ICloseable.cs" />
     <Compile Include="MVVM\ViewModel\DirectoryViewModel.cs" />
