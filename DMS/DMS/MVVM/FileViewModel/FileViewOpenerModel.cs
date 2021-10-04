@@ -12,6 +12,11 @@ namespace DMS.MVVM.FileViewModel
 {
     public class FileViewOpenerModel : Bindable
     {
+        public enum ScanState
+        {
+            File, Hierarchical
+        };
+
         private ObservableCollection<File> _LoadedFiles = new ObservableCollection<File>();
         public ObservableCollection<File> LoadedFiles
         {
@@ -26,9 +31,12 @@ namespace DMS.MVVM.FileViewModel
             set
             {
                 _SelectedFile = value;
+                State = ScanState.File;
                 OnPropertyChanged();
             }
         }
+
+        public ScanState State { get; set; } = ScanState.Hierarchical;
 
         private RelayCommand<object> _OpenCommand;
         public RelayCommand<object> OpenCommand => _OpenCommand = _OpenCommand ?? new RelayCommand<object>(x => FileOpener.OpenFile(SelectedFile), x => _SelectedFile != null);

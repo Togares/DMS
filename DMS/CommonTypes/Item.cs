@@ -11,5 +11,6 @@ namespace CommonTypes
             get { return _Name; }
             set { _Name = value; OnPropertyChanged(); }
         }
+        public virtual string Qualifier { get; }
     }
 }
