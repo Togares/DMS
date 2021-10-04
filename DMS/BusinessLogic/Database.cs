@@ -8,7 +8,7 @@ namespace BusinessLogic
     public class Database
     {
         public Database()
-        {            
+        {
             Connection.Get().Connect();
         }
 
@@ -21,7 +21,14 @@ namespace BusinessLogic
 
         public void Save(File file)
         {
-            Connection.Get().Save(file);
+            try
+            {
+                Connection.Get().Save(file);
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

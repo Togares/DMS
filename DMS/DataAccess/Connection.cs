@@ -70,7 +70,7 @@ namespace DataAccess
                 builder.Database = System.Configuration.ConfigurationManager.AppSettings.Get("db");
                 builder.Port = int.Parse(System.Configuration.ConfigurationManager.AppSettings.Get("port"));
                 builder.Host = System.Configuration.ConfigurationManager.AppSettings.Get("host");
-                
+
                 _Connection.ConnectionString = builder.ConnectionString;
                 try
                 {
@@ -137,15 +137,27 @@ namespace DataAccess
         {
             using (FileContext context = new FileContext(Get(), false))
             {
-              
+                if(file.Content.Contains("\0"))
+                {
+                    file.Content = file.Content.Replace("\0", "");
+                }
+
                 File existing = null;
-                var files = context.Files.Where(x =>
-                        x.Modified.Equals(file.Modified) &&
-                        x.Created.Equals(file.Created) &&
-                        x.Content.Equals(file.Content) &&
-                        x.Name.Equals(file.Name) &&
-                        x.Path.Equals(file.Path) &&
-                        x.Type.Equals(file.Type)).ToList();
+                List<File> files;
+                try
+                {
+                    files = context.Files.Where(x =>
+                            x.Modified.Equals(file.Modified) &&
+                            x.Created.Equals(file.Created) &&
+                            x.Content.Equals(file.Content) &&
+                            x.Name.Equals(file.Name) &&
+                            x.Path.Equals(file.Path) &&
+                            x.Type.Equals(file.Type)).ToList();
+                }
+                catch (System.Data.Entity.Core.EntityCommandExecutionException e)
+                {
+                    throw e;
+                }
 
                 if (files.Count > 0)
                 {

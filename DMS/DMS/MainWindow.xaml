@@ -208,6 +208,24 @@
                 <!--  Nice rounded button  -->
                 <Button Command="{Binding Path=SearchCommand}" Style="{StaticResource UIButtonTheme}" />
 
+                <ContentPresenter Grid.Column="1"
+                                  Grid.Row="1"
+                                  Panel.ZIndex="1"
+                                  IsHitTestVisible="False"
+                                  Margin="10 0 0 0"
+                                  VerticalAlignment="Center"
+                                  Content="{Binding CurrentView}">
+                    <ContentPresenter.Resources>
+                        <DataTemplate DataType="{x:Type ViewModel:DirectoryViewModel}">
+                            <TextBlock FontSize="14"
+                                       Text="{Binding SelectedHierarchical.Qualifier}"/>
+                        </DataTemplate>
+
+                        <DataTemplate DataType="{x:Type ViewModel:SearchViewModel}">
+                        
+                        </DataTemplate>
+                    </ContentPresenter.Resources>
+                </ContentPresenter>
             </StackPanel>
 
             <ContentControl
