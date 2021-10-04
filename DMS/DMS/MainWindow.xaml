@@ -220,6 +220,10 @@
                             <TextBlock FontSize="14"
                                        Text="{Binding SelectedHierarchical.Qualifier}"/>
                         </DataTemplate>
+
+                        <DataTemplate DataType="{x:Type ViewModel:SearchViewModel}">
+                        
+                        </DataTemplate>
                     </ContentPresenter.Resources>
                 </ContentPresenter>
             </StackPanel>
