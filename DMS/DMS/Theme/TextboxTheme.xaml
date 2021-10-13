@@ -27,6 +27,7 @@
         <Setter Property="FontSize" Value="14" />
         <Setter Property="FontFamily" Value="/Fonts/#Poppins" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Padding" Value="0,0,32,0" />
 
         <Setter Property="Template">
 
@@ -63,7 +64,13 @@
                                 Source="/Images/icons8-search-30.png" />
 
                             <!--  for future button to clear the textbox entries  -->
-                            <!--<Button />-->
+                            <Button
+                                Name="clearButton"
+                                Width="22"
+                                Height="22"
+                                Margin="0,0,7,0"
+                                HorizontalAlignment="Right" />
+
                         </Grid>
                     </Border>
 
@@ -90,6 +97,13 @@
                             <Setter TargetName="PlaceHolderText" Property="Foreground" Value="Black" />
                             <Setter TargetName="PlaceHolderText" Property="Opacity" Value="0.3" />
                         </Trigger>
+
+                        <!--  wrong implementation  -->
+                        <!--<Trigger Property="IsMouseOver" Value="True">
+                            <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Trigger>-->
 
                     </ControlTemplate.Triggers>
 
