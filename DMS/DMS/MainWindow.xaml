@@ -212,22 +212,20 @@
                     Command="{Binding Path=SearchCommand}"
                     Style="{StaticResource UIButtonTheme}" />
 
-                <ContentPresenter Grid.Column="1"
-                                  Grid.Row="1"
-                                  Panel.ZIndex="1"
-                                  IsHitTestVisible="False"
-                                  Margin="10 0 0 0"
-                                  VerticalAlignment="Center"
-                                  Content="{Binding CurrentView}">
+                <ContentPresenter
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    Panel.ZIndex="1"
+                    Content="{Binding CurrentView}"
+                    IsHitTestVisible="False">
                     <ContentPresenter.Resources>
                         <DataTemplate DataType="{x:Type ViewModel:DirectoryViewModel}">
-                            <TextBlock FontSize="14"
-                                       Text="{Binding SelectedHierarchical.Qualifier}"/>
+                            <TextBlock FontSize="14" Text="{Binding SelectedHierarchical.Qualifier}" />
                         </DataTemplate>
 
-                        <DataTemplate DataType="{x:Type ViewModel:SearchViewModel}">
-                        
-                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type ViewModel:SearchViewModel}" />
                     </ContentPresenter.Resources>
                 </ContentPresenter>
             </StackPanel>
