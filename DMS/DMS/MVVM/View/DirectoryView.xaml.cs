@@ -27,7 +27,7 @@ namespace DMS.MVVM.View
         {
             if (DataContext is DirectoryViewModel directoryViewModel)
             {
-                directoryViewModel.LoadSubHierarchie((e.OriginalSource as ToggleButton).DataContext as CommonTypes.Hierarchical);
+                directoryViewModel.LoadSubHierarchie((e.OriginalSource as TreeViewItem).DataContext as CommonTypes.Hierarchical);
             }
         }
     }
