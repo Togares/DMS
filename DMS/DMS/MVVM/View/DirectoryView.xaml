@@ -23,6 +23,7 @@
                 Background="GhostWhite"
                 BorderBrush="Transparent"
                 ItemsSource="{Binding Drives}"
+                TreeViewItem.Expanded="FileSystemTree_Expanded"
                 SelectedItemChanged="TreeView_SelectedItemChanged">
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type CommonTypes:Drive}" ItemsSource="{Binding Directories}">
